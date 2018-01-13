@@ -1,0 +1,80 @@
+version: '3.1'
+
+services:
+
+    # db:
+    #     image: mysql
+    #     environment:
+    #         - MYSQL_DATABASE=homestead
+    #         - MYSQL_USER=homestead
+    #         - MYSQL_PASSWORD=secret
+    #         - MYSQL_ROOT_PASSWORD=root
+    #     volumes:
+    #         - ./database/mysql:/var/lib/mysql
+    #     ports:
+    #         - "3306:3306"
+
+    # phpmyadmin:
+    #     image: phpmyadmin/phpmyadmin
+    #     environment:
+    #         PMA_ARBITRARY: 1
+    #         MYSQL_USER: homestead
+    #         MYSQL_PASSWORD: secret
+    #         MYSQL_ROOT_PASSWORD: root
+    #     ports:
+    #         - "80:80"
+    #     links:
+    #         - "db:db"
+
+    # neo4j:
+    #     image: "neo4j"
+    #     ports:
+    #         - 7474:7474
+    #         - 7687:7687
+    #     environment:
+    #         NEO4J_AUTH: "none"
+    #     volumes:
+    #         - ./database/neo4j:/database/neo4j
+
+    # redis:
+    #     image: "redis:alpine"
+    #     ports:
+    #         - 6379:6379
+    #     depends_on:
+    #         - neo4j
+
+    postgres:
+        image: postgres
+        environment:
+            POSTGRES_PASSWORD: example
+        # depends_on:
+        #     - redis
+        ports:
+            - 5432:5432
+        volumes:
+            - ./database/postgres:/database/postgres
+
+    adminer:
+        image: adminer
+        ports:
+            - 8080:8080
+        depends_on:
+            - postgres
+
+
+    # mongodb:
+    #     image: mongo:latest
+    #     container_name: mongodb
+    #     hostname: mongodb
+    #     depends_on:
+    #         - adminer
+    #     volumes:
+    #         - ./db_backup:/db_backup    
+    #     ports:
+    #         - 27017:27017
+    #     volumes:
+    #         - ./database/mongo:/database/mongo
+
+volumes:
+    db:
+        driver: "local"

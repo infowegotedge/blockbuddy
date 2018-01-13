@@ -1,0 +1,72 @@
+<section *ngIf="adminRole">
+  <div class="sidebar">
+    <div class="logopanel">
+      <img src="assets/images/blockbuddylogo.png" class="img-responsive" alt="friend 8">
+    </div>
+
+    <app-navigation></app-navigation>
+  </div>
+  <div class="main-content">
+    <app-header></app-header>
+    <div class="page-content page-thin">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="!adminRole" class="user-pages user-dashboard">
+  <app-header></app-header>
+  <!-- <div class="sidebar sidebar-user">
+    <app-navigation></app-navigation>
+  </div> -->
+  <div class="main-content min-content-user">
+    <div class="page-content page-thin">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
+  </div>
+
+  <div id="overlay" *ngIf="!overlayMessage">
+    <div class="message-overlay">
+      <div class="messag-view">
+        <p class="text-center">
+          <img src="assets/images/logo-new.png" alt="" />
+        </p>
+        <p class="text-center">&nbsp;</p>
+        <!-- <h1>Dear BlockBuddy members,</h1> -->
+        <p class="text-center" style="font-size:20px;">We are waiting to open soon!</p>
+        <p class="text-center" style="font-size:20px;">Please check back later.</p>
+        <!-- <p>&nbsp;</p> -->
+        <!-- <p class="text-center"><strong>Sincerely yours, <br/>The Management</strong></p> -->
+        <div style="width:400px;margin:0 auto;" class="text-center">
+          <input type="password" class="form-control text-center" name="password" [(ngModel)]="yourPassword" autocomplete="off" placeholder="Password" />
+          <br/><br/>
+          <input type="button" class="btn btn-success" value="Submit" (click)="submitValue()" />
+        </div>
+      </div>
+    </div>
+    <div id="message-wrapper">
+      <div class="wrapper">
+        <div class="message-close"><a herf="javascript:void(0);" (click)="closeMessage();">&nbsp;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade session-expire" bsModal #sessionExpireModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title">Your Session Is About To Expired</h2>
+				</div>
+				<div class="modal-body">
+          <p>Your session will expire soon. Do you want to continue ?</p>
+        </div>
+        <div class="modal-body">
+          <button type="button" class="btn btn-primary" (click)="continue()">Yes</button>
+          <button type="button" class="btn btn-danger" (click)="hideModal()">No</button>
+        </div>
+			</div>
+	</div>
+</div>

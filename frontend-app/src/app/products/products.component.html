@@ -1,0 +1,135 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt; 
+      </li>
+      <li class="active">
+        Coins
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="trade-row row">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 sub-body-wrapper" *ngFor="let info of products; let i = index;">
+            <div class="wrapper">
+              <div class="sub-body">
+                <span *ngIf="!imageArray[info.companyCode.toLowerCase()]" class="substr-part" [ngClass]="{'special-part': (info.companyName.substr(0,2).toLowerCase() === 'si')}">{{info.companyName.substr(0,2)}}</span>
+                <span *ngIf="imageArray[info.companyCode.toLowerCase()]">
+                  <img [src]="imageArray[info.companyCode.toLowerCase()]" class="img-responsive img-circle" width="100" />
+                </span>
+              </div>
+              <h3>{{info.productName}}</h3>
+              {{info | json}}
+              <div class="sub-footer">
+                <a href="/#/product/{{info.productSku}}" class="btn">Read More</a>
+              </div>
+            </div>
+          </div> -->
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 sub-body-wrapper {{info.companyCode.toLowerCase()}}" *ngFor="let info of companies;">
+            <div class="wrapper">
+              <h3>{{info.companyName}}</h3>
+              <div class="sub-body">
+                <div class="col-sm-6 col-xs-12 text-center lh-90">
+                  <span *ngIf="!imageArray[info.companyCode.toLowerCase()]" class="substr-part" [ngClass]="{'special-part': (info.companyName.substr(0,2).toLowerCase() === 'si')}">{{info.companyName.substr(0,2)}}</span>
+                  <span *ngIf="imageArray[info.companyCode.toLowerCase()]">
+                    <img [src]="imageArray[info.companyCode.toLowerCase()]" class="img-responsive img-circle" width="100" />
+                  </span>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                  <h4 class="text-center">Available Coins:</h4>
+                  <h1 class="text-center">{{shares[info.companyCode].totalShares}}</h1>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="sub-footer">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                  <a href="/#/static/{{info.companyCode.toLowerCase()}}" class="btn btn-primary">Read More</a>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                  <a href="/#/static/blocknotes" class="btn btn-primary">Buy Coins</a>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>
+
+<!-- <div class="modal fade product-modal" bsModal #productModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Product Purchase</h4>
+      </div>
+      <div class="modal-body" *ngIf="!btcBuySuccess">
+        <form method="post" role="form" (ngSubmit)="form.valid && doBuyForm(); form.valid && f.resetForm();" [formGroup]="form" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successMessage">             
+            <h4>{{successMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorMessage">             
+            <h4>{{errorMessage}}</h4>
+          </div>
+          <div id="loader-section" *ngIf="showLoader">
+            <img src="assets/images/ajax_loader.gif" class="custom-loader"/>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || name.dirty) && !name.valid}">
+            <label for="role">Product Name: </label>
+            <input type="text" name="name" class="form-control" id="name" formControlName="name" />
+            <div *ngIf="(f.submitted || name.dirty) && !name.valid" class="help-block">Name is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || value.dirty) && !value.valid}">
+            <label for="category">Product Value ( &euro; ): </label>
+            <input type="text" name="value" class="form-control" id="value" formControlName="value" />
+            <div *ngIf="(f.submitted || value.dirty) && !value.valid" class="help-block">Value is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || paymentType.dirty) && !paymentType.valid}">
+            <label for="payment-type">Select Gateway: </label>
+            <select name="paymentType" class="form-control" id="payment-type" formControlName="paymentType">
+              <option value="">Select One</option>
+              <option value="BTC">BTC</option>
+              <option value="ECORE">ExPay</option>
+            </select>
+            <div *ngIf="(f.submitted || paymentType.dirty) && !paymentType.valid" class="help-block">Option is required</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Buy Now</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="modal-body" *ngIf="btcBuySuccess">
+        <h2>Payment created successfully.</h2><br/>
+        <p>Please pay us at<br/><br/>
+          <span><strong>Address: </strong>{{btcBuySuccess}}</span><br/>
+          <span><strong>Amount: </strong>{{btcAmount}} BTC</span> 
+        </p>
+        <div>&nbsp;</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal();">Close</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,738 @@
+/**
+ *
+ * Apply your custom CSS here
+ *
+*/
+
+body {	
+}
+
+a {
+}
+
+body .user-pages * {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.center {
+  float: none !important;
+  margin: 0 auto;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.has-error > input  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.white-color {
+  color: #fff;
+}
+
+.login-page {
+  padding-top: 60px !important;
+}
+
+.signup:hover {
+  color:#fff;
+  text-decoration: none;
+}
+
+.signup:active {
+  color:#fff;
+  text-decoration: none;
+}
+
+.user-image a img {
+    margin: 0 auto 15px;
+}
+
+.mt0 {
+  margin-top:0;
+}
+
+.mt10 {
+  margin-top:10px;
+}
+
+.mt18 {
+  margin-top:18px;
+}
+
+.mt20 {
+  margin-top:20px;
+}
+
+.mb0 {
+  margin-bottom:0 !important;
+}
+
+.mb10 {
+  margin-bottom:10px !important;
+}
+
+.mb20 {
+  margin-bottom:20px !important;
+}
+
+.mb30 {
+  margin-bottom:30px !important;
+}
+
+.mb80 {
+  margin-bottom: 80px !important;
+}
+
+.modal-dialog {
+  position: relative;
+  top: 20%;
+  left: 7%;
+  z-index:999;
+}
+
+.btn-active {
+  background: #8dc63f;
+  color: #fff;
+}
+
+.btn-place {
+  border: 1px solid #ccc;
+  width:24%;
+  margin-right:1%;
+}
+
+.btn-yellow {
+  background-color: #eaac03;
+  border-color: #d49c02;
+  font-family: 'Montserrat', sans-serif;
+  color:#fff;
+}
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #908d8d;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+a:hover, a:focus {
+  text-decoration : none !important;
+}
+
+.sales_commission .panel{
+  float:left;
+  width: 100%;
+}
+
+.estimated_total .total {
+  background: #ff6264;
+  padding: 15px;
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  border: solid 1px #ca493f;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.estimated_payout .total {
+  background: #00b19d;
+  padding: 5px;
+  color: #fff;
+  font-size: 21px;
+  text-align: center;
+  border: solid 1px #03675d;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.payouts .panel{
+  float:left;
+  width: 100%;
+}
+
+.custom-tabs>li {
+  display: inline-block;
+  float: left !important;
+  margin-bottom: 0;
+  width: 20%;
+  margin: 0;
+}
+
+.custom-tabs>li>a {
+  padding: 20px 30px !important;
+  background: #b9b9b9 !important;
+  color: #fff !important;
+  margin: 0 !important;
+  font-size: 14px;
+}
+
+
+.custom-tabs>li.active>a {
+  background: #ff6264 !important;
+  color: #fff !important;
+}
+
+.nested-tab-content {
+  padding: 20px 10px;
+  border: solid 1px #ece7e7;
+}
+
+.nested-tab>li.active>a {
+  background: #2c2e2f !important;
+  color: #fff !important;
+}
+
+small {
+    color: #737373;
+}
+
+.modal-header {
+  padding: 15px !important;
+  border-bottom: 1px solid #e5e5e5;
+  background: #ab2d32 !important;
+  color: #fff;
+}
+
+.modal-body {
+  position: relative;
+  padding: 15px !important;
+}
+
+.modal-footer {
+  padding: 15px !important;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+
+.modal .modal-dialog .modal-content {
+  padding: 0 !important;
+}
+
+.page-container .main-content:hover {
+  z-index: initial !important;
+}
+.page-container .main-content {
+    z-index : initial !important;
+}
+.modal-backdrop {
+  height: 100%;
+  z-index:99;
+}
+
+.pop-up-overlay {
+  width: 100%;
+  min-height: 400px;
+}
+
+.pop-up {
+  text-align: center;
+  background: #fff;
+  width: 600px;
+  margin: 0 auto;
+  z-index: 9;
+  border: solid 1px #9E9E9E;
+  border-radius: 5px;
+  padding: 40px 60px;
+  top: 60px;
+  position: relative;
+  color: #444343;
+  box-shadow: 2px 2px 5px #888888;
+}
+
+.pointer-cursor {
+  cursor: pointer;  
+}
+
+/*------------- Padding Classes ------------- */
+.pd12 {
+  padding: 12px;
+}
+
+.pd0 {
+  padding: 0 !important;
+}
+
+.pt0 {
+  padding-top: 0px !important;
+}
+
+/*-------------- Form Css ----------------- */
+.control {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.control input {
+  /*position: absolute;*/
+  z-index: -1;
+  opacity: 0;
+}
+.control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 1px solid #e4e4e4;
+}
+.control--radio .control__indicator {
+  border-radius: 50%;
+}
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+  /*background: #ccc;*/
+}
+.control input:checked ~ .control__indicator {
+  background: #2aa1c0;
+}
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+  background: #0e647d;
+}
+.control input:disabled ~ .control__indicator {
+  /*background: #e6e6e6;*/
+  opacity: 0.6;
+  pointer-events: none;
+}
+.control__indicator:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.control input:checked ~ .control__indicator:after {
+  display: block;
+}
+.control--checkbox .control__indicator:after {
+  left: 6px;
+  top: 3px;
+  width: 6px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.control--checkbox input:disabled ~ .control__indicator:after {
+  /*border-color: #7b7b7b;*/
+}
+.control--radio .control__indicator:after {
+  left: 6px;
+  top: 6px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+.control--radio input:disabled ~ .control__indicator:after {
+  /*background: #7b7b7b;*/
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.pricing-box {
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.075);
+    border-radius: 3px;
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    padding: 10px 0 0;
+}
+
+.pricing-title h3 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #555;
+}
+
+.pricing-price {
+    position: relative;
+    padding: 25px 0;
+    color: #333;
+    font-weight: 300;
+    font-size: 64px;
+    line-height: 1;
+}
+
+.pricing-price span {
+    display: inline-block;
+    vertical-align: top;
+    margin: 7px 3px 0 0;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.pricing-features {
+    border-bottom: 1px solid rgba(0,0,0,0.075);
+}
+
+.pricing-features ul {
+    margin: 0;
+    padding: 15px 0;
+    list-style: none;
+}
+
+.pricing-features li {
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.pricing-action {
+    padding: 15px 30px;
+}
+
+footer.main-footer {
+  margin-top: 10px !important;
+}
+
+.latest_signup li {
+  float:left;
+  width:50%;
+}
+
+.payment_button {
+  position: relative;
+  left: 20px;
+  top: -10px;
+}
+
+.help-block {
+  color: #a94442 !important;
+}
+
+.tab-content>.active {
+    display: inline-block;
+    visibility: visible;
+    width: 100%;
+}
+
+.upload-button {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    clear: left;
+}
+
+.upload-cover {
+    background-color: #8BC34A;
+    text-align: center;
+    padding: 0.7em 1em;
+    cursor: pointer;
+    color: #fff;
+}
+
+.upload-button input[type="file"] {
+    display: block;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; /* over compensates for the above - I would use calc or sass math if not here*/
+    height: 100%;
+    opacity: 0; /* left this here so you could see. Make it 0 */
+    cursor: pointer;
+}
+
+.upload-button:hover .upload-cover {
+    background-color: #77a93e;
+}
+
+.user-pic {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+#loader-section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #f5f5f5;
+    opacity: .8;
+    width: 100%;
+    height: 100%;
+}
+
+.custom-loader {
+    margin-left: 0px;
+    margin-top: 0px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+.network-loader {
+    margin-left: 0px;
+    margin-top: 0px;
+    display: block;
+    margin: 0 auto;
+    top:25%;
+    position: relative;
+}
+
+/* Treee View */
+.hv-wrapper {
+    display: flex;
+}
+.hv-wrapper .hv-item {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+.hv-wrapper .hv-item .hv-item-parent {
+    margin-bottom: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.hv-wrapper .hv-item .hv-item-parent:after {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 25px;
+    bottom: 0;
+    left: 50%;
+    background-color: #deddda;
+    transform: translateY(100%);
+}
+.hv-wrapper .hv-item .hv-item-children {
+    display: flex;
+    justify-content: center;
+}
+.hv-wrapper .hv-item .hv-item-children .hv-item-child {
+    padding: 0 15px;
+    position: relative;
+}
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:before,
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:after {
+    content: '';
+    position: absolute;
+    background-color: #deddda;
+    left: 0;
+}
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:before {
+    left: 50%;
+    top: 0;
+    transform: translateY(-100%);
+    width: 2px;
+    height: 25px;
+}
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:after {
+    top: -25px;
+    transform: translateY(-100%);
+    height: 2px;
+    width: 100%;
+}
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:first-child:after {
+    left: 50%;
+    width: 50%;
+}
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:last-child:after {
+    width: calc(50% + 1px);
+}
+
+section .github-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+section h1 {
+    text-align: center;
+    margin-bottom: 70px;
+}
+section .hv-container {
+    flex-grow: 1;
+    overflow: auto;
+    justify-content: center;
+}
+.basic-style {
+    background-color: #EFE6E2;
+}
+.basic-style > h1 {
+    color: #ac2222;
+}
+p.simple-card {
+    margin: 0;
+    background-color: #fff;
+    color: #DE5454;
+    padding: 30px;
+    border-radius: 7px;
+    min-width: 100px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(204, 131, 103, 0.22);
+}
+.hv-item-parent p, .hv-item-child p {
+    font-weight: bold;
+    color: #DE5454;
+}
+.management-hierarchy {
+    /*background-color: #303840;*/
+}
+.management-hierarchy > h1 {
+    color: #FFF;
+}
+.management-hierarchy .person {
+    text-align: center;
+}
+.management-hierarchy .person > img {
+    height: 110px;
+    border: 5px solid #deddda;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+}
+.management-hierarchy .person p.name {
+    background-color: #eaac03;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+    margin: 10px;
+    position: relative;
+    cursor: pointer
+}
+.management-hierarchy .person p.name b {
+    color: #fff;
+}
+.management-hierarchy .person p.name:before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    /*background-color: #fff;*/
+    left: 50%;
+    top: 0;
+    transform: translateY(-100%);
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+.sidebar-menu .main-menu li {
+  cursor: pointer;
+}
+
+.no-whitespace tr > th, .no-whitespace tr > td {
+    white-space: normal !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.message-description span {
+  float: left;
+  width: 100%;
+}
+
+.banner-section {
+    padding: 0px 10px;
+    margin-bottom: 40px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.banner-title {
+    background: #fcaf40;
+    padding: 15px 30px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 28px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+pre {
+    white-space: normal;
+    font-size: 12px;
+    padding: 15px;
+}
+
+.radius {
+  border-radius: 5px;
+}
+
+.modal-backdrop.in {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  position: fixed;
+}
+
+.alert > h4 {
+  line-height: 20px;
+  font-size: 15px;
+  margin: 0px;
+}
+
+@media print {
+  
+  @page { margin: 0; }
+  
+  body { margin: 1.6cm; }
+
+    .no-print, .main-header, section, .modal-header, .modal-footer, navigation, .no-print * {
+        display: none !important;
+    }
+
+    .modal-body {
+        position: relative;
+    }
+
+    .modal-dialog {
+      top:0 !important;
+    }
+
+}

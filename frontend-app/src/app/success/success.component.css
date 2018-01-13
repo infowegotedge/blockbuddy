@@ -1,0 +1,27 @@
+.login-container {
+  width: 660px;
+  padding: 30px;
+  background: #fff;
+  margin: 0 auto;
+}
+
+.login-container .login-header a {
+  margin-bottom: 30px;
+  display: block;
+}
+
+.login-container .login-text,
+.login-container .login-text a {
+  display: inline !important;
+}
+
+h4 i {
+  vertical-align: top;
+  margin-top: 4px;
+}
+
+h4 span {
+  display: inline-block;
+  width: 96%;
+  line-height: 22px;
+}

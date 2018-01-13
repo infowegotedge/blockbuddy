@@ -1,0 +1,249 @@
+<div class="topbar" *ngIf="adminRole" [ngClass]="{'admin': adminRole}">
+	<div class="header-left">
+		<div class="topnav">
+			<a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
+		</div>
+	</div>
+	<div class="header-right">
+		<ul class="header-menu nav navbar-nav">
+			<li class="dropdown" id="notifications-header">
+				<a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+				<i class="fa fa-bell" aria-hidden="true"></i>
+				<span class="badge badge-danger badge-header">{{totalUnreadNotification}}</span>
+				</a>
+				<ul class="dropdown-menu">
+					<li class="dropdown-header clearfix">
+						<p class="pull-left">{{totalUnreadNotification}} Pending Notifications</p>
+					</li>
+					<li>
+						<ul class="dropdown-menu-list withScroll" data-height="220">
+							<li *ngFor="let notify of notificationMessage;">
+								<span>
+									<i class="fa fa-star p-r-10 f-18 c-orange"></i>
+									{{notify.message}}
+									<span class="dropdown-time">{{notify.created_at | timeAgo}}</span>
+								</span>
+							</li>
+						</ul>
+					</li>
+					<!-- <li class="dropdown-footer clearfix">
+						<a href="#" class="pull-left">See all notifications</a>
+						<a href="#" class="pull-right">
+						<i class="icon-settings"></i>
+						</a>
+					</li> -->
+				</ul>
+			</li>
+			<!-- END NOTIFICATION DROPDOWN -->
+			<!-- BEGIN MESSAGES DROPDOWN -->
+			<li class="dropdown" id="messages-header">
+				<a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+				<i class="fa fa-paper-plane" aria-hidden="true"></i>
+				<span class="badge badge-primary badge-header">
+				{{totalUnread}}
+				</span>
+				</a>
+				<ul class="dropdown-menu">
+					<li class="dropdown-header clearfix">
+						<p class="pull-left">
+							You have {{totalUnread}} Messages
+						</p>
+					</li>
+					<li class="dropdown-body">
+						<ul class="dropdown-menu-list withScroll" data-height="220">
+							<li class="clearfix" *ngFor="let message of inboxMessage;">
+								<div class="clearfix">
+									<div>
+										<strong>{{message.fromUserName}}</strong> 
+										<small class="pull-right text-muted">
+											<span class="glyphicon glyphicon-time p-r-5"></span>{{message.createdAt | timeAgo}}
+										</small>
+									</div>
+									<p [innerHTML]="message.subject | slice:0:50"></p>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown-footer clearfix">
+						<a href="/#/team-communication" class="pull-left">See all messages</a>
+					</li>
+				</ul>
+			</li>
+			<!-- END MESSAGES DROPDOWN -->
+			<!-- BEGIN USER DROPDOWN -->
+			<li class="dropdown" id="user-header">
+				<a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<img [src]="user.avatar ? user.avatar : 'assets/images/user-4.png'" width="100" alt="user image">
+					<span class="username">Hi, {{user.name}}</span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a routerLink="/profile">
+							Profile
+						</a>
+					</li>
+					<li (click)="logout()">
+						<a id="header-logout" class="pointer-cursor">
+							Logout
+						</a>
+					</li>
+				</ul>
+			</li>
+			<!-- END USER DROPDOWN -->
+			<!-- CHAT BAR ICON -->
+			<li><a href="#"><i class="icon-bubbles"></i></a></li>
+		</ul>
+	</div>
+</div>
+
+<div *ngIf="hasRow && hasOne && !adminRole && !hideBroadCastMessage" class="admin-notification alert alert-warning text-center">
+	<i class="fa fa-exclamation-triangle"></i> <marquee>{{message.message}}</marquee> <i class="fa fa-close" (click)="hideMe()"></i>
+</div>
+
+<div *ngIf="hasRow && !hasOne && !adminRole && !hideBroadCastMessage" class="admin-notification alert alert-warning text-center">
+	<i class="fa fa-exclamation-triangle"></i>
+	<marquee>
+		<span *ngFor="let msg of message">{{msg.message}} </span>
+	</marquee>
+	<i class="fa fa-close" (click)="hideMe()"></i>
+</div>
+
+<div *ngIf="hasRow" class="clearfix"></div>
+
+<div class="topbar topbar-fullwidth" *ngIf="!adminRole">
+		<div class="header-left col-ls-2 col-md-2 col-sm-2 col-xs-2">
+			<div class="logo-img">
+				<a href="/#/dashboard">
+					<img src="assets/images/blockbuddylogo.png" class="img-responsive" alt="Logo">
+				</a>
+			</div>
+
+			<!-- <div class="topnav">
+				<a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
+			</div> -->
+		</div>
+		<div class="header-right col-ls-10 col-md-10 col-sm-9 col-xs-9">
+			<div>
+				<div class="pull-right">
+					<ul class="header-menu nav navbar-nav">
+						
+						<li class="dropdown hidden-xs hidden-sm" id="messages-header">
+							<a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+								<img src="assets/images/new-files/message.png" alt="Message">
+								<span class="badge badge-primary badge-header">{{totalUnread}}</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header clearfix">
+									<p class="pull-left">
+										You have {{totalUnread}} Messages
+									</p>
+								</li>
+								<li class="dropdown-body">
+									<ul class="dropdown-menu-list withScroll" data-height="220">
+										<li class="clearfix" *ngFor="let message of inboxMessage;">
+											<div class="clearfix">
+												<div>
+													<strong>{{message.fromUserName}}</strong> 
+													<small class="pull-right text-muted">
+														<span class="glyphicon glyphicon-time p-r-5"></span>{{message.createdAt | timeAgo}}
+													</small>
+												</div>
+												<p [innerHTML]="message.subject | slice:0:50"></p>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown-footer clearfix">
+									<a href="/#/team-communication" class="pull-left">See all messages</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown hidden-xs hidden-sm" id="notifications-header">
+							<a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+								<img src="assets/images/new-files/notification.png" alt="Notification" />
+								<span class="badge badge-danger badge-header">{{totalUnreadNotification}}</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header clearfix">
+									<p class="pull-left">{{totalUnreadNotification}} Pending Notifications</p>
+								</li>
+								<li>
+									<ul class="dropdown-menu-list withScroll" data-height="220">
+										<li *ngFor="let notify of notificationMessage;">
+											<span>
+												<i class="fa fa-star p-r-10 f-18 c-orange"></i>
+												{{notify.message}}
+												<span class="dropdown-time">{{notify.created_at | timeAgo}}</span>
+											</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown" id="user-header">
+							<a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+								<img [src]="user.avatar ? user.avatar : 'assets/images/user-4.png'" width="100" alt="user image">
+								<span class="username">Hi, <span class="text-capitalize">{{user.name}}</span></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="custom-visible"><a routerLink="/dashboard">Dashboard</a></li>
+								<li class="custom-visible"><a routerLink="/portfolio">Portfolio</a></li>
+								<li class="custom-visible">
+									<a href="javascript:void(0);" class="dropdown-toggle">Trade</a>
+									<ul class="dropdown-menu">
+										<li class="white-back">
+											<a routerLink="/trading/my-portal">Exchange Portal</a>
+										</li>
+										<li class="white-back">
+											<a routerLink="/trading/ledger">Exchange History</a>
+										</li>
+									</ul>
+								</li>
+								<li class="custom-visible"><a routerLink="/transaction">Wallet</a></li>
+								<!-- <li class="custom-visible"><a href="javascript:void(0);">Affiliates</a></li> -->
+								<li>
+									<a routerLink="/profile">
+										Profile
+									</a>
+								</li>
+								<!-- <li class="hidden-lg hidden-md visible-xs visible-sm">
+									<a href="javascript:void(0);" class="dropdown-toggle">
+										Wallet
+									</a>
+									<ul class="dropdown-menu">
+										<li class="white-back" *ngFor="let company of companiesShares; let i = index;">
+											<div class="name pull-left" style="width:60%;line-height:normal;">{{company.companyName}}</div>
+											<div class="coins pull-right">{{company.totalShares | number:'1.2'}}</div>
+											<div class="clearfix"></div>
+										</li>
+										<li class="white-back" *ngFor="let wallet of traderWallet; let i = index;">
+											<div class="name pull-left" style="width:60%;line-height:normal;">{{wallet.currencyCode}}</div>
+											<div class="coins pull-right">{{wallet.amount | number:'1.2'}}</div>
+											<div class="clearfix"></div>
+										</li>
+									</ul>
+								</li> -->
+								<li class="hidden-lg hidden-md visible-xs visible-sm">
+									<a href="javascript:void(0);">
+										Notifications <span>{{totalUnreadNotification}}</span>
+									</a>
+								</li>
+								<li class="hidden-lg hidden-md visible-sm visible-xs">
+									<a routerLink="/team-communication">
+										Messages <span>{{totalUnread}}</span>
+									</a>
+								</li>
+								<li (click)="logout()">
+									<a id="header-logout" class="pointer-cursor">
+										Logout
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				
+				<app-navigation></app-navigation>
+			</div>
+		</div>
+	</div>

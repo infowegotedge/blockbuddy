@@ -1,0 +1,86 @@
+<div class="my-statics" *ngIf="!closeMeContent">
+  <div class="panel">
+    <div class="panel-header panel-controls ui-sortable-handle">
+      <h3>My Statistics</h3>
+      <div class="min-max-close-button pull-right">
+        <a class="panel-popout" *ngIf="!hideContent" (click)="hideMe()"><i class="fa fa-window-minimize"></i></a>
+        <a class="panel-popin" *ngIf="hideContent" (click)="hideMe()"><i class="fa fa-window-maximize"></i></a>
+        <a class="panel-close" (click)="closeMe()" *ngIf="!close"><i class="fa fa-times"></i></a>
+      </div>
+      <div class="referral-link-warrper pull-right">
+        <span class="referral-link">Your Referral Link: 
+          <span class="referral-userlink">{{affiliateUrl}}{{username ? username : getProfile()}}</span>
+        </span>
+        <button class="btn pull-right" type="button" (click)="copyToClipboard($event)">{{copyButtonText}}</button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-content latest-signup" *ngIf="!hideContent">
+      <div class="my-stats">
+        <ul class="stats">
+          <li class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+            <div class="signup col-md-12">
+              <ul class="dropdown">
+                <li>Total Signup</li>
+              </ul>
+              <img src="assets/images/icons/total-signup.png" />
+              <p><span>{{totalMyUser}}</span></p>
+            </div>
+          </li>
+          <li class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+            <div class="affiliate col-md-12">
+              <ul class="dropdown">
+              <li>Total Affiliate</li>
+              </ul>
+              <img src="assets/images/icons/total-affiliates.png" />
+              <P><span>{{totalMyDirects}}</span>
+              </P>
+            </div>
+          </li>
+          <li class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+            <div class="amount col-md-12">
+              <ul class="dropdown">
+              <li>Total Amount</li>
+              </ul>
+              <img src="assets/images/icons/total-amount.png" />
+              <P><span>{{btcInfo.btcAmount | number:'1.2'}}</span>
+              </P>
+            </div>
+          </li>
+          <li class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+            <div class="commission col-md-12">
+              <ul class="dropdown">
+              <li>Total Commission</li>
+              </ul>
+              <img src="assets/images/icons/commission.png" />
+              <P><span>&euro; 0</span>
+              </P>
+            </div>
+          </li>
+          <li class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+            <div class="trade col-md-12">
+              <ul class="dropdown">
+              <li>Total Exchange</li>
+              </ul>
+              <img src="assets/images/icons/trade.png" />
+              <P><span>&euro; 0</span>
+              </P>
+            </div>
+          </li>
+          <li class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+            <div class="earning col-md-12">
+              <ul class="dropdown">
+              <li>Affiliate Earning</li>
+              </ul>
+              <img src="assets/images/icons/affiliate-earning.png" />
+              <P><span>&euro; {{affiliateEarning | number:'1.2'}}</span>
+              </P>
+            </div>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

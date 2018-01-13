@@ -1,0 +1,127 @@
+<div class="login-container">
+	
+		<div class="row">
+	
+			<div class="col-sm-12 center">
+
+	
+				<!-- Add class "fade-in-effect" for login form effect -->
+				<form method="post" role="form" id="login" class="login-form fade-in-effect" (ngSubmit)="form.valid && login()" [formGroup]="form" #f="ngForm" novalidate *ngIf="!showOtpBox">
+	
+					<div class="login-header text-center">
+						<a href="/#/" class="logo">
+							<img src="assets/images/logo-new.png" alt="" />
+						</a>
+	
+						<h4 class="text-left"><strong>Account Sign In</strong></h4>
+						<p>Please fill your login details below!</p>
+					</div>
+	
+					<div class="form-group" [ngClass]="{ 'has-error': (f.submitted || username.dirty) && !username.valid }">
+							<input type="text" class="form-control" formControlName="username" autocomplete="off" placeholder="Username" />
+							<div *ngIf="(f.submitted || username.dirty) && !username.valid" class="help-block">Username is required</div>
+					</div>
+	
+					<div class="form-group" [ngClass]="{ 'has-error': (f.submitted || password.dirty) && !password.valid }"> 
+							<input type="password" class="form-control" formControlName="password" placeholder="Password" />
+							<div *ngIf="(f.submitted || password.dirty) && !password.valid" class="help-block">Password is required</div>
+					</div>
+
+					<div class="form-group">
+						<div class="full-width pull-left" style="z-index:9">
+							<label class="pull-left">
+								<input type="checkbox" checked="checked" name="isActive" [(ngModel)]="user.isActive" [ngModelOptions]="{standalone: true}">
+								&nbsp; Remember me
+							</label>
+							<a href="#/forgot-password" class="pull-right">Forgot Username & Password?</a>
+						</div>
+					</div>
+					
+					<div class="alert alert-danger pull-left full-width" *ngIf="isError">{{serverError}}</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-block text-center mt20">
+							Log In
+						</button>
+					</div>
+				</form>
+				<!--<form method="post" role="form" id="login" class="login-form fade-in-effect" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate *ngIf="!showOtpBox">
+	
+					<div class="login-header text-center">
+						<a href="" class="logo">
+							<img src="assets/images/logo-new.png" alt="" />
+						</a>
+	
+						<p>Dear user, please fill the below details!</p>
+					</div>
+	
+					<div class="form-group" [ngClass]="{ 'has-error': (f.submitted || username.dirty) && !username.valid }">
+							<input type="text" class="form-control" name="username" [(ngModel)]="user.username" id="username" autocomplete="off" #username="ngModel" required placeholder="Username" />
+							<div *ngIf="(f.submitted || username.dirty) && !username.valid" class="help-block">Username is required</div>
+					</div>
+	
+					<div class="form-group" [ngClass]="{ 'has-error': (f.submitted || password.dirty) && !password.valid }"> 
+							<input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" required placeholder="Password" />
+							<div *ngIf="(f.submitted || password.dirty) && !password.valid" class="help-block">Password is required</div>
+					</div>
+
+					<div class="form-group">
+						<div class="checkbox full-width pull-left" style="z-index:9">
+							<label class="control control--checkbox pull-left"> &nbsp; Remember me
+									<input type="checkbox" checked="checked" name="isActive" [(ngModel)]="user.isActive">
+									<div class="control__indicator"></div>
+							</label>
+							<a href="#/forgot-password" class="pull-right">Forgot password?</a>
+						</div>
+					</div>
+					
+					<div class="alert alert-danger pull-left full-width" *ngIf="isError">{{serverError}}</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-block text-center mt20">
+							<i class="fa-lock"></i>
+							Log In
+						</button>
+					</div>
+				</form>-->
+
+				<form method="post" role="form" id="login" class="login-form fade-in-effect" (ngSubmit)="f.form.valid && verifyOtpLogin()" #f="ngForm" novalidate *ngIf="showOtpBox">
+	
+					<div class="login-header text-center">
+						<a href="#/login" class="logo" (click)="hideOTPForm()">
+							<img src="assets/images/logo-new.png" alt="" />
+						</a>
+	
+						<p>Dear user, please fill the below details!</p>
+					</div>
+
+					<div class="form-group" [ngClass]="{ 'has-error': (f.submitted || authCode.dirty) && !authCode.valid }">
+							<input type="text" class="form-control" name="authCode" [(ngModel)]="auth.authCode" id="auth-code" autocomplete="off" #authCode="ngModel" required placeholder="Enter Code" />
+							<div *ngIf="(f.submitted || authCode.dirty) && !authCode.valid" class="help-block">Authentication is required</div>
+					</div>
+					<div class="alert alert-danger pull-left full-width" *ngIf="serverError">{{serverError}}</div>
+					<div class="alert alert-danger pull-left full-width" *ngIf="forgetOtpError">{{forgetOtpError}}</div>
+					<div class="alert alert-success pull-left full-width" *ngIf="forgetOtpSuccess">{{forgetOtpSuccess}}</div>
+					<div class="form-group">
+						<a href="javascript:void(0);" class="pull-right mb10" (click)="doForget2FA()">Forgot Two Factor Authentication?</a>
+
+						<button type="submit" class="btn btn-primary btn-block text-center mt20">
+							Proceed
+						</button>
+					</div>
+				</form>
+
+				<div class="full-width mb20">
+					<button class="btn btn-facebook" type="button" (click)="signInWithFB()"><i class="fa fa-facebook"></i> Login with Facebook</button>
+					<button class="btn btn-google" type="button" (click)="signInWithGoogle()"><i class="fa fa-google"></i> Login with Google</button>
+				</div>
+
+				<div class="full-width mb20">
+						<a class="btn btn-yellow col-md-12 col-sm-12 col-xs-12 white-color signup pd12" href="#/signup">
+							Not a Member Yet? SignUp !!!
+						</a>
+				</div>
+	
+			</div>
+	
+		</div>
+	
+	</div>

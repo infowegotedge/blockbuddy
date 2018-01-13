@@ -1,0 +1,559 @@
+<div class="row" *ngIf="adminRole && !hideContent">
+  <div class="col-xlg-7 col-lg-7">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel bg-dark widget-map">
+          <div class="panel-header">
+            <h3><strong>BlockBuddy User</strong> Base</h3>
+          </div>
+          <div class="panel-content widget-full">
+            <div class="row">
+              <div class="col-md-12">
+                <div id="global-chart" [style.width.%]="100" [style.height.px]="500"></div>
+              </div>
+              <div class="col-md-3 c-white" style="visibility: hidden;">
+                <div id="listdiv"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>                
+      <div class="col-md-12 portlets ui-sortable">
+        <div class="panel pull-left full-width">
+            <div class="panel-header panel-controls ui-sortable-handle">
+              <h3><i class="icon-graph"></i>  <strong>Live</strong> Rates</h3>
+            </div>
+            <div class="panel-content col-md-12">
+              <div class="col-md-4 text-center">
+                <span>BKN</span><br />
+                <span>43.32</span><br />
+                <span>+6.244</span>
+              </div>
+              <div class="col-md-4 text-center">
+                <span>VAN</span><br />
+                <span>23.32</span><br />
+                <span>+8.244</span>
+              </div>
+              <div class="col-md-4 text-center">
+                <span>EURO</span><br />
+                <span>38.32</span><br />
+                <span>+3.244</span>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xlg-5 col-lg-5 col-visitors">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel no-bd bd-3 panel-stat">
+          <div class="panel-header">
+            <h3><i class="icon-graph"></i> <strong>Visitor</strong> Statistics</h3>
+            <div class="control-btn">
+              <a href="#" class="panel-reload hidden"><i class="icon-reload"></i></a>
+            </div>
+          </div>
+          <div class="panel-body p-15 p-b-0">
+            <div class="row m-b-10">
+              <div class="col-xs-3 big-icon">
+                <i class="icon-users"></i>
+                <div class="stats">
+                  <span class="stat-title text-uppercase"><strong>New Visitors:</strong> 25%</span><br />
+                  <span class="stat-title text-uppercase"><strong>Sign Up's:</strong> 25%</span>
+                </div>
+              </div>
+              <div class="col-xs-9">
+                <div class="live-tile" data-mode="carousel" data-direction="vertical" data-delay="3500" data-height="60">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-stat-chart">
+            <canvas id="visitors-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="display:none">
+      <div class="col-md-12">
+        <div class="panel no-bd bd-3 panel-stat">
+          <div class="panel-body bg-red p-15">
+            <div class="row m-b-10">
+              <div class="col-xs-3 big-icon">
+                <i class="icon-equalizer"></i>
+              </div>
+              <div class="col-xs-9">
+                <small class="stat-title">ORDERS THIS MONTH</small>
+                <div class="live-tile" data-mode="carousel" data-direction="vertical" data-delay="3500" data-height="56">
+                  <div>
+                    <h1 class="f-40 m-0 w-300">148</h1>
+                  </div>
+                  <div>
+                    <h1 class="f-40 m-0 w-300">+28%</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <small class="stat-title">Last month</small>
+                <div class="live-tile" data-mode="carousel" data-direction="vertical" data-delay="3500" data-height="23">
+                  <div>
+                    <h3 class="f-20 m-0 w-300">126</h3>
+                  </div>
+                  <div>
+                    <h3 class="f-20 m-0 w-300">$12,545</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <small class="stat-title">Last week</small>
+                <div class="live-tile f-right" data-mode="carousel" data-direction="vertical" data-delay="3500" data-height="23">
+                  <div>
+                    <h3 class="t-right f-20 m-0 w-500">43</h3>
+                  </div>
+                  <div>
+                    <h3 class="t-right f-20 m-0 w-500">$4,237</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="adminRole && !hideContent">
+  <div class="col-xlg-12">
+    <div class="panel">
+      <div class="panel-header panel-controls">
+        <h3><i class="icon-graph"></i> <strong>Trading</strong></h3>
+      </div>
+      <div class="panel-content widget-full widget-stock stock1">
+        <div id="financial-chart" style="height:320px"></div>                 
+      </div>
+    </div>
+  </div>           
+</div>
+
+
+<div class="row" *ngIf="adminRole && !hideContent">
+  <div class="col-xlg-12">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 portlets ui-sortable hight-panel">
+        <div class="panel">
+            <div class="panel-header panel-controls ui-sortable-handle">
+              <h3><i class="icon-graph"></i> <strong>LATEST</strong> SIGNUP's</h3>
+              <div class="control-btn">
+                <p><strong>Total Users:</strong> {{totalUsers}}</p>
+              </div>
+            </div>
+            <div class="panel-content latest-signup">
+              <table class="table">
+                <tbody>
+                  <tr class="border_bottom" *ngFor="let signup of latestSignups; let i = index;">
+                    <td class="signup-name"><strong>{{signup.fname}} {{signup.lname}}</strong></td>
+                    <td class="text-right"><img class="flag_img" src="{{signup.flagUrl}}" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 portlets ui-sortable hight-panel">
+        <div class="panel">
+            <div class="panel-header panel-controls ui-sortable-handle">
+              <h3><i class="icon-graph"></i> <strong>WITHDRAWAL</strong> REQUESTS</h3>
+            </div>
+            <div class="panel-content">
+              <table class="table">
+                <tbody>
+                  <tr class="border_bottom" *ngFor="let withdrawal of withdrawals; let i = index;">
+                    <td class="withdrawal-names"><strong>{{withdrawal.user_name}}</strong></td>
+                    <td class="text-right"><i class="fa fa-btc"></i> {{withdrawal.amount_withdrawal | number:'1.2-6'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 portlets ui-sortable hight-panel">
+        <div class="panel">
+            <div class="panel-header panel-controls ui-sortable-handle">
+              <h3><i class="icon-graph"></i> <strong>Notifications</strong></h3>
+            </div>
+            <div class="clearfix"></div>
+            <div class="panel-content">
+              <table class="table">
+                <tbody>
+                  <tr *ngFor="let notify of notifications;" class="border_bottom">
+                    <td class="reduce-height">{{notify.message}}<br><small>( {{notify.username}} )</small></td>
+                    <td class="text-right">{{notify.created_at | timeAgo}}</td>
+                  </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="dashboard row" *ngIf="!adminRole && !hideContent">
+  <div class="container">
+    <h1 class="col-lg-6 col-md-6 col-sm-6 col-xs-12 hi-content">
+      Hi {{user.name}},<br/>
+      How are you doing<br/> 
+      today?
+    </h1>
+    <p class="col-lg-6 col-md-6 col-sm-6 col-xs-12 info-content">
+      Since you were gone, you've had a net gain of <span class="yellow-color">&euro;00,00</span>,<br/> 
+      <span class="yellow-color">{{totalMyUser}}</span> new affiliates signups and your network has grown <br/>
+      with <span class="yellow-color">{{totalMyDirects}}</span> people! <br/>
+      Well Done!<br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      You have <span class="yellow-color">{{totalUnread}}</span> unreaded messages.
+    </p>
+    <div class="clearfix"></div>
+    <h3 class="text-center">At A Glance</h3>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 potfolio">
+      <h4 class="text-center heading" *ngIf="!toggleIcon">Portfolio</h4>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 h100" *ngIf="!toggleIcon">
+        <div class="icon-content text-center">
+          <img src="assets/images/new-files/static-graph.png" class="img-responsive" alt="graph file" />
+        </div>
+        <div class="filter-content text-center">
+          <a href="javascript:void(0);" class="blue-color active">1d</a>
+          <a href="javascript:void(0);" class="blue-color">1w</a>
+          <a href="javascript:void(0);" class="blue-color">1m</a>
+          <a href="javascript:void(0);" class="blue-color">1y</a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 h100" *ngIf="!toggleIcon">
+        <div class="icon-content text-center">
+          <h2 class="white-color euro-amt">&euro; 0</h2>
+        </div>
+        <div class="filter-content text-center">
+          <span class="blue-color">Value</span>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 h100" *ngIf="!toggleIcon">
+        <div class="icon-content text-center">
+          <i class="gain"></i>
+          <h2 class="gain">16%</h2>
+        </div>
+        <div class="filter-content text-center">
+          <a href="javascript:void(0);" class="blue-color active">1d</a>
+          <a href="javascript:void(0);" class="blue-color">1w</a>
+          <a href="javascript:void(0);" class="blue-color">1m</a>
+          <a href="javascript:void(0);" class="blue-color">1y</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs">
+      <div class="">
+        <p class="toggle-icon">
+          <span *ngIf="toggleIcon" (click)="toggleIconClick()">+</span>
+          <span *ngIf="!toggleIcon" (click)="toggleIconClick()">-</span>
+        </p>
+        <p class="middle-line" *ngIf="!toggleIcon">
+          <img src="assets/images/new-files/line.png" alt="Mid Line" />
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 box-content-wrapper-div">
+      <h4 class="text-center heading" *ngIf="!toggleIcon">Affiliates</h4>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" *ngIf="!toggleIcon">
+        <div class="text-center box-content">
+          <h2>{{totalMyUser}}</h2>
+          <p class="text-center">Total Affiliates<br/><span><span>{{affiliateVisitLastCount}}</span> This Week</span></p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" *ngIf="!toggleIcon">
+        <div class="text-center box-content">
+          <h2>{{affiliateVisit}}</h2>
+          <p class="text-center">Referral Hits<br/><span><span>{{affiliateVisitLastCount}} Since Last</span> Week</span></p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" *ngIf="!toggleIcon">
+        <div class="text-center box-content">
+          <h2 class="small-font yellow-color">&euro;0</h2>
+          <p class="text-center">Commissions<br/><span><span>0</span> This Week</span></p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" *ngIf="!toggleIcon">
+        <div class="text-center box-content">
+          <h2>{{totalMyDirects}}</h2>
+          <p class="text-center">Frontline<br/><span><span>{{totalDirectsWeek}}</span> This Week</span></p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="dahsboard row" *ngIf="!adminRole && !hideContent">
+  <div class="container mt30">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 border-left">
+      <div class="inst-trans-wallet-section">
+        <div class="intruments">
+          <h3>Top Instruments</h3>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <article class="bg-white">
+              <p class="super">SITV Shares</p>
+              <p class="amount text-center">0</p>
+            </article>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <article class="bg-white">
+              <p class="super">SITV Warrant</p>
+              <p class="amount text-center">0</p>
+            </article>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <article class="bg-white">
+              <p class="super">Vanguard 
+                <span *ngIf="gainLoss.VANGUARD.gainLoss === 1" class="pull-right gain">{{gainLoss.VANGUARD.diff | number:'1.2'}}%</span>
+                <span *ngIf="gainLoss.VANGUARD.gainLoss === 2" class="pull-right loss">{{gainLoss.VANGUARD.diff | number:'1.2'}}%</span>
+                <span *ngIf="gainLoss.VANGUARD.gainLoss === -1" class="pull-right">{{gainLoss.VANGUARD.diff | number:'1.2'}}%</span>
+              </p>
+              <p class="amount text-center vanguard">{{vanguard | number:'1.0'}} <span>{{gainLoss.VANGUARD.liveValue | number:'1.2-4'}}</span></p>
+            </article>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <article class="bg-white">
+              <p class="super">Digitex 
+                <span *ngIf="gainLoss.DIGITEX.gainLoss === 1" class="pull-right gain">{{gainLoss.DIGITEX.diff | number:'1.2'}}%</span>
+                <span *ngIf="gainLoss.DIGITEX.gainLoss === 2" class="pull-right loss">{{gainLoss.DIGITEX.diff | number:'1.2'}}%</span>
+                <span *ngIf="gainLoss.DIGITEX.gainLoss === -1" class="pull-right">{{gainLoss.DIGITEX.diff | number:'1.2'}}%</span>
+              </p>
+              <p class="amount text-center digitex">{{digitex | number:'1.0'}} <span>{{gainLoss.DIGITEX.liveValue | number:'1.2-4'}}</span></p>
+            </article>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <article class="bg-white">
+              <p class="super">Tentanium 
+                <span *ngIf="gainLoss.TENTANIUM.gainLoss === 1" class="pull-right gain">{{gainLoss.TENTANIUM.diff | number:'1.2'}}%</span>
+                <span *ngIf="gainLoss.TENTANIUM.gainLoss === 2" class="pull-right loss">{{gainLoss.TENTANIUM.diff | number:'1.2'}}%</span>
+                <span *ngIf="gainLoss.TENTANIUM.gainLoss === -1" class="pull-right">{{gainLoss.TENTANIUM.diff | number:'1.2'}}%</span>
+              </p>
+              <p class="amount text-center tentanium">{{tentanium | number:'1.0'}} <span>{{gainLoss.TENTANIUM.liveValue | number:'1.2-4'}}</span></p>
+            </article>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <article class="bg-white">
+              &nbsp;
+            </article>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        
+        <div class="transactions">
+          <h3>Transactions This Month</h3>
+          <div class="bg-gray">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <p class="text-center">Withdrawals: <span class="amount">&euro; 0</span></p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <p class="text-center">Deposites: <span class="amount">&euro; 0</span></p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <p class="text-center">Purchased: <span class="amount">&euro; {{productPurchase ? (productPurchase | number:'1.2') : 0}}</span></p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <div class="wallet">
+          <h3>Wallet</h3>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <article class="bg-white">
+              <p class="super">BKN</p>
+              <p class="amount text-center bkn">{{bknValue | number:'1.0'}}</p>
+            </article>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <article class="bg-white">
+              <p class="super">BV</p>
+              <p class="amount text-center">{{bvValue | number:'1.0'}}</p>
+            </article>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <article class="bg-white">
+              <p class="super">EURO</p>
+              <p class="amount text-center">0</p>
+            </article>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="aff-reff-vanguard-section">
+        <div class="affiliates" *ngIf="topAffiliateUsersMessage == ''">
+          <h3>New Affiliates</h3>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 full-wh" *ngFor="let aff of topAffiliateUsers; let i = index;">
+            <article class="bg-white border_bottom">
+              <div class="aff-img pull-left">
+                <img [src]="aff.image ? aff.image : 'assets/images/user-4.png'" width="100" />
+              </div>
+              <div class="other-info pull-left">
+                <div>
+                  <p class="full-width"><strong>{{aff.fname}} {{aff.lname}}</strong><span>{{aff.username}}</span></p> 
+                  <div class="clearfix"></div>
+                </div>
+                <div>
+                  <p class="sponsor pull-left"><span><strong>SPONSOR</strong></span>{{aff.sponsorusername}}</p>
+                  <p class="sponsor pull-right text-right"><span class="text-right"><strong>JOINED</strong></span>{{aff.created_at | timeAgo}}</p>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </article>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        
+        <div class="affiliates" *ngIf="topAffiliateUsersMessage != ''">
+          <h3>New Affiliates</h3>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 full-wmh">
+            <p class="message">{{topAffiliateUsersMessage}}</p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+
+        <div class="clearfix"></div>
+        <div class="referrel-links">
+          <h3>Referral Link</h3>
+          <div class="bg-gray">
+            <div class="text-center">
+              <span class="referral-link"><span class="referral-userlink">{{affiliateUrl}}{{username ? username : getProfile()}}</span></span>
+              <ul class="social-icons small-icon pull-right">
+                <li><a href="javascript:void(0);" class="facebook">&nbsp;</a></li>
+                <li><a href="javascript:void(0);" class="twitter">&nbsp;</a></li>
+                <li><a href="javascript:void(0);" class="googleplus">&nbsp;</a></li>
+              </ul>
+              <button class="btn pull-right" type="button" (click)="copyToClipboard($event)">{{copyButtonText}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="vangarud-special">
+          <div>
+            <h2 class="pull-left">Vanguard Coin Special Offer</h2>
+            <ul class="social-icons pull-right mt20">
+              <li><a href="javascript:void(0);" class="facebook">&nbsp;</a></li>
+              <li><a href="javascript:void(0);" class="twitter">&nbsp;</a></li>
+              <li><a href="javascript:void(0);" class="googleplus">&nbsp;</a></li>
+            </ul>
+            <a href="/#/products" type="button" class="btn btn-primary pull-right">Buy Now</a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dahsboard row news" *ngIf="!adminRole && !hideContent">
+  <div class="container">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="news-section">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+          <div class="content">
+            <div class="image-preview">
+              <p class="latest-news">Latest News</p>
+              <!-- <img src="assets/images/new-files/image-bitcoin.jpg" /> -->
+              <img [src]="mainCMSContent.cms_photo?mainCMSContent.cms_photo:'assets/images/new-files/image-bitcoin.jpg'" width="710" height="300" class="img-responsive">
+              <h2 class="heading">{{mainCMSContent.cms_heading}}</h2>
+            </div>
+            <div class="content-wrapper">
+              <div class="content-text large-text">
+                <div [innerHTML]="mainCMSContent.cms_content"></div>
+              </div>
+              <a href="javascript:void(0);" class="content-link">Read More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <div class="content">
+            <div class="image-preview">
+              <p class="latest-news gold-color">Need Help</p>
+              <img src="assets/images/new-files/image-tel.jpg" width="340" />
+            </div>
+            <div class="content-wrapper">
+              <div class="content-text">
+                <h2 class="heading">Feeling a little stuck? We're here to help!</h2>
+                Announced this week, Tokyo Metropolitan Government is working with Japanese think tank Nomura Research Institute (NRI) on the "Blockchain Business Camp Tokyo," the third iteration of a series of accelerator programs that have focused on emerging technologies
+              </div>
+              <a href="https://blockbuddy.zendesk.com/hc/en-us/requests/new" class="content-link" target="_blank">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="academy">
+        <h2>BlockBuddy Academy</h2>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let cms of cmsContent; let i = index;">
+          <h2>{{cms.cms_heading}}</h2>
+          <div class="content-wrapper">
+            <div class="content-text" [innerHTML]="cms.cms_content"></div>
+            <a href="javascript:void(0);" class="content-link">Read More</a>
+          </div>
+        </div>
+        <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <h2>Bitcoin and your journey into Crypto</h2>
+          <div class="content-wrapper">
+            <div class="content-text">
+              <p>If you are looking for a new way to promote your business that won't cost you more money, maybe printing is a widely use process in making printed materials that are used for advertising. Brochure, catalogs, flyers, banners, posters, and booklets are some of several examples of printed materials.</p>
+              <p>Nowadays, making printed materials have become fast, easy and simple.</p>
+            </div>
+            <a href="javascript:void(0);" class="content-link">Read More</a>
+          </div>
+        </div> -->
+        <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <h2>Building a successful affiliate network</h2>
+          <div class="content-wrapper">
+            <div class="content-text">
+              <p>If you are looking for a new way to promote your business that won't cost you more money, maybe printing is a widely use process in making printed materials that are used for advertising. Brochure, catalogs, flyers, banners, posters, and booklets are some of several examples of printed materials.</p>
+              <p>Nowadays, making printed materials have become fast, easy and simple.</p>
+            </div>
+            <a href="javascript:void(0);" class="content-link">Read More</a>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade profile-notification" bsModal #profileNotificationModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Complete Profile</h4>
+      </div>
+      <div class="modal-body">
+        <h2>Please complete your profile.</h2><br/>
+        <div>&nbsp;</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal();">Later</button>
+          <button type="button" class="btn btn-primary" (click)="goToProfile();">Now</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div> -->

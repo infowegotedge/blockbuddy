@@ -1,0 +1,11 @@
+{
+  "development": {
+    "uri": "mongodb://localhost/DATABASE_NAME"
+  },
+  "test": {
+    "uri": "mongodb://localhost/"
+  },
+  "production": {
+    "uri": "mongodb://user:pass@localhost:port/DATABASE_NAME"
+  }
+}

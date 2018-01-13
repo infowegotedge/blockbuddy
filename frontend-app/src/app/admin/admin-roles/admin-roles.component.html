@@ -1,0 +1,128 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Role Management Sections</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i> Home</a>
+      </li>
+      <li class="active">
+        <strong>Role Management</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form role="form" method="post" (ngSubmit)="findUser(username)" #sent="ngForm" class="form-inline">              
+          <div class="form-group">
+            <input type="text" name="username" [(ngModel)]="username" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Username" required />
+          </div>
+      
+          <div class="form-group">
+            <button class="btn btn-secondary btn-single">Search</button>
+          </div>
+        </form>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="searchUser.length > 0">
+            <tr *ngFor="let info of searchUser; let i = index;">
+              <td>{{info.username}}</td>
+              <td>{{info.email}}</td>
+              <td>{{info.fname}}</td>
+              <td>{{info.lname}}</td>
+              <td><button class="btn" (click)="manageRole(i)">Manage</button></td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="searchUser.length===0" >
+            <tr>
+              <td class="text-center" colspan="7"><strong>No Users Found</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade user-role-modal" bsModal #userRoleModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Role Management</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="form.valid && setRole(); form.valid && f.resetForm();" [formGroup]="form" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successMessage">             
+            <h4>{{successMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorMessage">             
+            <h4>{{errorMessage}}</h4>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || role.dirty) && !role.valid}">
+            <label for="role">Roles: </label>
+            <select name="role" class="form-control" id="role" formControlName="role">
+              <option value="">Select One</option>
+              <option value="admin">Admin</option>
+              <option value="moderator">Moderator</option>
+              <option value="supervisor">Supervisor</option>
+              <option value="user">Users</option>
+            </select>
+            <div *ngIf="(f.submitted || role.dirty) && !role.valid" class="help-block">Option is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || category.dirty) && !category.valid}">
+            <label for="category">Branch: </label>
+            <select name="category" class="form-control" id="category" formControlName="category">
+              <option value="">Select One</option>
+              <option value="all">All</option>
+              <option value="finance">Finance</option>
+              <option value="users">Users</option>
+              <option value="kyc">KYC</option>
+              <option value="payments">Payments</option>
+            </select>
+            <div *ngIf="(f.submitted || category.dirty) && !category.valid" class="help-block">Option is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || permission.dirty) && !permission.valid}">
+            <label for="permission">Menu Options: </label>
+            <select name="permission" class="form-control" id="permission" formControlName="permission" multiple>
+              <option value="users">Users</option>
+              <option value="payments">Payments</option>
+              <option value="withdrawal">Withdrawal</option>
+              <option value="cms">CMS</option>
+              <option value="mailbox">Mailbox</option>
+              <option value="trading">Trading</option>
+            </select>
+            <div *ngIf="(f.submitted || permission.dirty) && !permission.valid" class="help-block">Option is required</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <input type="hidden" formControlName="userId" name="userId" />
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

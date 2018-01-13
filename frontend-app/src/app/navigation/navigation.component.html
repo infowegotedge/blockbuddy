@@ -1,0 +1,77 @@
+<div class="sidebar-inner no-scroll" [ngClass]="{'user-sidebar': !adminRole}" *ngIf="adminRole">
+	<ul class="nav nav-sidebar">
+		<ng-template ngFor let-obj [ngForOf]="linkObject" [ngForTrackBy]="trackBy_objTrack">
+			<li *ngIf="(!obj.role || (obj.role && obj.role === roleObject))" id="main-{{obj.id}}" class="nav-parent" routerLinkActive="active">
+
+				<a *ngIf="obj.link !== '#'" routerLink="{{obj.link}}" aria-hidden="true">
+					<i class="{{obj.icon}}"></i> 
+					<span class="title">{{obj.name}}</span>
+				</a>
+
+				<a *ngIf="obj.link === '#'" aria-hidden="true">
+					<i class="{{obj.icon}}"></i>
+					<span class="title">{{obj.name}} 
+						<span *ngIf="obj.id === 'payments' && notifications.payments !== 0">( {{notifications.payments}} )</span>
+						<span *ngIf="obj.id === 'withdrawals' && notifications.withdrawals !== 0">( {{notifications.withdrawals}} )</span>
+					</span>
+				</a>
+
+				<ul class="children collapse" *ngIf="obj.child && obj.child.length > 0">
+					<li *ngFor="let obj1 of obj.child; let idx = index;" id="sub-{{obj1.link.substr(1, obj1.link.length)}}" routerLinkActive="active">
+						<a routerLink="{{obj1.link}}">
+							<span class="title">{{obj1.name}}
+								<span *ngIf="obj1.name === 'KYC' && notifications.kycCount !== 0">( {{notifications.kycCount}} )</span>
+								<span *ngIf="obj1.name === 'Users' && notifications.users !== 0">( {{notifications.users}} )</span>
+							</span>
+						</a>
+					</li>
+				</ul>
+
+			</li>
+		</ng-template>
+	</ul>
+</div>
+
+
+<div class="hidden-xs sidebar-inner pull-right" [ngClass]="{'user-sidebar no-scroll': !adminRole}" *ngIf="!adminRole">
+	<ul class="nav nav-sidebar">
+		<ng-template ngFor let-obj [ngForOf]="linkObject" [ngForTrackBy]="trackBy_objTrack">
+			<li *ngIf="(!obj.role || (obj.role && obj.role === roleObject))" id="main-{{obj.id}}" class="nav-parent" routerLinkActive="active">
+				<a *ngIf="!adminRole && obj.link !== '#'" routerLink="{{obj.link}}" aria-hidden="true">
+					<!-- <img [src]="obj.image" />  -->
+					<span>{{obj.name}}</span>
+				</a>
+
+				<a *ngIf="adminRole && obj.link !== '#'" routerLink="{{obj.link}}" aria-hidden="true">
+					<!-- <i class="{{obj.icon}}"></i>  -->
+					<span class="title">{{obj.name}}</span>
+				</a>
+
+				<a *ngIf="!adminRole && obj.link === '#'" aria-hidden="true">
+					<!-- <img [src]="obj.image" />  -->
+					<span>{{obj.name}}</span>
+				</a>
+
+				<a *ngIf="adminRole && obj.link === '#'" aria-hidden="true">
+					<!-- <i class="{{obj.icon}}"></i> -->
+					<span class="title">{{obj.name}}</span>
+				</a>
+
+				<ul class="children collapse" *ngIf="obj.child && obj.child.length > 0">
+					<li *ngFor="let obj1 of obj.child; let idx = index;" id="sub-{{obj1.link.substr(1, obj1.link.length)}}" routerLinkActive="active">
+						<a routerLink="{{obj1.link}}">
+							<span class="title">{{obj1.name}}</span>
+						</a>
+					</li>
+				</ul>
+
+			</li>
+		</ng-template>
+		<!-- <li>
+			<a href="https://blockbuddy.zendesk.com/hc/en-us/requests/new" target="_blank">
+				<img src="assets/images/icons/support.png" /> 
+				<span class="title">Support</span>
+			</a>
+		</li> -->
+	</ul>
+</div>

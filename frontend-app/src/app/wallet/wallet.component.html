@@ -1,0 +1,294 @@
+
+<div class="bg-top-row page-title">
+	<div class="container breadcrumb-env">
+		<ol class="breadcrumb bc-1">
+			<li>
+				<a href="/#/dashboard">Dashboard </a> &gt; Trade &gt;
+			</li>
+			<li class="active">
+				Wallet
+			</li>
+		</ol>
+	</div>
+</div>
+
+<div class="trade-row withdrawal row">
+	<!-- <app-topbar-nav></app-topbar-nav>
+	<app-my-statics></app-my-statics> -->
+	<div class="container">
+		<div class="panel">
+			<div class="panel-header panel-controls ui-sortable-handle">
+				<h3>My Wallet</h3>
+			</div>
+			<div class="panel-content latest-signup">
+				<div class="my-wallet">
+					<ul class="wallet">
+						<!-- <li class="col-md-2 col-sm-2 col-xs-12">
+							<div class="vanguard col-md-12">Vanguard Coin
+								<p>
+									<img src="assets/images/icons/image-vanguard.png" class="pull-left" />
+									<span>{{vanguard | number:'1.2'}}</span>
+								</p>
+							</div>
+						</li> -->
+						<li class="col-md-3 col-sm-3 col-xs-12">
+							<div class="bkn col-md-12">BKN
+								<p>
+									<img src="assets/images/icons/image-bkn.png" class="pull-left" />
+									<span>{{bknValue | number:'1.2'}}</span>
+								</p>
+							</div>
+						</li>
+						<li class="col-md-3 col-sm-3 col-xs-12">
+							<div class="tentanium col-md-12">Tentanium Coin
+								<p>
+									<img src="assets/images/icons/image-tantanium.png" class="pull-left" />
+									<span>{{tentanium | number:'1.2'}}</span>
+								</p>
+							</div>
+						</li>
+						<li class="col-md-3 col-sm-3 col-xs-12">
+							<div class="digitex col-md-12">Digitex Coin
+								<p>
+									<img src="assets/images/icons/image-digitex.png" class="pull-left" />
+									<span>{{digitex | number:'1.2'}}</span>
+								</p>
+							</div>
+						</li>
+						<li class="col-md-3 col-sm-3 col-xs-12">
+							<div class="total col-md-12">Business Volume
+								<p>
+									<img src="assets/images/icons/image-coin.png" class="pull-left" />
+									<span>{{bvValue | number:'1.2'}}</span>
+								</p>
+							</div>
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+					<div class="row buttons">
+						<button type="button" class="btn btn-primary full-width radius withdrawal-btn" (click)="showWithdrawalModal()">Withdrawal</button>
+						<button type="button" class="btn btn-warning full-width radius transfer-btn" (click)="showTransferModal()" >Transfer</button>
+					</div>
+					<div class="wallet-history">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+								<table cellspacing="0" class="table table-small-font table-bordered table-striped">
+									<thead>
+										<tr>
+											<th width="15%">Date</th>
+											<th data-priority="1">Description</th>
+											<th>Category</th>
+											<th data-priority="2" class="text-center" style="text-align:center !important;">Wallet ID</th>
+											<th data-priority="3" class="text-right" width="15%">Amount</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngIf="transactionMessage">
+											<td colspan="5" class="text-center"><strong>{{transactionMessage}}</strong></td>
+										</tr>
+										<tr *ngFor="let info of transactions">
+											<td width="15%">{{info.updatedAt | date:'dd-MM-y HH:mm'}}</td>
+											<td>{{info.note}}</td>
+											<td>{{info.type}} - {{info.subType}}</td>
+											<td class="text-center">{{info.traderWalletLedgerID}}</td>
+											<td class="text-right" width="15%">{{info.amount | number: '1.2-6'}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="col-md-6 pull-right text-right" *ngIf="totalTransactions > perPageItem">
+									<pagination [totalItems]="totalTransactions" [(ngModel)]="currentPage" [maxSize]="transactionsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getTransactions(currentPage)"></pagination>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>
+
+	<!-- <div class="col-sm-12">							
+		<div class="pull-left full-width">
+			<div class="col-md-6 col-sm-12 col-xs-12">
+				<strong class="num">{{btcInfo.btcAmount | number: '1.2-6'}} BTC</strong>
+				<span>BTC Wallet</span>
+			</div>
+
+			<div class="col-md-6 col-sm-12 col-xs-12">
+				<strong class="num">{{usdInfo.amount | currency:'USD':true:'1.2-2'}}</strong>
+				<span>EUR Wallet</span>
+			</div>
+			
+			<div class="col-md-6 mt20">
+				<button type="button" class="btn btn-primary full-width radius" (click)="showWithdrawalModal()">Withdrawal</button>
+			</div>
+
+			<div class="col-md-6 mt20">
+				<button type="button" class="btn btn-warning full-width radius" (click)="showTransferModal()" >Transfer</button>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="col-sm-12">
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3 class="panel-title">Transaction and Withdrawal History</h3>
+				<div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+					<table cellspacing="0" class="table table-small-font table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th data-priority="1">Description</th>
+								<th data-priority="3">Amount</th>
+								<th data-priority="1">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="transactionMessage">
+								<td colspan="4" class="text-center">{{transactionMessage}}</td>
+							</tr>
+							<tr *ngFor="let info of transactions">
+								<td>{{info.created_at}}</td>
+								<td>{{info.description}} <br />
+								<small>{{info.subDescription}}</small></td>
+								<td>{{info.amount | number: '1.2-6'}}</td>
+								<td>{{info.status}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="col-md-6 pull-right text-right" *ngIf="!transactionMessage">
+						<pagination [totalItems]="totalTransactions" [(ngModel)]="currentPage" [maxSize]="transactionsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getTransactions(currentPage)"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+<div class="modal fade" bsModal #withdrawalModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" *ngIf="withdrawalRequest !== 'Inactive'">
+				<div class="modal-header">
+					<button type="button" class="close" aria-label="Close" (click)="withdrawalModal.hide()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="modal-title">Withdrawal</h2>
+				</div>
+				<div class="modal-body">
+					<h3 class="text-center">Comming Soon...</h3>
+					<!-- <div class="text-danger" *ngIf="balanceError">{{balanceError}}</div>
+					<div class="text-danger" *ngIf="withdrawalError">{{withdrawalError}}</div>
+					<div class="alert alert-success" *ngIf="withdrawalSuccess">{{withdrawalSuccess}}</div>
+					<form  method="post" role="form" id="order" (ngSubmit)="withdrawal.form.valid && btcWithdrawal(withdrawal)" #withdrawal="ngForm" class="form-inline" novalidate>
+						<div class="form-group" [ngClass]="{'has-error': (withdrawal.submitted || amount.dirty) && !amount.valid}" *ngIf="!balanceError">
+								<input type="text" name="withdrawal_amount" class="form-control" [(ngModel)]="withdrawal.amount" placeholder="Enter Withdrawal Amount" #amount="ngModel" required />
+								<div *ngIf="(withdrawal.submitted || amount.dirty) && !amount.valid" class="help-block">Please enter amount to withdrawal</div>
+						</div>
+						<div>&nbsp;</div>
+						<div class="form-group" [ngClass]="{'has-error': (withdrawal.submitted || code.dirty) && !code.valid}" *ngIf="!balanceError && otpStatus">
+								<input type="number" min="0" name="authCode" class="form-control" [(ngModel)]="withdrawal.authCode" placeholder="Enter Authorization Code" #code="ngModel" required />
+								<div *ngIf="(withdrawal.submitted || code.dirty) && !code.valid" class="help-block">Please Enter Authorization Code</div>
+						</div>
+						<div>&nbsp;</div>      
+						<div class="modal-footer">
+								<button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal()">
+										Close
+								</button>
+								<button type="submit" class="btn btn-primary" *ngIf="!balanceError">
+										Submit
+								</button>
+						</div>
+					</form> -->
+				</div>
+			</div>
+	</div>
+</div>
+
+
+<div class="modal fade" bsModal #transferModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" *ngIf="withdrawalRequest !== 'Inactive'">
+				<div class="modal-header">
+					<button type="button" class="close" aria-label="Close" (click)="transferModal.hide()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="modal-title">Transfer</h2>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger" *ngIf="balanceError">{{balanceError}}</div>
+					<div class="alert alert-danger" *ngIf="transferError">{{transferError}}</div>
+					<div class="alert alert-success" *ngIf="transferSuccess">{{transferSuccess}}</div>
+					<form  method="post" role="form" id="order" (ngSubmit)="transfer.form.valid && transferUserVerify(transfer)" #transfer="ngForm" class="form-inline" novalidate>
+						<div class="form-group" [ngClass]="{'has-error': (transfer.submitted || mef.dirty) && !mef.valid}" *ngIf="!balanceError">
+							<label for="transfer_form" class="w110">Transfer Form</label>
+							<select id="transfer_form" name="transfer_form" class="form-control w445" [(ngModel)]="transfer.product" #mef="ngModel" required>
+								<option value="">Select An Options</option>
+								<option *ngFor="let p of companiesShares; let i = index " value="{{p.companyCode}}">{{p.companyName}}</option>
+								<!-- <option *ngFor="let p of traderWallet; let i = index " value="{{p.currencyCode}}">{{p.currencyName}}</option> -->
+								<!-- <option value="WALLET">From Wallet</option> -->
+							</select>
+							<div *ngIf="(transfer.submitted || mef.dirty) && !mef.valid" class="help-block">Transfer Form is required.</div>
+						</div>
+						<div>&nbsp;</div>
+						<div class="form-group" [ngClass]="{'has-error': (transfer.submitted || user.dirty) && !user.valid}" *ngIf="!balanceError">
+							<label for="user_id" class="w110">User ID</label>
+							<input type="text" id="user_id" name="user_id" class="form-control w445" [(ngModel)]="transfer.userId" placeholder="Enter User ID" #user="ngModel" required />
+							<div *ngIf="(transfer.submitted || user.dirty) && !user.valid" class="help-block">User ID is required.</div>
+						</div>
+						<div>&nbsp;</div>
+						<div class="form-group" [ngClass]="{'has-error': (transfer.submitted || trans.dirty) && !trans.valid}" *ngIf="!balanceError">
+							<label for="transfer_amount" class="w110">Transfer Amount</label>
+							<input type="text" id="transfer_amount" name="transfer_amount" class="form-control w445" [(ngModel)]="transfer.amount" placeholder="Enter Transfer Amount" #trans="ngModel" required />
+							<div *ngIf="(transfer.submitted || trans.dirty) && !trans.valid" class="help-block">Please enter amount to transfer.</div>
+						</div>
+						<div>&nbsp;</div>
+						<div class="form-group" [ngClass]="{'has-error': (transfer.submitted || auth.dirty) && !auth.valid}" *ngIf="!balanceError && otpStatus">
+							<input type="number" min="0" name="authCode" class="form-control w445" [(ngModel)]="transfer.authCode" placeholder="Enter Authorization Code" #auth="ngModel" required />
+							<div *ngIf="(transfer.submitted || auth.dirty) && !auth.valid" class="help-block">Validation Failed, Plese Reopen this window and try again.</div>
+						</div>
+						<div>&nbsp;</div>  
+						<div class="modal-footer" *ngIf="!transferIsBegan">
+							<button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal()">Close</button>
+							<button type="submit" class="btn btn-primary" *ngIf="!balanceError">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+	</div>
+</div>
+
+
+<div class="modal fade" bsModal #transferSureModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" *ngIf="withdrawalRequest !== 'Inactive'">
+				<div class="modal-header">
+					<button type="button" class="close" aria-label="Close" (click)="transferModal.hide()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="modal-title">Transfer</h2>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger" *ngIf="balanceError">{{balanceError}}</div>
+					<div class="alert alert-danger" *ngIf="transferError">{{transferError}}</div>
+					<div class="alert alert-success" *ngIf="transferSuccess">{{transferSuccess}}</div>
+					<p>Are you sure you want to transfer Shares / Coins to: </p>
+					<p><strong>Name:</strong> {{veifyUser.fname}} {{veifyUser.lname}}</p>
+					<p><strong>Email:</strong> {{veifyUser.email}}</p>
+					<p><strong>Amount:</strong> {{veifyUser.amount}}</p>
+					<div class="modal-footer" *ngIf="!transferIsBegan">
+						<button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal()">Close</button>
+						<button type="submit" class="btn btn-primary" *ngIf="!balanceError" (click)="btcTransfer(transfer)">Submit</button>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>

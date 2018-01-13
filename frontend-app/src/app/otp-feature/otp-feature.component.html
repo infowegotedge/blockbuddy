@@ -1,0 +1,148 @@
+
+    <div class="page-title">
+      <div class="title-env">
+        <h1 class="title">Manage 2FA</h1>
+      </div>
+      <div class="breadcrumb-env">
+        <ol class="breadcrumb bc-1">
+          <li>
+            <a href="/dashboard"><i class="fa-home"></i>Home</a>
+          </li>
+          <li class="active">
+            <strong>Two Factor Authentication</strong>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          
+          <div class="panel-body">
+            <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+               <table class="table table-bordered table-model-2 table-hover">
+                  <thead>
+                     <tr>
+                        <th>Two Factor Auth Status</th>
+                        <th>Action</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr>
+                         <td><span class="big label" [ngClass]="otpStatus?'label-success':'label-danger'">{{otpStatus?'Enabled':'Disabled'}}</span></td>
+                         <td> <button class="btn" [ngClass]="otpStatus?'btn-danger':'btn-success'" (click)="changeOTPStatus(otpStatus)">{{otpStatus?'Disable':'Enable'}}</button> </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+
+            <div class="col-md-8 alert alert-success" *ngIf="otpSuccess"><h4>{{otpSuccess}}</h4></div><br />
+            <!--<form method="post" role="form" id="profile" class="login-form fade-in-effect" (ngSubmit)="f.form.valid && manageOtp(auth);" #f="ngForm" novalidate *ngIf="showQrCode===false && displayAuthSection">
+	  
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group" [ngClass]="{'has-error': (f.submitted || auth_type.dirty) && !auth_type.valid}">
+                        <select class="form-control" name="auth_type" id="auth-type" autocomplete="off" [(ngModel)]="auth.type" #auth_type="ngModel" (change)="getAuthType(auth.type)" required>
+                          <option value="">Select Auth</option>
+                          <option value="authy">Authy</option>
+                          <option value="google">Google Authenticator</option>
+                        </select>
+                        <div *ngIf="(f.submitted || auth_type.dirty) && !auth_type.valid" class="help-block">Authentication is required</div>                   
+                      </div>
+                    </div>
+                    <div *ngIf="hideCountry">
+                      <div class="col-md-8">
+                        <div class="form-group" [ngClass]="{'has-error': (f.submitted || country.dirty) && !country.valid}">
+                          <select class="form-control" name="country" id="country" autocomplete="off" [(ngModel)]="auth.countryCode" #country="ngModel" required >
+                            <option value="">Select Country</option>
+                            <option *ngFor="let c of countries" [ngValue]="c.dial_code">{{c.name}}</option>
+                          </select>
+                          <div *ngIf="(f.submitted || country.dirty) && !country.valid" class="help-block">Country is required</div>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="form-group" [ngClass]="{'has-error': (f.submitted || mobile.dirty) && !mobile.valid}">
+                          <input type="number" min="0" class="form-control" name="mobile" id="mobile" autocomplete="off" [(ngModel)]="auth.mobile" #mobile="ngModel" placeholder="Mobile" required />
+                          <div *ngIf="(f.submitted || mobile.dirty) && !mobile.valid" class="help-block">Mobile is required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div>&nbsp;</div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block text-center">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+      
+            </form>-->
+            <div *ngIf="showQrCode">
+              <div *ngIf="otpError" class="col-md-6 alert alert-danger"><h4>{{otpError}}</h4></div>
+              <div class="row">
+                <div class="col-md-12">
+                  <img [src]="auth.qrCode" />
+                </div>
+              </div>
+              
+              <div>&nbsp;</div>
+              <form method="post" role="form" class="login-form fade-in-effect" (ngSubmit)="form.valid && verifyOtp()" [formGroup]="form" #verifyCode="ngForm" novalidate>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group" [ngClass]="{'has-error': (verifyCode.submitted || token.dirty) && !token.valid}">
+                      <input type="number" name="authCode" formControlName="token" class="form-control" id="auth-code" autocomplete="off" placeholder="Enter Auth Code" />
+                      <div *ngIf="(verifyCode.submitted || token.dirty) && !token.valid" class="help-block">Authentication is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block text-center">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div *ngIf="disableSection">
+              <div *ngIf="otpError" class="col-md-8 alert alert-danger"><h4>{{otpError}}</h4></div>
+              
+              <div>&nbsp;</div>
+              <form method="post" role="form" class="login-form fade-in-effect" (ngSubmit)="form.valid && disableOTP(auth)" [formGroup]="form" #d="ngForm" novalidate>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group" [ngClass]="{'has-error': (d.submitted || token.dirty) && !token.valid}">
+                      <input type="number" name="authCode" formControlName="token" class="form-control" id="auth-code" autocomplete="off" placeholder="Enter Auth Code"/>
+                      <div *ngIf="(d.submitted || token.dirty) && !token.valid" class="help-block">Authentication is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block text-center">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>

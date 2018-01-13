@@ -1,0 +1,180 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Commission</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i> Dashboard / </a>
+      </li>
+      <li class="active">
+        <strong>Commission</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="pull-right">
+          <button class="btn btn-primary" (click)="commissionCreate()">Commission Create</button>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Commission Type</th>
+              <th class="text-center">Commission Level</th>
+              <th class="text-right">Commission Fee</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="commission.length>0" >
+            <tr *ngFor="let info of commission; let i = index;">
+              <td>{{info.created_at | date:'medium'}}</td>
+              <td>{{info.commission_type}}</td>
+              <td class="text-center">{{info.level_number}}</td>
+              <td class="text-right">{{info.commission | number:'1.2'}}</td>
+              <td class="text-center">
+                <button class="btn btn-warning btn-icon" (click)="commissionEdit(info._id)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </button>
+                <button class="btn btn-danger btn-icon" mwlConfirmationPopover [title]="title" [message]="message" placement="left" (confirm)="deleteCommission(info._id)" (cancel)="cancelClicked = true"> 
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="commission.length===0" >
+            <tr>
+              <td class="text-center" colspan="7"><strong>No Commission Fee Found</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="commission.length>0" class="col-md-6 pull-right text-right">
+          <pagination [totalItems]="totalCommission" [(ngModel)]="currentPage" [maxSize]="commissionMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getCommission(currentPage)"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #commissionCreateModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="commissionCreateModal.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Create Commission</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="commissionForm.valid && createCommission(); commissionForm.valid && f.resetForm();" [formGroup]="commissionForm" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="createSuccess">
+            <button type="button" class="close" data-dismiss="alert"></button>              
+            <h4>{{createSuccess}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="createError">
+            <button type="button" class="close" data-dismiss="alert"></button>              
+            <h4>{{createError}}</h4>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || commissionType.dirty) && !commissionType.valid}">
+            <label class="label-block" for="commissionType">Commission Type</label>
+            <select name="commissionType" id="commissionType" class="form-control" formControlName="commissionType">
+              <option value="">Select Type</option>
+              <option value="FIXED">Fixed</option>
+              <option value="PERCENTAGE">Percentage %</option>
+            </select>
+            <div *ngIf="(f.submitted || commissionType.dirty) && !commissionType.valid" class="help-block">Commission type is required</div>
+          </div>
+
+          <div class="form-inline">
+            <div class="form-group" [ngClass]="{'has-error': (f.submitted || numberCommission.dirty) && !numberCommission.valid}">
+              <label class="label-block" for="numberCommission">Level Number</label>
+              <input type="text" name="numberCommission" id="numberCommission" class="form-control" formControlName="numberCommission" placeholder="Level Number" />
+              <div *ngIf="(f.submitted || numberCommission.dirty) && !numberCommission.valid" class="help-block">Level number is required</div>
+            </div>
+            
+            <div class="form-group pull-right" [ngClass]="{'has-error': (f.submitted || commissionPercent.dirty) && !commissionPercent.valid}">
+              <label class="label-block" for="commissionPercent">Commission</label>
+              <input type="text" name="commissionPercent" id="commissionPercent" class="form-control" formControlName="commissionPercent" placeholder="Commission %" />
+              <!-- <div *ngIf="(f.submitted || commissionPercent.dirty) && !commissionPercent.valid" class="help-block">Commission percent is required</div> -->
+              <div *ngIf="(commissionPercent.dirty || f.submitted) && commissionPercent.errors" class="help-block">
+                <div [hidden]="!commissionPercent.errors.required">
+                  Commission percent is required
+                </div>
+                <div [hidden]="!commissionPercent.errors.maxlength">
+                  Commission percent is 4 digit long
+                </div>
+                <div [hidden]="commissionPercent.errors.maxlength || commissionPercent.errors.required">
+                  Password must be digit.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="commissionCreateModal.hide(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Create Commission</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #commissionModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="commissionModal.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Edit Commission</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="commissionForm.valid && updateCommission(); commissionForm.valid && f.resetForm();" [formGroup]="commissionForm" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="updateSuccess">
+            <button type="button" class="close" data-dismiss="alert"></button>              
+            <h4>{{updateSuccess}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="updateError">
+            <button type="button" class="close" data-dismiss="alert"></button>              
+            <h4>{{updateError}}</h4>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || commissionType.dirty) && !commissionType.valid}">
+            <label class="label-block" for="commissionType">Commission Type</label>
+            <select name="commissionType" id="commissionType" class="form-control" formControlName="commissionType">
+              <option value="">Select Type</option>
+              <option value="FIXED">Fixed</option>
+              <option value="PERCENTAGE">Percentage %</option>
+            </select>
+            <div *ngIf="(f.submitted || commissionType.dirty) && !commissionType.valid" class="help-block">Commission type is required</div>
+          </div>
+
+          <div class="form-inline">
+            <div class="form-group" [ngClass]="{'has-error': (f.submitted || numberCommission.dirty) && !numberCommission.valid}">
+              <label class="label-block" for="numberCommission">Level Number</label>
+              <input type="text" name="numberCommission" id="numberCommission" class="form-control" formControlName="numberCommission" placeholder="Level Number" readonly />
+              <div *ngIf="(f.submitted || numberCommission.dirty) && !numberCommission.valid" class="help-block">Level number is required</div>
+            </div>
+            
+            <div class="form-group pull-right" [ngClass]="{'has-error': (f.submitted || commissionPercent.dirty) && !commissionPercent.valid}">
+              <label class="label-block" for="commissionPercent">Commission</label>
+              <input type="text" name="commissionPercent" id="commissionPercent" class="form-control" formControlName="commissionPercent" placeholder="Commission %" />
+              <div *ngIf="(f.submitted || commissionPercent.dirty) && !commissionPercent.valid" class="help-block">Commission percent is required</div>
+            </div>
+          </div>
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="commissionModal.hide(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

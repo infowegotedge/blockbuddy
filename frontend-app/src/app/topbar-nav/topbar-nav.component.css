@@ -1,0 +1,34 @@
+#dashbarod-nav .navbar-nav li.active {
+  color: #fff;
+  background: #45A4E8 !important;
+}
+
+#dashbarod-nav .navbar-nav li.active > a {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+@media screen and (max-width: 786px) {
+  .dashboard-nav .navbar-inverse {
+    height: 250px !important;
+  }
+
+  #dashbarod-nav .nav.navbar-nav {
+    margin-left: 0px !important;
+  }
+
+  #dashbarod-nav .nav.navbar-nav > li {
+    display: block !important;
+    float: none !important;
+    clear: both !important;
+    width: 100% !important;
+  }
+
+  #dashbarod-nav .nav.navbar-nav > li + li {
+    border-top: 1px solid #ccc;
+  }
+
+  .dashboard-nav .navbar-inverse .navbar-nav > li + li > a {
+    border-left: 0px !important;
+  }
+}

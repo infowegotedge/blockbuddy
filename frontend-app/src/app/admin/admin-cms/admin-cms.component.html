@@ -1,0 +1,129 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">CMS Management</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i>Dashboard / </a>
+      </li>
+      <li class="active">
+        <strong>List CMS Content</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <!-- <form role="form" method="post" (ngSubmit)="getUsersList(null)" #sent="ngForm" class="form-inline">              
+          <div class="form-group">
+            <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Username" required />
+          </div>
+      
+          <div class="form-group">
+            <button class="btn btn-secondary btn-single">Search</button>
+          </div>
+        </form> -->
+        <button class="btn btn-primary pull-right" (click)="createCMSPopup('')">Create CMS Content</button>
+        <div class="clearfix">&nbsp;</div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>CMS Heading</th>
+              <th>CMS Slug</th>
+              <th>Active</th>
+              <th>Enable</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="cms.length > 0" >
+            <tr *ngFor="let info of cms; let i = index;">
+              <td>{{info.created_at | date:'medium'}}</td>
+              <td>{{info.cms_heading}}</td>
+              <td>{{info.cms_slug}}</td>
+              <td>{{info.active ? 'True' : 'False'}}</td>
+              <td>{{info.enable_disable ? 'True' : 'False'}}</td>
+              <td>
+                <button class="btn btn-warning btn-icon" (click)="getCMSContentById(info._id)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </button>
+
+                <button *ngIf="info.enable_disable" class="btn btn-info btn-icon" mwlConfirmationPopover [title]="deTitle" [message]="deMessage" placement="left" (confirm)="getDeActivated(info._id)" (cancel)="cancelClicked = true">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+
+                <button *ngIf="info.enable_disable" class="btn btn-default btn-icon" mwlConfirmationPopover [title]="title" [message]="message" placement="left" (confirm)="deleteCMSContent(info._id)" (cancel)="cancelClicked = true"> 
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="cms.length===0" >
+            <tr>
+              <td class="text-center" colspan="6"><strong>No CMS Content Found</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="col-md-6 pull-right text-right">
+          <pagination [totalItems]="totalCMSContent" [(ngModel)]="currentPage" [maxSize]="cmsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getCMSList(currentPage)"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade create-cms-modal" bsModal #createCMSModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">CMS Content {{contentHeading}}</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="form.valid && saveCMSContent(); form.valid && f.resetForm();" [formGroup]="form" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successMessage">             
+            <h4>{{successMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorMessage">             
+            <h4>{{errorMessage}}</h4>
+          </div>
+          
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || cmsHeading.dirty) && !cmsHeading.valid}">
+            <label for="role">CMS Heading: </label>
+            <input type="text" name="cmsHeading" class="form-control" id="cmsHeading" formControlName="cmsHeading" />
+            <div *ngIf="(f.submitted || cmsHeading.dirty) && !cmsHeading.valid" class="help-block">CMS heading is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || cmsPhoto.dirty) && !cmsPhoto.valid}">
+            <file-uploader [maxSizeInKb]="2048" [allowMultiple]="false" [fileType]="'image/*'" (onSelection)="fileChange($event, 'cmsPhoto')" [required]="true"></file-uploader>
+            <p style="color:red;">Please upload only .JPG and .PNG file, and not more than 2MB</p>
+            <div id="loader-section" *ngIf="showLoader">
+              <img src="assets/images/ajax_loader.gif" class="custom-loader"/>
+            </div>
+            <img [src]="cmsPhotoString?cmsPhotoString:''" class="img-responsive" />
+            <div *ngIf="(f.submitted || cmsPhoto.dirty) && !cmsPhoto.valid" class="help-block text-center">Please select the Photo.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="cmsContent">CMS Content: </label>
+            <textarea id="{{elementId}}" name="description"></textarea>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

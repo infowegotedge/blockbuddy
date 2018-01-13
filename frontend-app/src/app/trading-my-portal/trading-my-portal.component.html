@@ -1,0 +1,27 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt; Trade &gt;
+      </li>
+      <li class="active">
+        Exchange
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="trade-row row">
+  
+  <div class="container" *ngIf="showGraphs">
+    <div class="col-md-6 col-sm-12 col-xs-12 {{company.companyCode.toLowerCase()}}" *ngFor="let company of companies; let i = index;">
+      <app-trade-graph [idIndex]="i" [company]="company" [showExtraField]="showExtraField"></app-trade-graph>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="!showGraphs">
+    <p>Please Wait...</p>
+  </div>
+
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>

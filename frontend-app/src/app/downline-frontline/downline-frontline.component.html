@@ -1,0 +1,59 @@
+<div class="page-title">
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><img src="assets/images/icons/home.png" height="16" /> Dashboard / </a>
+      </li>
+      <li class="active">
+        <strong>My Team</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <app-topbar-nav></app-topbar-nav>
+  <app-my-statics></app-my-statics>
+ 
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-header panel-controls ui-sortable-handle">
+        <h2>My Downline</h2>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+          <table class="table table table-small-font table-bordered table-striped table-model-2 table-hover">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>First & Last Name</th>
+                <th>Affiliate ID</th>
+                <th>Email</th>
+                <th>Joined On</th>
+                <th class="text-center">Team Members</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!myDirectsMessages">
+              <tr *ngFor="let direct of myDirects; let i = index;">
+                <td>{{(directsPerPage * (directsCurrentPage - 1)) + (i+1)}}</td>
+                <td class="text-capitalize">{{direct.name}}</td>
+                <td>{{direct.userid}}</td>
+                <td>{{direct.email}}</td>
+                <td>{{direct.create_at | date:'dd-MM-y HH:mm'}}</td>
+                <td class="text-center">{{direct.totalMembers}}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="myDirectsMessages">
+              <tr>
+                <td colspan="6" class="text-center"><strong>{{myDirectsMessages}}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-md-6 pull-right text-right" *ngIf="totalDirects > perPageItem">
+            <pagination [totalItems]="totalDirects" [(ngModel)]="directsCurrentPage" [maxSize]="totalDirectsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getMyDirects(directsCurrentPage)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

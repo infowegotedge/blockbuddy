@@ -1,0 +1,113 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt; 
+      </li>
+      <li class="active">
+        Protfolio
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="trade-row row">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-header title">
+          <h3 class="blue-color">My Portfolio</h3>
+        </div>
+        <div class="panel-body">
+          <!-- <h4 class="text-center"><strong>Purchased Shares / Coins</strong></h4> -->
+          <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chart-data" *ngIf="!productsMessage">
+            <div id="pie-chart" [style.width.%]="100" [style.height.px]="height?height:300"></div>
+          </div> -->
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chart-data" *ngIf="productsMessage">
+            <p class="text-center">{{productsMessage}}</p>
+          </div>
+          <p>Keep track of your coins / shares</p>
+          <div class="protfolio-table table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="20%">Company Name</th>
+                  <th width="10%" class="text-right">Holding</th>
+                  <th width="10%" class="text-right">Price</th>
+                  <th width="10%" class="text-right">Current<br/>Price</th>
+                  <!-- <th width="10%" class="text-right">Change<br/>Today</th>
+                  <th width="10%" class="text-right">Change<br/>Today(%)</th>
+                  <th width="10%" class="text-right">AVG.<br/>Value</th> -->
+                  <th width="10%" class="text-right">P/L</th>
+                  <th width="10%" class="text-right">Change (%)</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="!noCompanyMessage">
+                <tr *ngFor="let info of companies; let i = index;">
+                  <td>
+                    <a href="/#/trade/portal/{{info.companyCode.toLowerCase()}}">
+                      <strong>{{info.companyName}}</strong>
+                    </a>
+                  </td>
+                  <td class="text-right amount">
+                    {{shares[info.companyCode].totalShares ? (shares[info.companyCode].totalShares | number:'1.2-4') : 0}}
+                  </td>
+                  <td class="text-right amount">
+                    {{blendedProfile[info.companyCode] ? (blendedProfile[info.companyCode] | number:'1.2-4') : 0}}
+                  </td>
+                  <td class="text-right amount">
+                    {{shares[info.companyCode].liveData ? (shares[info.companyCode].liveData | number:'1.2-4') : 0}}
+                  </td>
+                  <!-- <td class="text-right amount">
+                    {{(shares[info.companyCode].liveData - blendedProfile[info.companyCode]) | number:'1.2-4'}}
+                    {{shares[info.companyCode].profitLoss ? (shares[info.companyCode].profitLoss | number:'1.2-4') : 0}}
+                  </td>
+                  <td class="text-right amount">
+                    <span *ngIf="(shares[info.companyCode].gainLoss === 1)" [ngClass]="{'gain': (shares[info.companyCode].gainLoss === 1)}">
+                      {{shares[info.companyCode].diffData | number:'1.2'}}%
+                    </span>
+                    <span *ngIf="(shares[info.companyCode].gainLoss === 2)" [ngClass]="{'loss': (shares[info.companyCode].gainLoss === 2)}">
+                      {{shares[info.companyCode].diffData | number:'1.2'}}%
+                    </span>
+                    <span *ngIf="(shares[info.companyCode].gainLoss === -1)" [ngClass]="{'': (shares[info.companyCode].gainLoss === -1)}">
+                      {{shares[info.companyCode].diffData | number:'1.2'}}%
+                    </span>
+                    <span *ngIf="!shares[info.companyCode].gainLoss">0</span>
+                  </td>
+                  <td class="text-right amount">
+                    {{(shares[info.companyCode].stats && shares[info.companyCode].stats.average) ? (shares[info.companyCode].stats.average | number:'1.2-4') : 0}}
+                  </td> -->
+                  <td class="text-right amount">
+                    {{((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) | number:'1.2-4'}}
+                    <!-- {{(shares[info.companyCode].stats && shares[info.companyCode].stats.minimum) ? (shares[info.companyCode].stats.minimum | number:'1.2-4') : 0}} -->
+                  </td>
+                  <td class="text-right amount">
+                    <span *ngIf="((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) > 0" [ngClass]="{'gain': ( ((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) > 0 )}">
+                      {{( (((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) * 100) / (shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 1)) | number:'1.2'}}
+                    </span>
+                    <span *ngIf="((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) < 0" [ngClass]="{'loss': ( ((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) < 0 )}">
+                      {{( (((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) * 100) / (shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 1)) | number:'1.2'}}
+                    </span>
+                    <span *ngIf="((shares[info.companyCode].liveData ? shares[info.companyCode].liveData : 0) - (blendedProfile[info.companyCode] ? blendedProfile[info.companyCode] : 0)) == 0">0</span>
+                    
+                    <!-- {{(shares[info.companyCode].stats && shares[info.companyCode].stats.maximum) ? (shares[info.companyCode].stats.maximum | number:'1.2-4') : 0}} -->
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="noCompanyMessage" >
+                <tr>
+                  <td class="text-center" colspan="8"><strong>{{noCompanyMessage}}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="totalCompanies > perPageItem" class="col-md-6 pull-right text-right">
+            <pagination [totalItems]="totalCompanies" [(ngModel)]="currentPage" [maxSize]="sharesMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getCompanies(currentPage)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>

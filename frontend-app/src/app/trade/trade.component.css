@@ -1,0 +1,153 @@
+.bg-top-row {
+  margin: -25px -25px 0 -25px;
+  background: url('../../assets/images/new-files/header-bg.png') no-repeat scroll 0 -82px transparent;
+  padding: 25px 50px 75px;
+  background-size: cover; 
+}
+
+.breadcrumb.bc-1 { padding-left: 12px; }
+
+.breadcrumb.bc-1 .active,
+.breadcrumb.bc-1 li > a,
+.breadcrumb.bc-1 li {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Content Settings */
+.trade-row {
+  margin-top: -75px;
+}
+
+.trade-row > .container > div { padding-right: 0px; }
+
+/* Extra Footer */
+.footer-row {
+  margin: 0px -25px;
+  height: 40px;
+  background: #fff;
+}
+
+#company {
+  background: #fff;
+  border: 0;
+  font-size: 20px;
+}
+
+#company:hover {
+  outline: 0px !important;
+  -webkit-appearance: menulist-button !important;
+}
+
+#trader-me { padding-top: 20px; }
+#trader-me label { 
+  width: 25%; 
+  margin-bottom: 0px; 
+  vertical-align: bottom; 
+  padding-bottom: 8px;
+  border-bottom: 1px solid #292929;
+}
+#trader-me input,
+#trader-me label + label { 
+  width: 73.3%; 
+  background: #fff;
+  border: 0px;
+  border-bottom: 1px solid #292929;
+  margin-left: -4px;
+}
+#trader-me .btn.btn-secondary.btn-primary { margin-top: 20px; }
+
+/* Page CSS */
+.trade-row .container > p {
+  width: 100%;
+  height: 150px;
+  line-height: 75px;
+  background: #fff;
+  text-align: center;
+  color: #292929;
+  font-size: 20px;
+}
+.trade-row .panel-header { 
+  border-bottom: 1px solid #ccc; 
+  padding: 0px 15px;
+}
+.trade-row .panel-header > div {
+  border-right: 1px solid #ccc;
+  line-height: 65px;
+}
+.trade-row .panel-header > div.last,
+.trade-row .panel-header > div.last + div {
+  border-right: 0px;
+  padding-right: 0px;
+}
+
+.trade-row .panel-header p.blue-color,
+.trade-row .panel-header p.pull-right.text-right,
+.trade-row .panel-header p.pull-right.text-right > span {
+  line-height: 65px;
+  margin: 0;
+  font-size: 22px;
+}
+
+.trade-row .panel-header p.pull-right.text-right,
+.trade-row .panel-header p.pull-right.text-right > span {
+  font-size: 28px;
+}
+.trade-row .panel-header p.pull-right.text-right > span + span {
+  margin-left: 15px;
+}
+.trade-row .panel-header p.amount-col {
+  margin: 10px 0 10px;
+  font-size: 16px;
+}
+.trade-row .panel-header p.amount-col.first { font-weight: 500; }
+.trade-row .panel-header p.amount-col > span {
+  width: 50%;
+  display: inline-block;
+}
+
+.main-graph {
+  margin-top: -15px;
+  border-right: 1px solid #ccc; 
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.table-view-wrapper {
+  border-top: 1px solid #ccc;
+  margin: 0px -15px;
+}
+
+.table-view-wrapper > div.table-view {
+  border-right: 1px solid #ccc;
+  min-height: 400px;
+}
+
+.table-view-wrapper > div.table-view + div.table-view {
+  border-right: 0px;
+}
+
+.table-view-wrapper > div.table-view > h3 {
+  margin: 0px -15px 20px;
+  font-size: 22px;
+  line-height: 68px;
+  font-weight: 500;
+  border-bottom: 1px solid #ccc;
+  padding: 0px 20px;
+}
+
+.main-graph p button.btn {
+  padding: 0px 5px;
+  border-radius: 0px;
+  background: #fff;
+  color: #45A4E8;
+  font-size: 12px;
+  margin: 0px 3px 0px 0px;
+  border: 1px solid #45A4E8;
+  height: 28px !important;
+}
+.main-graph p button.btn.active {
+  background: #45A4E8;
+  color: #fff;
+}

@@ -1,0 +1,197 @@
+.my-statics {
+  margin-bottom: 25px;
+}
+
+.my-statics .panel-header h3 {
+  font-size: 22px;
+  text-transform: none;
+  width: 130px;
+  float: left;
+}
+
+.my-statics .panel-header {
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0px 1px 0px rgba(167, 187, 224, 0.5);
+}
+
+.my-stats {
+  background: #fff;
+  padding: 5px 0px 15px
+}
+
+.stats>li>img {
+  height: 38px;
+  margin-bottom: -6px;
+}
+
+.stats {
+  padding: 0;
+  margin-top: 0px !important;
+}
+
+.stats>li>p {
+  border-top: 1px solid #fff;
+  margin: 20px;
+  padding-top: 6px;
+  font-size: 35px;
+  color: #fff;
+  border-bottom: none;
+}
+
+.stats>li {
+  display: inline-block;
+  text-align: center;
+}
+
+.signup img,
+.affiliate img,
+.amount img,
+.commission img,
+.trade img,
+.earning img {
+  margin-bottom: 10px;
+}
+
+.signup p,
+.affiliate p,
+.amount p,
+.commission p,
+.trade p,
+.earning p {
+  text-align: center;
+  font-size: 35px;
+  color: #fff;
+  line-height: 70px;
+  margin: 10px 0 0;
+  border-top: 1px solid #fff;
+}
+
+.signup {
+  background: #ff5255;
+  padding: 25px;
+  text-align: center;
+}
+
+.affiliate {
+  background: #4ecbfc;
+  padding: 25px;
+  text-align: center;
+}
+
+.amount {
+  background: #ffd045;
+  padding: 25px;
+  text-align: center;
+}
+
+.commission {
+  background: #20d276;
+  padding: 25px;
+  text-align: center;
+}
+
+.trade {
+  background: #ff8e2b;
+  padding: 25px;
+  text-align: center;
+}
+
+.earning {
+  background: #16c8d2;
+  padding: 25px;
+  text-align: center;
+}
+
+ul li{
+  display: inline-block;
+  position: relative;
+  line-height: 21px;
+  text-align: center;
+}
+
+ul li ul.dropdown{
+  background: rgba(41, 43, 44, 0.9);
+  display: none;
+  z-index: 999;
+  left: 0;
+  color: #ffffff;
+  width: 100%;
+  height: 51px;
+  position: absolute;
+  padding-left: 0px !important;
+  margin-top: -25px;
+}
+ul li:hover ul.dropdown{
+  display: block;	
+}
+ul li ul.dropdown li{
+  display: block;
+  padding: 10px;
+  line-height: 31px;
+  font-size: 20px;
+}
+
+.control-btn {
+  margin-right: 80px;
+  background: #dfdfdf;
+  margin-top: -8px;
+  font-size: 16px;
+  padding-left: 10px;
+  line-height: 50px;
+}
+
+.control-btn button.btn { margin-bottom: 0; }
+
+.control-btn + .control-btn {
+  margin-right: 0px;
+  background: #fff;
+  line-height: 42px;
+}
+
+.control-btn + .control-btn .panel-popout {
+  font-size: 12px;
+  position: relative;
+  top: -4px;
+}
+
+.control-btn + .control-btn .panel-popin {
+  font-size: 12px;
+  position: relative;
+  top: 0px;
+}
+
+.control-btn + .control-btn .panel-close {
+  font-size: 18px;
+}
+
+.referral-link-warrper {
+  background: #eee;
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.referral-link-warrper button.btn {
+  position: relative;
+  top: 5px;
+}
+
+.min-max-close-button {
+  margin-left: 20px;
+  line-height: 45px;
+}
+
+.min-max-close-button > a {
+  color: #666;
+}
+
+.my-statics .panel-header.panel-controls .referral-link-warrper .referral-link {
+  line-height: 44px;
+}
+
+@media screen and (max-width: 997px) {
+  .my-statics .panel-header.panel-controls .referral-link-warrper {
+    width: 100%;
+    float: none !important;
+    clear: both;
+  }
+}

@@ -1,0 +1,236 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt; Trade &gt;
+      </li>
+      <li class="active">
+        Trade Portal
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="trade-row row">
+  
+  <div class="container" *ngIf="companyFound">
+    <div class="panel panel-default">
+      <div class="panel-header panel-controls ui-sortable-handle">
+        <div class="col-md-3 col-sm-3 col-xs-12">
+          <select class="form-control" name="company" id="company" [(ngModel)]="companyCode" (ngModelChange)="changeRouter()">
+            <option *ngFor="let com of companies;" value="{{com.companyCode}}">{{com.companyName}}</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <p class="pull-left blue-color">Live Feed</p>
+          <p class="pull-right text-right"><span>{{liveValue | number:'1.2-4'}}</span> 
+            <span *ngIf="gainLoss === 1" class="gain">{{diffPercent | number:'1.2'}}% <img src="assets/images/new-files/profit-arrow.png" width="22" /></span>
+            <span *ngIf="gainLoss === 2" class="loss">{{diffPercent | number:'1.2'}}% <img src="assets/images/new-files/loss-arrow.png" width="22" /></span>
+            <span *ngIf="gainLoss === -1">{{diffPercent | number:'1.2'}}% </span>
+          </p>
+          <div class="clearfix"></div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 last">
+          <p class="col-sm-5 amount-col first">Available Balance:</p>
+          <p class="col-sm-7 amount-col">
+            <span>BKN - </span><span class="text-right">{{wallets.amount | number:'1.2-6'}}</span>
+            <span>Coins - </span><span class="text-right">{{shares.totalShares | number:'1.2-6'}}</span>
+          </p>
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-9 col-sm-9 col-xs-12 main-graph">
+          <p class="text-right">
+            <button class="btn" (click)="generateGraph('all')" [ngClass]="{'active': (regenerateGraph === 'all')}">All</button>
+            <button class="btn" (click)="generateGraph('1d')" [ngClass]="{'active': (regenerateGraph === '1d')}">1d</button>
+            <button class="btn" (click)="generateGraph('2d')" [ngClass]="{'active': (regenerateGraph === '2d')}">2d</button>
+            <button class="btn" (click)="generateGraph('3d')" [ngClass]="{'active': (regenerateGraph === '3d')}">3d</button>
+            <button class="btn" (click)="generateGraph('1w')" [ngClass]="{'active': (regenerateGraph === '1w')}">1w</button>
+            <button class="btn" (click)="generateGraph('1m')" [ngClass]="{'active': (regenerateGraph === '1m')}">1m</button>
+            <!-- <button class="btn" (click)="generateGraph('custom')" [ngClass]="{'active': (regenerateGraph === 'custom')}">Custom</button> -->
+          </p>
+          <div *ngIf="!regenerate">
+            <app-trade-graph [idIndex]="index" [company]="companyIs" [showExtraField]="showExtraField" [regenerate]="dateRangeSelected" [height]="'400'"></app-trade-graph>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-12 sidebar-form">
+          <ngb-tabset (tabChange)="beforeChange($event)" class="tabset-container">
+            <ngb-tab id="buy" title="Buy">
+              <ng-template ngbTabContent>
+                <form role="form" class="pull-left" method="post" id="trader-me" [formGroup]="trade" #trader="ngForm" novalidate>
+                  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+                  <div class="alert alert-success" *ngIf="successMessage">{{successMessage}}</div>
+                  <input type="hidden" class="form-control mt-2px" name="offerType" id="offer-type1" formControlName="offerType" value="bid" />
+
+                  <div class="form-group" [ngClass]="{'has-error': (trader.submitted || numberOfShares.dirty) && !numberOfShares.valid}">
+                    <label class="hidden-sm hidden-xs">Coins: </label>
+                    <input type="text" class="form-control" name="numberOfShares" id="numberOfShares" formControlName="numberOfShares" placeholder="Number Of Shares" />
+                    <div *ngIf="(trader.submitted || numberOfShares.dirty) && !numberOfShares.valid" class="help-block">Number of coins is required, and must be a number</div>
+                  </div>
+                  <div class="form-group" [ngClass]="{'has-error': (trader.submitted || sharePrice.dirty) && !sharePrice.valid}">
+                    <label class="hidden-sm hidden-xs">Price: </label> 
+                    <input type="text" class="form-control" name="sharePrice" id="sharePrice" formControlName="sharePrice" placeholder="Shares Price" />
+                    <div *ngIf="(trader.submitted || sharePrice.dirty) && !sharePrice.valid" class="help-block">Price is required, and must be a number</div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{'has-error': (trader.submitted || sharePrice.dirty) && !sharePrice.valid}">
+                    <label class="hidden-sm hidden-xs">Total: </label> 
+                    <label class="form-control">{{sharePrice.value * numberOfShares.value}}</label>
+                  </div>
+        
+                  <div class="form-group text-center">
+                    <button type="button" class="btn btn-secondary btn-primary" mwlConfirmationPopover [title]="title" [message]="message" placement="left" (confirm)="trade.valid && postTrade(trader)" (cancel)="cancelClicked = true">Confirm</button>
+                  </div>
+                </form>
+                <div class="clearfix"></div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab id="sell" title="Sell">
+              <ng-template ngbTabContent>
+                <form role="form" class="pull-left" method="post" id="trader-me" [formGroup]="trade" #trader="ngForm" novalidate>
+                  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+                  <div class="alert alert-success" *ngIf="successMessage">{{successMessage}}</div>
+                  <input type="hidden" class="form-control mt-2px" name="offerType" id="offer-type1" formControlName="offerType" value="sell" />
+                  
+                  <div class="form-group" [ngClass]="{'has-error': (trader.submitted || numberOfShares.dirty) && !numberOfShares.valid}">
+                    <label class="hidden-sm hidden-xs">Coins: </label>
+                    <input type="text" class="form-control" name="numberOfShares" id="numberOfShares" formControlName="numberOfShares" placeholder="Number Of Shares" />
+                    <div *ngIf="(trader.submitted || numberOfShares.dirty) && !numberOfShares.valid" class="help-block">Number of coins is required, and must be a number</div>
+                  </div>
+                  <div class="form-group" [ngClass]="{'has-error': (trader.submitted || sharePrice.dirty) && !sharePrice.valid}">
+                    <label class="hidden-sm hidden-xs">Price: </label> 
+                    <input type="text" class="form-control" name="sharePrice" id="sharePrice" formControlName="sharePrice" placeholder="Shares Price" />
+                    <div *ngIf="(trader.submitted || sharePrice.dirty) && !sharePrice.valid" class="help-block">Price is required, and must be a number</div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{'has-error': (trader.submitted || sharePrice.dirty) && !sharePrice.valid}">
+                    <label class="hidden-sm hidden-xs">Total: </label> 
+                    <label class="form-control">{{sharePrice.value * numberOfShares.value}}</label>
+                  </div>
+        
+                  <div class="form-group text-center">
+                    <button type="button" class="btn btn-secondary btn-primary" mwlConfirmationPopover [title]="title" [message]="message" placement="left" (confirm)="trade.valid && postTrade(trader)" (cancel)="cancelClicked = true">Confirm</button>
+                  </div>
+                </form>
+                <div class="clearfix"></div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+        <div class="clearfix"></div>
+        <div class="table-view-wrapper">
+          <div class="col-md-6 col-sm-6 col-xs-12 table-view">
+            <h3>Bid Offers</h3>
+            <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+              <div class="alert alert-danger" *ngIf="errorSellAcceptMessage">{{errorSellAcceptMessage}}</div>
+              <div class="alert alert-success" *ngIf="successSellAcceptMessage">{{successSellAcceptMessage}}</div>
+              <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th data-priority="1">Coin Offered</th>
+                    <th data-priority="1" style="text-align:center !important;">Unit Price</th>
+                    <th data-priority="3" style="text-align:center !important;">Total</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="sellOffers.length > 0">
+                  <tr *ngFor="let info of sellOffers">
+                    <td>{{info.tradeTotalShares}}</td>
+                    <td class="text-center">{{info.tradeUnitPrice}}</td>
+                    <td class="text-right">{{info.tradeTotalAmount | number: '1.2-6'}}</td>
+                    <td>
+                      <button type="button" class="btn btn-secondary btn-primary" mwlConfirmationPopover [title]="title" [message]="message" placement="left" (confirm)="postAcceptTrade(info.offerID, 'SELL')" (cancel)="cancelClicked = true">Buy Shares</button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="sellOffers.length === 0">
+                  <tr>
+                    <td colspan="5" class="text-center"><strong>No Bid Offers Found</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col-md-6 pull-right text-right" *ngIf="totalSellOffers > perPageItem">
+                <pagination [totalItems]="totalSellOffers" [(ngModel)]="currentPage" [maxSize]="offersMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getSellOffers(currentPage)"></pagination>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12 table-view">
+            <h3>Sell Offers</h3>
+            <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+              <div class="alert alert-danger" *ngIf="errorBidAcceptMessage">{{errorBidAcceptMessage}}</div>
+              <div class="alert alert-success" *ngIf="successBidAcceptMessage">{{successBidAcceptMessage}}</div>
+              <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th data-priority="1">Coins Offered</th>
+                    <th data-priority="1" style="text-align:center !important;">Unit Price</th>
+                    <th data-priority="3" style="text-align:right !important;">Total</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="bidOffers.length > 0">
+                  <tr *ngFor="let info of bidOffers">
+                    <td>{{info.tradeTotalShares}}</td>
+                    <td class="text-center">{{info.tradeUnitPrice}}</td>
+                    <td class="text-right">{{info.tradeTotalAmount | number: '1.2-6'}}</td>
+                    <td>
+                      <button type="button" class="btn btn-secondary btn-primary" mwlConfirmationPopover [title]="title" [message]="message" placement="left" (confirm)="postAcceptTrade(info.offerID, 'BUY')" (cancel)="cancelClicked = true">Sell Shares</button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="bidOffers.length === 0">
+                  <tr>
+                    <td colspan="5" class="text-center"><strong>No Sell Offers Found</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col-md-6 pull-right text-right" *ngIf="totalBidOffers > perPageItem">
+                <pagination [totalItems]="totalBidOffers" [(ngModel)]="currentPage" [maxSize]="offersMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getBidOffers(currentPage)"></pagination>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container" *ngIf="!companyFound">
+    <p>Please Wait...</p>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #customDateModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" aria-label="Close" (click)="hideModal();">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="modal-title">Select Dates</h2>
+				</div>
+				<div class="modal-body">
+          <div class="text-danger" *ngIf="customDateError">{{customDateError}}</div>
+          <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="displayMonths" [dayTemplate]="t"></ngb-datepicker>
+          <ng-template #t let-date="date" let-focused="focused">
+            <span class="custom-day"
+                  [class.focused]="focused"
+                  [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                  [class.faded]="isHovered(date) || isInside(date)"
+                  (mouseenter)="hoveredDate = date"
+                  (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+            
+          <div class="clearfix"></div>
+          <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal();">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="customDateSubmit();">Submit</button>
+				</div>
+			</div>
+	</div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>

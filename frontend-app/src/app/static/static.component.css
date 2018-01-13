@@ -1,0 +1,450 @@
+/* Bredcrum Settings */
+.bg-top-row {
+  margin: -25px -25px 0 -25px;
+  background: url('../../assets/images/new-files/header-bg.png') no-repeat scroll 0 -82px transparent;
+  padding: 25px 50px 75px;
+  background-size: cover; 
+}
+
+.breadcrumb.bc-1 { padding-left: 12px; }
+
+.breadcrumb.bc-1 .active,
+.breadcrumb.bc-1 li > a,
+.breadcrumb.bc-1 li {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Content Settings */
+.trade-row {
+  margin-top: -75px;
+}
+
+.trade-row > .container > div { padding-right: 0px; }
+
+/* Extra Footer */
+.footer-row {
+  margin: 0px -25px;
+  height: 40px;
+  background: #fff;
+}
+
+li.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+#premium .package-special,
+#vanguard-page .package-special {
+  background: #f4f4f4;
+  color: #333333;
+  height: 80px;
+  padding: 15px;
+}
+
+#premium .package-special p,
+#vanguard-page .package-special p {
+  float: left;
+  font-size: 28px;
+  line-height: 80px;
+  margin: 0px;
+  padding: 0 20px;
+}
+
+#premium .package-special p+p,
+#vanguard-page .package-special p+p {
+  float: right;
+}
+
+#premium .package-heading,
+#vanguard-page .package-heading {
+  font-size: 35px;
+  font-weight: 100;
+  margin: 20px;
+}
+
+#premium .package-heading.mtb-extra,
+#vanguard-page .package-heading.mtb-extra {
+  margin-top: 30px;
+}
+
+#premium .package-limit,
+#vanguard-page .package-limit {
+  text-align: center;
+}
+
+#premium .package-limit li.last {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#premium .package-limit li,
+#vanguard-page .package-limit li {
+  line-height: 40px;
+  background: #ffffff;
+  border: 1px solid #f1f1f1;
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+  text-align: center !important;
+}
+
+#premium .package-limit.li-special li,
+#vanguard-page .package-limit.li-special li {
+  line-height: normal;
+  padding: 10px;
+  font-size: 12px;
+}
+
+#premium .package-limit .red,
+#vanguard-page .package-limit .red {
+  background: #cb2032;
+  border-radius: 0.7em 0.7em 0 0;
+  border: 1px solid #cb2032;
+}
+
+#premium .package-limit .red {
+  background: #ff5255 !important;
+  border: 1px solid #ff5255;
+}
+
+#premium .package-limit .orange,
+#vanguard-page .package-limit .orange {
+  background: #f37a1f;
+  border-radius: 0.7em 0.7em 0 0;
+  border: 1px solid #f37a1f;
+}
+
+#premium .package-limit .blue,
+#vanguard-page .package-limit .blue {
+  background: #39c1cf;
+  border-radius: 0.7em 0.7em 0 0;
+  border: 1px solid #39c1cf;
+}
+
+#premium .package-limit .dark-blue,
+#vanguard-page .package-limit .dark-blue {
+  background: #0a4567;
+  border-radius: 0.7em 0.7em 0 0;
+  border: 1px solid #0a4567;
+}
+
+#premium .package-limit .green,
+#vanguard-page .package-limit .green {
+  background: #94a53b;
+  border-radius: 0.7em 0.7em 0 0;
+  border: 1px solid #94a53b;
+  margin: 0px;
+}
+
+#premium .package-limit .dark-blue-one,
+#vanguard-page .package-limit .dark-blue-one {
+  background: #0a4567;
+  border-radius: 0.7em 0.7em 0 0;
+  border: 1px solid #0a4567;
+}
+
+#premium .package-limit .cherry,
+#vanguard-page .package-limit .cherry {
+  background: #6f193e;
+  border-radius: 0.7em 0.7em 0 0;
+  border: 1px solid #6f193e;
+}
+
+#premium .package-limit h2,
+#vanguard-page .package-limit h2 {
+  color: #fff;
+  font-weight: normal;
+  font-size: 25px;
+  padding: 6px;
+  margin: 0px;
+  line-height: 60px;
+  border-radius: 0.3em 0.3em 0 0;
+}
+
+#premium .package-limit.li-special li h2,
+#vanguard-page .package-limit.li-special li h2 {
+  padding: 0px;
+}
+
+#premium .package-limit li h3,
+#vanguard-page .package-limit li h3 {
+  line-height: 46px;
+  margin: 0px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+#premium .package-limit.li-special li h3,
+#vanguard-page .package-limit.li-special li h3 {
+  line-height: 40px;
+  margin: 0px;
+  padding: 0px;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+#premium .package-limit li.black,
+#vanguard-page .package-limit li.black {
+  margin: 0px;
+  padding: 10px;
+  font-weight: 100;
+  background: #444;
+  color: #fff;
+  border-radius: 0 0 0.7em 0.7em;
+  line-height: 25px;
+  border: 1px solid #444;
+}
+
+#premium .package-limit li.last,
+#vanguard-page .package-limit li.last {
+  background: transparent;
+  border: 0px;
+}
+
+#premium #get-now,
+#vanguard-page #get-now {
+  background: #0a4567;
+  color: #fff;
+  border-radius: 7px;
+  padding: 3px 10px;
+  margin-top: 5px;
+  border: 1px solid #fff;
+}
+
+
+#blocknotes .box-table {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+#blocknotes .box-table th {
+  font-size: 14px;
+  font-weight: normal;
+  background: #b9c9fe;
+  border-bottom: 1px solid #fff;
+  color: #039;
+  padding: 8px;
+}
+
+#blocknotes .box-table td {
+  background: #e8edff;
+  border-bottom: 1px solid #fff;
+  color: #669;
+  border-top: 1px solid transparent;
+  padding: 8px;
+  font-size: 13px;
+  border-left: 1px solid #FFF;
+}
+
+#blocknotes .subs_get button {
+  width: 140px !important;
+}
+
+#blocknotes .box-table td button,
+#blocknotes .subs_get button {
+  text-align: center;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 3px;
+  text-transform: capitalize;
+  padding: 5px 10px;
+  font-size: 15px;
+  line-height: 35px;
+  background-color: #3b4489;
+  border-color: #3b4489 !important;
+  box-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition: all 0.3s linear 0s;
+  -moz-transition: all 0.3s linear 0s;
+  -ms-transition: all 0.3s linear 0s;
+  -o-transition: all 0.3s linear 0s;
+  transition: all 0.3s linear 0s;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFF;
+}
+
+#blocknotes .box-table td .cusgetnow {
+  text-align: center;
+  box-sizing: border-box;
+  margin: 10px auto;
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  text-transform: capitalize;
+  padding: 15px;
+  font-size: 15px;
+  line-height: 35px;
+  background-color: #3b4489;
+  border-color: #3b4489 !important;
+  box-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition: all 0.3s linear 0s;
+  -moz-transition: all 0.3s linear 0s;
+  -ms-transition: all 0.3s linear 0s;
+  -o-transition: all 0.3s linear 0s;
+  transition: all 0.3s linear 0s;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFF !important;
+}
+
+#blocknotes .box-table td button:hover,
+.subs_get button:hover {
+  opacity: 0.8;
+}
+
+#blocknotes .box-table td .cusgetnow:hover {
+  opacity: 0.8 !important;
+}
+
+#blocknotes .title {
+  color: #FFF !important;
+  background: #0000ab;
+  padding: 10px 20px;
+  margin-bottom: 0 !important;
+}
+
+#blocknotes .add-info {
+  float: left;
+  width: 100%;
+  background: #EEE;
+  padding: 15px 20px;
+  margin-bottom: 40px;
+}
+
+#blocknotes .title-text {
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+#blocknotes .info-text {
+  margin: 0;
+  font-size: 14px;
+}
+
+#blocknotes .detail-text {
+  margin: 0;
+  font-size: 14px;
+}
+#blocknotes .boxText {
+  background-color: #f9fbe8;
+  border: 1px solid #a3b11c;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 13px;
+  margin: 15px 0 30px;
+}
+#blocknotes tr:nth-child(even) {background-color: #f2f2f2}
+
+/* #tentanium_coins a,
+.coin-details a {
+  border: 3px solid #1773b5;
+  border-radius: 0.5em;
+  padding-left: 5px;
+  padding-right: 10px;
+  display: inline-block;
+  line-height: 32px;
+  text-transform: uppercase;
+  color: #444 !important;
+  font-weight: 600;
+} */
+
+.coin-details .bkn-buy-button {
+  background: #023351;
+  border: 1px solid #023351;
+  color: #fff;
+  padding: 0 20px 0 15px;
+  line-height: 50px;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 0px;
+  outline: none;
+  padding: 15px;
+}
+
+.ind-coins {
+  padding: 50px 50px 50px 20px;
+}
+.ind-coins .image {
+  background: #ccc;
+  width: 265px;
+  margin: 0 -15px 0 0;
+  text-align: center;
+}
+.coin-details {padding-left: 50px;}
+.coin-details h2 {
+  margin: 0 0 25px;
+  font-weight: 600;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #292929;
+}
+.coin-details p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30px;
+  margin-bottom: 25px;
+}
+.coin-details h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.blocknotes {
+  margin-bottom: 20px;
+}
+.package-details {
+  background: #fff;
+  padding: 15px;
+  border-bottom: 2px solid #45A4E8;
+}
+.package-details h3 {
+  margin: 5px 0px 10px;
+  border-bottom: 1px solid #292929;
+  padding-bottom: 10px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 18px;
+}
+.package-conatins { padding: 0 15px; }
+.package-conatins p {
+  font-size: 12px;
+}
+.package-conatins td,
+.package-conatins td span {
+  font-size: 16px;
+}
+
+.package-conatins td {
+  padding: 10px 0;
+}
+.package-conatins td > .list-view {
+  position: relative;
+  padding-left: 15px;
+}
+.package-conatins td > .list-view:before {
+  content: '.';
+  display: inline-block;
+  position: absolute;
+  left: 4px;
+  font-size: 28px;
+  top: -19px;
+  color: #666;
+}
+
+@media (min-width:1024px) and (max-width: 1200px) {
+  .ind-coins .image { width: 220px; }
+}
+
+@media (max-width:1023px) {
+  .coin-details {padding-left: 15px;}
+}
+
+@media (max-width:768px) {
+  .coin-details {margin-top: 20px;}
+}

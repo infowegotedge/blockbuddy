@@ -1,0 +1,66 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Orphan User Management</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i>Dashboard / </a>
+      </li>
+      <li class="active">
+        <strong>Orphan User</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Orphan Users</h3>
+      </div>
+      <div class="panel-body">
+        <form role="form" method="post" (ngSubmit)="getUsersList(null)" #sent="ngForm" class="form-inline">              
+          <div class="form-group">
+            <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Username" required />
+          </div>
+      
+          <div class="form-group">
+            <button class="btn btn-secondary btn-single">Search</button>
+          </div>
+        </form>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>UserName</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Sponsor</th>
+              <th class="text-center">Wordpress ID</th>
+              <th>Display Name</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="users.length>0" >
+            <tr *ngFor="let info of users; let i = index;">
+              <td>{{info.username}}</td>
+              <td class="user-name">{{info.first_name}} {{info.last_name}}</td>
+              <td>{{info.email}}</td>
+              <td>{{info.sponsor}}</td>
+              <td class="text-center">{{info.userProfileId}}</td>
+              <td>{{info.displayName}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="users.length===0" >
+            <tr>
+              <td class="text-center" colspan="6"><strong>No Users Found</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="col-md-6 pull-right text-right">
+          <pagination [totalItems]="totalUsers" [(ngModel)]="currentPage" [maxSize]="usersMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getUsersList(currentPage)"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

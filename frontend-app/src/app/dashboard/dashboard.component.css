@@ -1,0 +1,860 @@
+.latest-signup .table .border_bottom strong {
+  text-transform: capitalize;
+}
+
+.hight-panel, .hight-panel .panel {
+  min-height: 480px;
+}
+
+table > tbody td.reduce-height {
+  padding-bottom: 2px;
+  line-height: normal;
+  padding-top: 2px;
+}
+
+.withdrawal-names {
+  text-transform: capitalize;
+}
+
+.signup-name, 
+.withdrawal-names {
+  padding: 9px;
+}
+
+.color-black {
+  color: #319DB5 !important;
+}
+
+.pie-chart-data {
+  overflow: hidden;
+}
+
+.pie-chart-data #pie-chart { margin-top: -30px; }
+
+.dashboard-stats .panel-header .control-btn .btn { margin: 0px; }
+
+.coin-ui-content {
+  font-size: 16px;
+  padding: 20px;
+  line-height: 100px;
+}
+.coin-ui-content span {
+  display: block;
+  text-align: center;
+  line-height: 20px;
+}
+
+.fa-long-arrow-up { color: green; }
+.fa-long-arrow-down { color: red; }
+.fa-long-arrow-up,
+.fa-long-arrow-down { font-size: 20px; }
+
+#pie-chart > .amcharts-main-div > .amcharts-chart-div > a[title="JavaScript charts"] { 
+  display: none !important; visibility: hidden !important; opacity: 0 !important; 
+}
+
+.panel-content.latest-signup.height-content {
+  min-height: 630px;
+  padding: 0 20px;
+}
+
+
+/* Panel New CSS FOR Purchase */
+
+.panel-content.latest-signup.height-content[_ngcontent-c7] {
+  min-height: 630px;
+  background: whitesmoke;
+}
+
+.main-content .page-content .panel-content {
+  -webkit-border-radius: 0 0 2px 2px;
+  -moz-border-radius: 0 0 2px 2px;
+  border-radius: 0 0 2px 2px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.pie-chart-data.left {
+  padding-left: 0 !important;
+}
+
+.pie-chart-data.right {
+  padding-right: 0 !important;
+}
+
+.coin-ui-content>img {
+  width: 100px;
+  height: 100px;
+}
+
+.coin-ui-content>span>a {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.coin-ui-content {
+  line-height: 100px;
+  font-size: 16px;
+  background: white;
+  padding: 20px;
+}
+
+#pie-chart {
+  width: 100%;
+  height: 610px;
+  overflow: hidden;
+  text-align: left;
+  background: white;
+}
+
+.dashboard-activities-affiliates .right .latest-signup {
+  min-height: 401px;
+}
+
+.dashboard-activities-affiliates .right .latest-signup .table,
+.dashboard-activities-affiliates .left .latest-signup .table {
+  margin-top: -57px;
+}
+
+.dashboard-activities-affiliates .left .latest-signup .table { margin-bottom: 18px; }
+.dashboard-activities-affiliates .right .latest-signup .table { margin-bottom: 0px; }
+
+.dashboard-stats .panel-header.panel-controls > h3 {
+  width: 130px;
+  float: left;
+}
+
+.dashboard-stats .referral-link-wrapper {
+  background: #eee !important;
+  position: relative !important;
+  top: 1px !important;
+  font-size: 16px !important;
+  padding: 0 10px;
+}
+
+.dashboard-stats .referral-link-wrapper button.btn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.dashboard-stats .referral-link-wrapper .referral-link {
+  line-height: 44px;
+  margin-right: 5px;
+}
+
+/* CSS Ends Panel New Purchase */
+
+.aff-reff-vanguard-section .vangarud-special > div > a.btn.btn-primary {
+  font-size: 14px;
+  padding: 5px;
+  margin: 32px 10px 0 5px;
+  line-height: 27px;
+}
+
+
+@media screen and (max-width: 997px) {
+   .small-width {
+     width: 100px !important;
+   }
+
+   .sami-small-width {
+     width: 120px !important;
+   }
+
+   .smaller-width {
+     width: 165px !important;
+   }
+
+   .small-width input {
+     width: 100% !important;
+   }
+
+   .dashboard-activities-affiliates > div,
+   .dashboard-commission-withdrawal > div {
+     padding-left: 0px;
+     padding-right: 0px;
+   }
+
+  .dashboard-activities-affiliates > div + div,
+  .dashboard-commission-withdrawal > div + div {
+    margin-top: 20px;
+  }
+
+  .dashboard-stats .panel-header.panel-controls > h3 {
+    width: 100%;
+    float: none;
+  }
+
+  .dashboard-stats .referral-link-wrapper {
+    width: 100%;
+    float: none !important;
+  }
+}
+
+.dashboard-commission-withdrawal td.name {
+  text-transform: capitalize;
+}
+
+.dashboard-commission-withdrawal .color-text { color: #319DB5; }
+
+.dashboard h1.hi-content {
+  font-size: 44px;
+  color: #D1B52A;
+}
+
+.dashboard p.info-content {
+  font-size: 18px;
+  color: #fff;
+}
+
+.dashboard h3 {
+  font-size: 20px;
+  color: #45A4E8;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.dashboard .heading { text-transform: uppercase; }
+.dashboard .box-content-wrapper-div { padding: 0px; }
+.dashboard .box-content-wrapper-div > div { 
+  padding: 0px !important; 
+}
+
+.dashboard .box-content-wrapper-div > div h2 {
+  font-size: 42px;
+}
+
+.dashboard h4 {
+  font-size: 18px;
+  color: #45A4E8;
+}
+
+.dashboard .box-content {
+  background: #023351;
+  padding: 10px;
+  color: #fff;
+  height: 160px;
+  position: relative;
+  margin-top: 25px;
+  margin-left: 5px;
+}
+.dashboard .box-content h2.small-font { 
+  font-size: 24px !important;
+  line-height: 50px;
+}
+.dashboard .box-content p {
+  color: #45A4E8;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0px;
+  width: 80%;
+}
+
+.dashboard .box-content p > span {
+  font-size: 12px;
+}
+
+.dashboard .box-content p > span > span {
+  color: #00C664;
+  font-size: 12px;
+}
+
+.dashboard .h100 { 
+  padding-top: 10px;
+  height: 110px;
+  position: relative;
+  margin-top: 30px;
+}
+
+.dashboard .h100 .filter-content {
+  position: absolute;
+  bottom: 10px;
+  width: 80%;
+}
+
+.dashboard h2.euro-amt {
+  font-size: 32px;
+}
+
+.dashboard .toggle-icon {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.dashboard .toggle-icon > span {
+  height: 50px;
+  background: #45A4E8;
+  border: 1px solid #45A4E8;
+  border-radius: 10em;
+  width: 50px;
+  display: inline-block;
+  text-align: center;
+  font-size: 35px; 
+  color: #fff;
+  cursor: pointer;
+}
+
+.dashboard .middle-line {
+  text-align: center;
+}
+
+i.gain:before {
+  background: url('../../assets/images/new-files/profit-arrow.png') no-repeat scroll 0 0 transparent;
+  height: 23px;
+  width: 20px;
+  content: ' ';
+  display: inline-block;
+  background-size: 100%;
+}
+
+i.loss {
+  background: url('../../assets/images/new-files/loss-arrow.png') no-repeat scroll 0 0 transparent;
+  height: 23px;
+  width: 20px;
+  content: ' ';
+  display: inline-block;
+  background-size: 100%;
+}
+
+span.gain {
+  background: url('../../assets/images/new-files/profit-arrow.png') no-repeat scroll right 7px transparent;
+  padding-right: 13px;
+  background-size: 30%;
+  font-size: 12px !important;
+  font-weight: 600;
+}
+
+span.loss {
+  background: url('../../assets/images/new-files/loss-arrow.png') no-repeat scroll right 7px transparent;
+  padding-right: 13px;
+  background-size: 30%;
+  font-size: 12px !important;
+  font-weight: 600;
+}
+
+.dahsboard .border-left,
+.dahsboard .border-left + div { 
+  border-right: 2px solid #cfcfcf; 
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.dahsboard .border-left + div {
+  border-right: 0px; 
+}
+
+.inst-trans-wallet-section .intruments,
+.inst-trans-wallet-section .transactions,
+.inst-trans-wallet-section .wallet,
+.aff-reff-vanguard-section .affiliates,
+.aff-reff-vanguard-section .referrel-links,
+.aff-reff-vanguard-section .vangarud-special { text-align: center; }
+
+.inst-trans-wallet-section .intruments h3,
+.inst-trans-wallet-section .transactions h3,
+.inst-trans-wallet-section .wallet h3,
+.aff-reff-vanguard-section .affiliates h3,
+.aff-reff-vanguard-section .referrel-links h3,
+.aff-reff-vanguard-section .vangarud-special h3 {
+  font-size: 18px;
+  color: #292929;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.inst-trans-wallet-section .intruments > div,
+.inst-trans-wallet-section .wallet > div { padding: 5px; }
+.inst-trans-wallet-section .intruments .bg-white,
+.inst-trans-wallet-section .wallet .bg-white {
+  background: #fff;
+  border-bottom: 2px solid #45A4E8;
+  padding: 10px;
+  min-height: 101px;
+}
+
+.inst-trans-wallet-section .intruments .amount,
+.inst-trans-wallet-section .wallet .amount {
+  font-size: 18px;
+  color: #404040;
+  margin-bottom: 0px;
+}
+.inst-trans-wallet-section .wallet .amount { line-height: 40px; }
+.inst-trans-wallet-section .intruments .amount > span {
+  display: block;
+  font-size: 14px;
+  color: #717171;
+  text-align: center;
+}
+
+.inst-trans-wallet-section .intruments .amount.vanguard,
+.inst-trans-wallet-section .intruments .amount.digitex,
+.inst-trans-wallet-section .intruments .amount.tentanium,
+.inst-trans-wallet-section .wallet .amount.bkn {
+  padding-left: 40px;
+  background-size: 30% !important;
+}
+
+.inst-trans-wallet-section .intruments .amount.vanguard {
+  background: url('../../assets/images/coin-van.png') no-repeat scroll 0 0 transparent;
+}
+
+.inst-trans-wallet-section .intruments .amount.digitex {
+  background: url('../../assets/images/coin-digi.png') no-repeat scroll 0 0 transparent;
+}
+
+.inst-trans-wallet-section .intruments .amount.tentanium {
+  background: url('../../assets/images/coin-tent.png') no-repeat scroll 0 0 transparent;
+}
+
+.inst-trans-wallet-section .wallet .amount.bkn {
+  background: url('../../assets/images/coin-bkn.png') no-repeat scroll 0 0 transparent;
+  line-height: 38px;
+  background-size: 26% !important;
+}
+
+.inst-trans-wallet-section .transactions .bg-gray,
+.aff-reff-vanguard-section .referrel-links .bg-gray {
+  background: #eaeaea !important;
+  overflow: hidden;
+  padding: 0px 7px;
+}
+.inst-trans-wallet-section .transactions .bg-gray > div { padding-left: 0px; }
+.inst-trans-wallet-section .transactions .bg-gray > div > p {
+  font-size: 12px;
+  color: #717171;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.inst-trans-wallet-section .transactions .bg-gray > div > p > span {
+  font-size: 12px;
+  color: #292929;
+}
+
+.aff-reff-vanguard-section .referrel-links .referral-userlink {
+  font-size: 13px;
+  color: #45A4E8;
+}
+
+.aff-reff-vanguard-section .referrel-links .bg-gray > .text-center { line-height: 38px; }
+
+.aff-reff-vanguard-section .referrel-links button.btn {
+  font-size: 12px;
+  color: #717171;
+  height: 24px !important;
+  padding: 5px;
+  margin-top: 9px;
+  margin-bottom: 0px;
+}
+
+.aff-reff-vanguard-section .social-icons { list-style: none; }
+.aff-reff-vanguard-section .social-icons.mt20 { margin-top: 20px; }
+.aff-reff-vanguard-section .social-icons > li { display: inline-block; }
+
+.aff-reff-vanguard-section .social-icons > li .facebook,
+.aff-reff-vanguard-section .social-icons > li .twitter,
+.aff-reff-vanguard-section .social-icons > li .googleplus {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+}
+
+.aff-reff-vanguard-section .social-icons.small-icon {
+  margin-top: 4px;
+}
+
+.aff-reff-vanguard-section .social-icons.small-icon > li .facebook,
+.aff-reff-vanguard-section .social-icons.small-icon > li .twitter,
+.aff-reff-vanguard-section .social-icons.small-icon > li .googleplus {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+.aff-reff-vanguard-section .social-icons.small-icon > li .facebook {
+  background: url('../../assets/images/new-files/social-icons-small.png') no-repeat scroll 0 0 transparent;
+  background-position: 0 0;
+}
+.aff-reff-vanguard-section .social-icons.small-icon > li .facebook:hover {
+  background: url('../../assets/images/new-files/social-icons-small.png') no-repeat scroll 0 0 transparent;
+  background-position: 0 -27px;
+}
+
+.aff-reff-vanguard-section .social-icons.small-icon > li .twitter {
+  background: url('../../assets/images/new-files/social-icons-small.png') no-repeat scroll 0 0 transparent;
+  background-position: -27px 0px;
+}
+.aff-reff-vanguard-section .social-icons.small-icon > li .twitter:hover {
+  background: url('../../assets/images/new-files/social-icons-small.png') no-repeat scroll 0 0 transparent;
+  background-position: -27px -27px;
+}
+
+.aff-reff-vanguard-section .social-icons.small-icon > li .googleplus {
+  background: url('../../assets/images/new-files/social-icons-small.png') no-repeat scroll 0 0 transparent;
+  background-position: -54px 0px;
+}
+.aff-reff-vanguard-section .social-icons.small-icon > li .googleplus:hover {
+  background: url('../../assets/images/new-files/social-icons-small.png') no-repeat scroll 0 0 transparent;
+  background-position: -54px -27px;
+}
+
+.aff-reff-vanguard-section .social-icons > li .facebook {
+  background: url('../../assets/images/new-files/social-icons-large.png') no-repeat scroll 0 0 transparent;
+  background-position: 0 0;
+}
+.aff-reff-vanguard-section .social-icons > li .facebook:hover {
+  background: url('../../assets/images/new-files/social-icons-large.png') no-repeat scroll 0 0 transparent;
+  background-position: 0 -42px;
+}
+
+.aff-reff-vanguard-section .social-icons > li .twitter {
+  background: url('../../assets/images/new-files/social-icons-large.png') no-repeat scroll 0 0 transparent;
+  background-position: -42px 0px;
+}
+.aff-reff-vanguard-section .social-icons > li .twitter:hover {
+  background: url('../../assets/images/new-files/social-icons-large.png') no-repeat scroll 0 0 transparent;
+  background-position: -42px -42px;
+}
+
+.aff-reff-vanguard-section .social-icons > li .googleplus {
+  background: url('../../assets/images/new-files/social-icons-large.png') no-repeat scroll 0 0 transparent;
+  background-position: -84px 0px;
+}
+.aff-reff-vanguard-section .social-icons > li .googleplus:hover {
+  background: url('../../assets/images/new-files/social-icons-large.png') no-repeat scroll 0 0 transparent;
+  background-position: -84px -42px;
+}
+.aff-reff-vanguard-section .affiliates { height: 275px; }
+.aff-reff-vanguard-section .affiliates > div { padding: 5px }
+.aff-reff-vanguard-section .affiliates .full-wh {
+  min-height: 112px;
+}
+.aff-reff-vanguard-section .affiliates .full-wmh {
+  width: 100%;
+  min-height: 220px;
+  background: #efefef;
+  border-radius: 5px;
+  border-bottom: 2px solid #45A4E8;
+}
+.aff-reff-vanguard-section .affiliates .full-wmh > p {
+  width: 100%;
+  min-height: 200px;
+  line-height: 200px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.aff-reff-vanguard-section .aff-img { margin-right: 5px; }
+.aff-reff-vanguard-section .aff-img > img {
+  width: 100px;
+  height: 100px;
+}
+
+.aff-reff-vanguard-section .aff-img { 
+  width: 47% !important; 
+  max-width: 100px !important;
+}
+.aff-reff-vanguard-section .other-info { width: 50% !important; }
+
+.aff-reff-vanguard-section .other-info > div {
+  overflow: hidden !important;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.aff-reff-vanguard-section .other-info > div + div { margin-bottom: 0px; }
+.aff-reff-vanguard-section .other-info > div > p {
+  font-size: 14px;
+  color: #292929;
+  width: 49%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 0px;
+  height: 45px;
+  text-overflow: ellipsis;
+}
+.aff-reff-vanguard-section .other-info > div > p.sponsor + .sponsor {
+  font-size: 12px;
+}
+
+/* .aff-reff-vanguard-section .other-info > div > p.no-multiline > strong,
+.aff-reff-vanguard-section .other-info > div > p.no-multiline > span {
+  display: block;
+  height: 18px;
+  overflow: hidden;
+} */
+
+.aff-reff-vanguard-section .other-info > div > p.full-width,
+.aff-reff-vanguard-section .other-info > div > p.full-width > span,
+.aff-reff-vanguard-section .other-info > div > p.full-width > strong {
+  width: 100%;
+  display: block;
+}
+.aff-reff-vanguard-section .other-info > div > p.full-width > span,
+.aff-reff-vanguard-section .other-info > div > p.full-width > strong {
+  height: 18px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.aff-reff-vanguard-section .other-info > div > p > span {
+  display: block;
+  font-size: 12px;
+  color: #717171;
+}
+
+/* .aff-reff-vanguard-section .other-info { width: 150px; }
+
+.aff-reff-vanguard-section .other-info > p {
+  overflow: hidden;
+  width: 150px;
+  margin-bottom: 2px;
+}
+
+.aff-reff-vanguard-section .other-info > p + p { margin-bottom: 0px; }
+.aff-reff-vanguard-section .other-info > p > span {
+  width: 50%;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.aff-reff-vanguard-section .other-info > p > span > strong,
+.aff-reff-vanguard-section .other-info .sponsor {
+  display: inline-block;
+  height: 22px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.aff-reff-vanguard-section .other-info > p > span > span {
+  display: inline-block;
+  height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: -5px;
+}
+
+.aff-reff-vanguard-section .other-info .sponsor,
+.aff-reff-vanguard-section .other-info .sponsor + span {
+  font-weight: 600;
+}
+
+.aff-reff-vanguard-section .other-info .sponsor { color: #717171; }
+
+.aff-reff-vanguard-section .other-info .sponsor > span {
+  color: #292929;
+  font-size: 14px;
+  display: block !important;
+} */
+
+.aff-reff-vanguard-section .vangarud-special { margin-top: 78px; }
+.aff-reff-vanguard-section .vangarud-special > div { 
+  min-height: 100px;
+  line-height: 50px;
+  background: #022B44;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+.aff-reff-vanguard-section .vangarud-special > div > h2 { 
+  font-size: 22px;
+  color: #fff;
+  line-height: 100px;
+  margin: 0px;
+}
+
+.aff-reff-vanguard-section .vangarud-special > div > button.btn.btn-primary {
+  font-size: 14px;
+  padding: 5px;
+  margin: 32px 10px 0 5px;
+}
+
+.dahsboard.row.news { 
+  background: #fff !important;
+  margin: 0 -25px;
+}
+
+.dahsboard .news-section {
+  overflow: hidden;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.dahsboard .news-section .content {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #eee;
+  overflow: hidden;
+}
+
+.dahsboard .news-section .image-preview {
+  height: 300px;
+  position: relative;
+  background: #efefef;
+}
+
+.dahsboard .news-section .image-preview .latest-news {
+  font-size: 16px;
+  color: #fff;
+  position: absolute;
+  top: 0px;
+  z-index: 99px;
+  background: #45A4E8;
+  line-height: 30px;
+  left: 0px;
+  padding: 10px 15px;
+}
+
+.dahsboard .news-section .image-preview h2.heading {
+  font-size: 28px;
+  color: #fff;
+  position: absolute;
+  bottom: 0px;
+  z-index: 99px;
+  padding: 0px 20px;
+}
+
+.dahsboard .news-section .content-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+.dahsboard .news-section .content-wrapper .content-text { 
+  height: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.dahsboard .news-section .content-wrapper .content-text * {
+  font-size: 18px;
+  color: #717171;
+}
+
+.dahsboard .news-section .content-wrapper .content-link,
+.dahsboard.row.news .academy > div .content-link { 
+  padding: 15px;
+  text-transform: uppercase;
+  color: #034771;
+  font-size: 18px;
+}
+
+.dahsboard .news-section .content-wrapper .content-text .heading {
+  font-size: 22px;
+  margin: 0 0 10px;
+  color: #034771;
+}
+
+.dahsboard .news-section .content-wrapper .content-text.large-text {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.dahsboard.row.news .academy { 
+  margin-bottom: 40px; 
+  overflow: hidden;
+}
+
+.dahsboard.row.news .academy h2 {
+  padding: 0px 12px;
+  font-size: 32px;
+  color: #292929;
+}
+
+.dahsboard.row.news .academy > div > h2 {
+  padding: 0px;
+  font-size: 24px;
+}
+
+.dahsboard.row.news .academy > div .content-wrapper {
+  overflow: hidden;
+  text-align: center;
+}
+.dahsboard.row.news .academy > div .content-wrapper .content-text { 
+  text-align: left;
+  height: 230px;
+}
+
+.latest-news.gold-color {
+  background: #c8a821 !important;
+}
+
+p.super span.gain { background-size: 18% !important; }
+p.super span.loss { background-size: 26% !important; }
+
+@media screen and (max-width: 1200px) {
+  .dashboard .container .potfolio + div.hidden-xs { margin-left: -15px; }
+  .dashboard .container .box-content-wrapper-div { margin-left: -30px; }
+  .user-pages .main-content .page-content.page-thin .row.dashboard {
+    background-position: 0 0 !important; 
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .aff-reff-vanguard-section .other-info {
+    width: 57% !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .dashboard .container .potfolio,
+  .dashboard .container .box-content-wrapper-div {padding: 0px;}
+  .dashboard .container .potfolio > div,
+  .dashboard .container .box-content-wrapper-div > div {padding: 5px;}
+}
+
+@media screen and (min-width: 1024px) {
+  .aff-reff-vanguard-section .other-info {
+    width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .inst-trans-wallet-section .wallet .amount.bkn {
+    background-size: 13% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard .container .potfolio,
+  .dashboard .container .box-content-wrapper-div {padding: 0px;}
+  .dashboard .container .potfolio > div,
+  .dashboard .container .box-content-wrapper-div > div {padding: 5px;}
+  .dashboard .h100 .filter-content,
+  .dashboard .box-content p { 
+    width: 100%;
+    margin-left: -10px;
+  }
+  .inst-trans-wallet-section .transactions .amount {
+    display: block;
+    text-align: center;
+  } 
+  .inst-trans-wallet-section .intruments .amount.vanguard, 
+  .inst-trans-wallet-section .intruments .amount.digitex,
+  .inst-trans-wallet-section .intruments .amount.tentanium, 
+  .inst-trans-wallet-section .wallet .amount.bkn {
+    background-size: 8% !important;
+  }
+  .aff-reff-vanguard-section .vangarud-special > div {
+    line-height: 30px;
+    min-height: 50px;
+    max-height: 100px;
+  }
+  .aff-reff-vanguard-section .vangarud-special > div > h2 {
+    line-height: 50px;
+    font-size: 18px;
+  }
+  .aff-reff-vanguard-section .vangarud-special > div > button.btn.btn-primary {
+    margin: 7px 10px 7px 5px;
+  }
+  .aff-reff-vanguard-section .vangarud-special > div > ul { margin-top: 5px; }
+  .dahsboard .border-left { 
+    border-left: 0px !important; 
+    border-right: 0px !important;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="dashboard-nav">
+  <nav class="navbar navbar-inverse">
+    <div class="">
+      <div class="" id="dashbarod-nav">
+        <ul class="nav navbar-nav">
+          <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4" [ngClass]="{'active': (contentType === 'coins')}">
+            <a href="/#/static/coins">Coins <!--<span class="caret"></span>--></a>
+            <!-- <ul class="dropdown-menu">
+              <li><a href="#">Page 1-1</a></li>
+              <li><a href="#">Page 1-2</a></li>
+              <li><a href="#">Page 1-3</a></li>
+            </ul> -->
+          </li>
+          <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4" [ngClass]="{'active': (contentType === 'premium')}"><a href="/#/static/premium">Membership</a></li>
+          <!-- <li><a href="javascript:void(0);">BlockCubator</a></li> -->
+          <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4" [ngClass]="{'active': (contentType === 'blocknotes')}"><a href="/#/static/blocknotes">Get BlockNotes</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

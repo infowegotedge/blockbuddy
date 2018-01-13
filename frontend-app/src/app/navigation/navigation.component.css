@@ -1,0 +1,131 @@
+.sidebar-inner { overflow: overlay; }
+
+.logo-image {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.logo-image > img {
+  background: #fff;
+}
+
+.logo-image + .white-color {
+  margin-left: 80px;
+}
+
+.user-sidebar {
+  background: transparent !important;
+  height: 82px;
+}
+
+.user-sidebar .nav-sidebar > li {
+  font-family: inherit !important;
+  height: 82px;
+  font-size: 16px;
+}
+
+.user-sidebar .nav-sidebar > li + li {
+  margin: 0px !important;
+  font-family: inherit !important;
+}
+
+.user-sidebar .nav-sidebar > li > a i,
+.user-sidebar .nav-sidebar > li > a span {
+  display: inherit;
+}
+
+.user-sidebar .nav-sidebar > li > a i {
+  margin: 0px 5px 0px 0px !important;
+  padding: 0px !important;
+  font-size: 16px;
+  float: left;
+  position: relative;
+  top: 11px;
+}
+
+.user-sidebar .nav-sidebar > li > a {
+  line-height: 62px;
+  color: #fff;
+  text-align: left;
+  font-size: 16px;
+  font-family: inherit !important;
+  text-transform: uppercase;
+}
+
+.user-sidebar .nav-sidebar > li > a:hover,
+.user-sidebar .nav-sidebar > li.active > a {
+  color: #D1B52A;
+  text-decoration: underline;
+  background: transparent !important;
+}
+
+.user-sidebar .nav-sidebar > li > a span {
+  display: inline;
+}
+
+.nav-parent.active:hover > ul.children.collapse {
+  display: block !important;
+}
+
+.sidebar-inner.user-sidebar.no-scroll {
+  overflow: initial !important;
+}
+
+.user-sidebar .nav-sidebar > li > ul {
+  background: #1d394c;
+  padding: 10px 20px;
+  position: absolute;
+  width: 230px;
+  list-style: none;
+  border-radius: 5px;
+}
+
+.user-sidebar .nav-sidebar > li > ul > li + li {
+  border-top: 1px solid #152834;
+}
+
+.user-sidebar .nav-sidebar > li > ul > li a {
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  display: block;
+}
+
+.user-sidebar .nav-sidebar > li > ul > li a:hover {
+  color: #D1B52A;
+  text-decoration: underline;
+  background: transparent !important;
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .user-sidebar .nav-sidebar > li > a {
+    padding: 10px 8px !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .user-sidebar .nav-sidebar > li > a {
+    padding: 10px 10px !important;
+  }
+  .topbar-fullwidth .header-right .header-menu > li > a,
+  .nav>li>a {
+    padding: 0 10px !important;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .logo-image {
+    display: none;
+  }
+
+  .logo-image + .white-color {
+    margin-left: 5px;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .hidden-xs.user-sidebar {
+    display: none !important;
+  }
+}

@@ -1,0 +1,106 @@
+.bg-top-row {
+  margin: -25px -25px 0 -25px;
+  background: url('../../assets/images/new-files/header-bg.png') no-repeat scroll 0 -82px transparent;
+  padding: 25px 50px 75px;
+  background-size: cover; 
+}
+
+.breadcrumb.bc-1 { padding-left: 12px; }
+
+.breadcrumb.bc-1 .active,
+.breadcrumb.bc-1 li > a,
+.breadcrumb.bc-1 li {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Content Settings */
+.trade-row {
+  margin-top: -75px;
+}
+
+.trade-row > .container > div { padding-right: 0px; }
+
+/* Extra Footer */
+.footer-row {
+  margin: 0px -25px;
+  height: 40px;
+  background: #fff;
+}
+
+.trade-row .container { 
+  background: #fff;
+  min-height: 550px;
+  margin-bottom: 10px;
+}
+
+.user-links,
+.btc-update {
+  width: 50%;
+  margin: 0 auto;
+}
+
+#wallet-address {
+  width: 400px;
+}
+
+.mt15 {
+  margin-top: 15px;
+}
+
+.btc-update {
+  width: 100px;
+}
+
+.help-block {
+  color: #a94442;
+}
+.login-header.text-center {
+  margin-bottom: 30px;
+}
+.login-header.text-center > h3,
+.personal-details > div > h3,
+#kyc-panel .panel-body .panel-title,
+#wallet-address-panel .panel-body .panel-title {
+  text-align: left;
+  margin: 0px -30px 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  text-transform: none;
+  font-weight: 500;
+  border-bottom: 1px solid #ccc;
+  padding-left: 15px;
+}
+.login-header.text-center > h3 + div,
+.login-header.text-center > h3 + div + div {
+  padding: 0px;
+}
+.user-info .user-image { overflow: hidden; }
+.user-info .user-image > div {
+  padding-left: 0px;
+}
+.user-info .user-image a img {
+  width: 50px !important;
+  height: 50px !important;
+  margin-right: 15px;
+  margin-top: 8px;
+}
+
+.upload-button .uploading {
+  width: 84px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px){
+  .user-links,
+  .btc-update {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  #wallet-address {
+    width: 100%;
+  }
+}

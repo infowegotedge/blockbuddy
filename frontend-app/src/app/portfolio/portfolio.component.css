@@ -1,0 +1,72 @@
+/* Bredcrum Settings */
+.bg-top-row {
+  margin: -25px -25px 0 -25px;
+  background: url('../../assets/images/new-files/header-bg.png') no-repeat scroll 0 -82px transparent;
+  padding: 25px 50px 75px;
+  background-size: cover; 
+}
+
+.breadcrumb.bc-1 { padding-left: 12px; }
+
+.breadcrumb.bc-1 .active,
+.breadcrumb.bc-1 li > a,
+.breadcrumb.bc-1 li {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Content Settings */
+.trade-row {
+  margin-top: -75px;
+}
+
+.trade-row > .container > div { padding-right: 0px; }
+
+/* Extra Footer */
+.footer-row {
+  margin: 0px -25px;
+  height: 40px;
+  background: #fff;
+}
+
+/* tilte heading */
+.panel-header.title { border-bottom: 2px solid #ccc; }
+.panel-header.title h3 {
+  font-size: 22px;
+  text-transform: none;
+}
+.protfolio-table .table th {
+  background: #023351;
+  color: #fff;
+  border-bottom: 0px;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #f5f5f5;
+}
+.table > thead > tr > th, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > td {
+  padding: 20px 15px;
+}
+.protfolio-table .table td > a,
+.protfolio-table .table td > a:hover {
+  color: #45A4E8;
+}
+.protfolio-table .table td span.gain,
+.protfolio-table .table td span.loss {
+  font-size: 15px;
+  font-weight: 500;
+}
+.chart-data {
+  min-height: 400px;
+  padding: 0px 0 30px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.chart-data > div {
+  margin: 20px 0;
+}

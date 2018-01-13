@@ -1,0 +1,385 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt; 
+      </li>
+      <li class="active">
+        My Profile
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="trade-row row" id="wallet">
+  <div class="container">
+
+    <ngb-tabset class="tabset-container-profile">
+      <ngb-tab id="profile" title="My Profile">
+        <ng-template ngbTabContent>
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form method="post" role="form" id="profile" class="login-form fade-in-effect" (ngSubmit)="form.valid && updateProfile()" [formGroup]="form" #f="ngForm" novalidate>
+                  <div class="login-header text-center">
+                    <h3>User Profile</h3>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div id="loader-section" *ngIf="showLoader">
+                        <img src="assets/images/ajax_loader.gif" class="custom-loader"/>
+                      </div>
+                      <div class="user-info">
+                        <div class="user-image">
+                          <div class="col-md-8 col-sm-8 col-xs-8">
+                            <a class="pull-left"><img [src]="user.avatar?user.avatar:'assets/images/user-2.png'" width="80" class="img-responsive img-circle user-pic"></a>
+                            <div class="pull-left">
+                              <h4>Change Picture</h4>
+                              <p>Max file size is 2MB.</p>
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-sm-4 col-xs-4 upload-button">
+                            <div class="uploading text-center">
+                              <file-uploader [maxSizeInKb]="2048" [allowMultiple]="false" [fileType]="'image/*'" (onSelection)="fileChange($event, null)" [required]="false" [textButton]="textButton"></file-uploader>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="user-info">
+                        <div class="user-image">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="pull-left">
+                              <h4>Change Password</h4>
+                              <p>Enable 2-factor authentication on <br>the security page.</p>
+                            </div>
+                            <div class="pull-right">
+                              <button type="button" class="btn btn-primary" style="margin-top: 20px;" (click)="showChangePass();">Change Password</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div>&nbsp;</div>
+                  <div class="row personal-details">
+                    <div class="col-md-12">
+                      <h3>Personal Details</h3>
+                      <div class="col-md-4 col-sm-4 hidden-xs">
+                        <h5><strong>Personal Details</strong></h5>
+                        <p>Your personal information is never shown to other users.</p>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div *ngIf="profileError && !profileMessage" class="alert alert-danger"><h4>{{profileError}}</h4></div>
+                        <div *ngIf="profileMessage && form.valid" class="alert alert-success"><h4>Profile Updated Successfully</h4></div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <!-- <label class="control-label" for="sponsorid">SponsorId</label> -->
+                              <input type="hidden" class="form-control" name="sponsorid" [(ngModel)]="user.sponsorUsername" [ngModelOptions]="{standalone: true}" id="sponsor-id" autocomplete="off" disabled (ngModelChange)="setProfileMessage()"/>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <!-- <label class="control-label" for="sponsorName">Sponsor Name</label> -->
+                              <input type="hidden" class="form-control" name="sponsorName" [(ngModel)]="user.sponsorName" [ngModelOptions]="{standalone: true}" id="sponsor-name" autocomplete="off" disabled (ngModelChange)="setProfileMessage()"/>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group" [ngClass]="{'has-error': (f.submitted || username.dirty) && !username.valid}">
+                              <!-- <label class="control-label" for="username">Username</label> -->
+                              <input type="hidden" class="form-control" name="username" id="username" autocomplete="off" formControlName="username" (ngModelChange)="setProfileMessage()" readonly/>
+                              <div *ngIf="(f.submitted || username.dirty) && !username.valid" class="help-block">Username is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group" [ngClass]="{'has-error': (f.submitted || fname.dirty) && !fname.valid}">
+                              <label class="control-label" for="first-name">First Name *</label>
+                              <input type="text" class="form-control" name="firstName" id="first-name" autocomplete="off" formControlName="fname" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null" />
+                              <div *ngIf="(f.submitted || fname.dirty) && !fname.valid" class="help-block">First Name is required</div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group" [ngClass]="{'has-error': (f.submitted || lname.dirty) && !lname.valid}">
+                              <label class="control-label" for="name">Last Name *</label>
+                              <input type="text" class="form-control" name="lastName" id="last-name" autocomplete="off" formControlName="lname" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null" />
+                              <div *ngIf="(f.submitted || lname.dirty) && !lname.valid" class="help-block">Last Name is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group" [ngClass]="{'has-error': (f.submitted || email.dirty) && !email.valid}">
+                              <label class="control-label" for="email">Email * <small *ngIf="readonlyTextBoxes">( Edit to Change )</small></label>
+                              <input type="email" class="form-control" name="email" id="email" autocomplete="off" formControlName="email" (ngModelChange)="setProfileMessage()"/>
+                              <div *ngIf="(f.submitted || email.dirty) && !email.valid" class="help-block">Email is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="control-label" for="address">Address *</label>
+                              <textarea class="form-control" name="address" id="address" autocomplete="off" formControlName="address" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null"></textarea>
+                              <div *ngIf="(f.submitted || address.dirty) && !address.valid" class="help-block">Address is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label" for="city">City *</label>
+                              <input type="text" class="form-control" name="city" id="city" autocomplete="off" formControlName="city" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null"/>
+                              <div *ngIf="(f.submitted || city.dirty) && !city.valid" class="help-block">City is required</div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label" for="city">Postal (Zip) Code *</label>
+                              <input type="text" class="form-control" name="postal" id="postal" autocomplete="off" formControlName="postal" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null"/>
+                              <div *ngIf="(f.submitted || postal.dirty) && !postal.valid" class="help-block">Zip Code is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label" for="state">State *</label>
+                              <input type="text" class="form-control" name="state" id="state" autocomplete="off" formControlName="state" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null"/>
+                              <div *ngIf="(f.submitted || state.dirty) && !state.valid" class="help-block">State is required</div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group" [ngClass]="{'has-error': (f.submitted || country.dirty) && !country.valid}">
+                              <label class="control-label" for="country">Country *</label>
+                              <select class="form-control" name="country" id="country" autocomplete="off" formControlName="country" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null">
+                                <option *ngFor="let c of countries" [ngValue]="c.actualName">{{c.name}}</option>
+                              </select>
+                              <div *ngIf="(f.submitted || country.dirty) && !country.valid" class="help-block">Country is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group" [ngClass]="{'has-error': (f.submitted || mobile.dirty) && !mobile.valid}">
+                              <label class="control-label" for="mobile">Mobile *</label>
+                              <input type="text" class="form-control" name="mobile" id="mobile" autocomplete="off" formControlName="mobile" (ngModelChange)="setProfileMessage()" [attr.disabled]="readonlyTextBoxes === true ? true : null" />
+                              <div *ngIf="(f.submitted || mobile.dirty) && !mobile.valid" class="help-block">Mobile is required</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div>&nbsp;</div>
+                  <div class="row">
+                    <div class="pull-right" style="margin-right:22px;">
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block text-center">
+                          <span *ngIf="!readonlyTextBoxes">Save</span>
+                          <span *ngIf="readonlyTextBoxes">Update</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="readonlyTextBoxes">
+                      <p style="line-height:36px;color:red;margin:0px;font-weight:600">To change profile information, please contact 
+                        <a href="https://blockbuddy.zendesk.com/hc/en-us/requests/new" target="_blank">support@blockbuddy.com</a>
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab id="kyc" title="KYC">
+        <ng-template ngbTabContent>
+          <div class="col-sm-12">
+            <div class="panel panel-default" *ngIf="!adminRole">
+              <div class="panel-body">
+                <h3 class="panel-title">KYC</h3>
+                <form method="post" role="form" id="wallet-info" class="login-form fade-in-effect" (ngSubmit)="kycForm.valid && createKyc()" [formGroup]="kycForm" #kyc="ngForm" novalidate>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group" [ngClass]="{'has-error': (kycForm.submitted || governmentId.dirty) && !governmentId.valid}">
+                      <label class="control-label" for="governmentId"></label>
+                      <input type="text" class="form-control" name="governmentId" formControlName="governmentId" id="governmentId" placeholder="Your Government ID" />
+                      <div *ngIf="(kyc.submitted || governmentId.dirty) && !governmentId.valid" class="help-block text-center">Please enter your Government ID.</div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': (kycForm.submitted || govPhotoId.dirty) && !govPhotoId.valid}">
+                      <label class="control-label" for="govPhotoId"></label>
+                      <!-- <input type="file" class="form-control" id="govPhotoId" (change)="fileChange($event)" /> -->
+                      <file-uploader [maxSizeInKb]="2048" [allowMultiple]="false" [fileType]="'image/*'" (onSelection)="fileChange($event, 'govPhotoId')" [required]="true"></file-uploader>
+                      <p style="color:red;">Please upload only .JPG and .PNG file, and not more than 2MB</p>
+                      <div id="loader-section" *ngIf="showGovLoader">
+                        <img src="assets/images/ajax_loader.gif" class="custom-loader"/>
+                      </div>
+                      <img [src]="govIPhotoId?govIPhotoId:''" class="img-responsive" />
+                      <div *ngIf="(kyc.submitted || govPhotoId.dirty) && !govPhotoId.valid" class="help-block text-center">Please enter your Government ID.</div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group" [ngClass]="{'has-error': (kycForm.submitted || taxId.dirty) && !taxId.valid}">
+                      <label class="control-label" for="taxId"></label>
+                      <input type="text" class="form-control" name="taxId" formControlName="taxId" id="taxId" placeholder="Your Tax ID" />
+                      <div *ngIf="(kyc.submitted || taxId.dirty) && !taxId.valid" class="help-block text-center">Please enter your Tax ID.</div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': (kycForm.submitted || taxPhotoId.dirty) && !taxPhotoId.valid}">
+                      <label class="control-label" for="taxPhotoId"></label>
+                      <!-- <input type="file" class="form-control" id="taxPhotoId" (change)="fileChange($event)" /> -->
+                      <file-uploader [maxSizeInKb]="2048" [allowMultiple]="false" [fileType]="'image/*'" (onSelection)="fileChange($event, 'taxPhotoId')" [required]="true"></file-uploader>
+                      <p style="color:red;">Please upload only .JPG and .PNG file, and not more than 2MB</p>
+                      <div id="loader-section" *ngIf="showTaxLoader">
+                        <img src="assets/images/ajax_loader.gif" class="custom-loader"/>
+                      </div>
+                      <img [src]="taxIPhotoId?taxIPhotoId:''" class="img-responsive" />
+                      <div *ngIf="(kyc.submitted || taxPhotoId.dirty) && !taxPhotoId.valid" class="help-block text-center">Please provide your Tax Photo ID.</div>
+                    </div>
+                  </div>
+                  <div class="clearfix">&nbsp;</div>
+                  <div *ngIf="kycSuccess" class="alert alert-success text-left clearfix">{{kycSuccess}}</div>
+                  <div *ngIf="kycError" class="alert alert-success text-left clearfix">{{kycError}}</div>
+                  <div class="clearfix">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block btc-update clearfix">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab id="wallet-address" title="Wallet Address">
+        <ng-template ngbTabContent>
+          <div class="col-sm-12">
+            <div class="panel panel-default" *ngIf="!adminRole">
+              <div class="panel-body">
+                <h3 class="panel-title">Update Wallet</h3>
+                <form method="post" role="form" id="wallet-info" class="login-form fade-in-effect" (ngSubmit)="addressForm.valid && updateWallet()" [formGroup]="addressForm" #w="ngForm" novalidate>
+                  <div class="login-header">
+                    <div class="col-md-12">
+                      <div class="user-info">
+                        <div class="user-image text-center">
+                          <i class="fa fa-btc fa-5x"></i>
+                        </div>
+                        <div class="user-details">
+                          <div class="user-links center">
+                            <div class="form-group text-center mt15" [ngClass]="{'has-error': (w.submitted || btcaddress.dirty) && !btcaddress.valid}">
+                              <label class="control-label" for="wallet-address"></label>
+                              <input type="text" class="form-control text-center" name="walletAddress" formControlName="btcaddress" id="wallet-address" (ngModelChange)="setWalletMessage()" placeholder="Your BTC Address" />
+                              <div *ngIf="(w.submitted || btcaddress.dirty) && !btcaddress.valid" class="help-block text-center">Please enter your wallet address.</div>
+                            </div>
+                            <div *ngIf="walletMessage && addressForm.valid" class="alert alert-success text-left">Wallet address updated</div>
+                            <div class="center">
+                              <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block btc-update text-center">Save</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>
+
+<div class="modal fade" bsModal #changePassModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" aria-label="Close" (click)="hideChangePass(); cf.resetForm();">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h2 class="modal-title">Chnage Password</h2>
+				</div>
+				<div class="modal-body">
+          <form method="post" role="form" id="changePassword" class="login-form fade-in-effect" (ngSubmit)="changePassForm.valid && changePassword(); changePassForm.valid && cf.resetForm();" [formGroup]="changePassForm" #cf="ngForm" novalidate>
+            <div>&nbsp;</div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" [ngClass]="{'has-error': (cf.submitted || oldpassword.dirty) && !oldpassword.valid}">
+                      <label class="control-label" for="new-password">Old Password</label>
+                      <input type="password" class="form-control" name="oldPassword" id="old-password" autocomplete="off" formControlName="oldpassword" />
+                      <div *ngIf="(cf.submitted || oldpassword.dirty) && !oldpassword.valid" class="help-block">Old Password is required</div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group" [ngClass]="{'has-error': (cf.submitted || password.dirty) && !password.valid && password.errors}">
+                      <label class="control-label" for="new-password">New Password</label>
+                      <input type="password" id="new-password" class="form-control" name="newPassword" formControlName="password" />
+
+                      <div *ngIf="(password.dirty || cf.submitted) && password.errors"
+                        class="help-block">
+                        <div [hidden]="!password.errors.required">
+                          Password is required
+                        </div>
+                        <div [hidden]="!password.errors.minlength">
+                          Password must be at least 6 characters long.
+                        </div>
+                        <div [hidden]="password.errors.minlength || password.errors.required">
+                          Password must be alphanumeric.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group" [ngClass]="{'has-error': (cf.submitted || confirmpassword.dirty) && (!confirmpassword.valid || isConfirmPassError)}">
+                      <label class="control-label" for="confirm-password">Confirm Password</label>
+                      <input type="password" class="form-control" name="confirmPassword" id="confirm-password" autocomplete="off" formControlName="confirmpassword" (change)="validatePassword(form.value.password, form.value.confirmpassword)" />
+                      <div *ngIf="(cf.submitted || confirmpassword.dirty) && (!confirmpassword.valid || isConfirmPassError)" class="help-block">Password Mismatch</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div *ngIf="passwordError" class="col-md-8 alert alert-danger"><h4>{{serverError}}</h4></div>
+                <div *ngIf="passwordSuccess" class="col-md-8 alert alert-success"><h4>Password changed successfully</h4></div>
+              </div>
+            </div>
+            <div>&nbsp;</div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block text-center">
+                    Update
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+				</div>
+			</div>
+	</div>
+</div>
+
+<div class="modal fade dz-image_success" bsModal #kycImageSuccess="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p>Your KYC document has been uploaded successfully.</p>
+      </div>
+      <div class="modal-footer center-block text-center">
+        <button type="button" class="btn btn-default btn-gold-btn" (click)="kycImageSuccess.hide()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<button class="btn btn-primary" (click)="showPopup()">{{label}}</button>
+
+<div class="modal fade product-modal" bsModal #productModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Product Purchase</h4>
+      </div>
+      <div class="modal-body" *ngIf="!btcBuySuccess">
+        <form method="post" role="form" (ngSubmit)="form.valid && doBuyForm(fg); form.valid && f.resetForm();" [formGroup]="form" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successMessage">             
+            <h4>{{successMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorMessage">             
+            <h4>{{errorMessage}}</h4>
+          </div>
+          <div id="loader-section" *ngIf="showLoader">
+            <img src="assets/images/ajax_loader.gif" class="custom-loader"/>
+          </div>
+
+          <div class="form-group">
+            <label for="role">Product Name: </label> {{form.value.name}}
+          </div>
+
+          <div class="form-group">
+            <label for="category">Product Value ( &euro; ): </label> {{amount | number:'1.2'}}
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || paymentType.dirty) && !paymentType.valid}">
+            <label for="payment-type">Select Gateway: </label>
+            <select name="paymentType" class="form-control" id="payment-type" formControlName="paymentType">
+              <option value="">Select One</option>
+              <option value="EXPAY">ExPay</option>
+              <option value="PAYZA">PayZa</option>
+            </select>
+            <div *ngIf="(f.submitted || paymentType.dirty) && !paymentType.valid" class="help-block">Option is required</div>
+          </div>
+
+          <div class="form-group">
+            <input type="hidden" name="value" class="form-control" id="value" formControlName="value" />
+            <input type="hidden" name="name" class="form-control" id="name" formControlName="name" />
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Buy Now</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="modal-body" *ngIf="btcBuySuccess">
+        <h2>Payment created successfully.</h2><br/>
+        <p>Please pay us at<br/><br/>
+          <span><strong>Address: </strong>{{btcBuySuccess}}</span><br/>
+          <span><strong>Amount: </strong>{{btcAmount}} BTC</span> 
+        </p>
+        <div>&nbsp;</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal();">Close</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <form method="post" action="https://secure.payza.com/checkout" role="form" [formGroup]="payzaForm" #fg="ngForm" id="payza-form" novalidate>
+        <div *ngIf="payzaForm">
+          <input type="hidden" name="ap_merchant" formControlName="ap_merchant"/><input type="hidden" name="ap_purchasetype" formControlName="ap_purchasetype"/><input type="hidden" name="ap_itemname" formControlName="ap_itemname"/><input type="hidden" name="ap_amount" formControlName="ap_amount"/><input type="hidden" name="ap_currency" formControlName="ap_currency"/><input type="hidden" name="ap_quantity" formControlName="ap_quantity"/><input type="hidden" name="ap_itemcode"  formControlName="ap_itemcode"/><input type="hidden" name="ap_description" formControlName="ap_description"/><input type="hidden" name="ap_returnurl" formControlName="ap_returnurl"/><input type="hidden" name="ap_cancelurl" formControlName="ap_cancelurl"/><input type="hidden" name="ap_taxamount" formControlName="ap_taxamount"/><input type="hidden" name="ap_additionalcharges" formControlName="ap_additionalcharges"/><input type="hidden" name="ap_shippingcharges" formControlName="ap_shippingcharges"/><input type="hidden" name="ap_testmode" formControlName="ap_testmode"/><input type="hidden" name="ap_alerturl" formControlName="ap_alerturl"/><input type="hidden" name="apc_1" formControlName="apc_1"/>
+          <div *ngIf="subscription===1"><input type="hidden" name="ap_timeunit" formControlName="ap_timeunit"/><input type="hidden" name="ap_periodlength" formControlName="ap_periodlength"/><input type="hidden" name="ap_periodcount" formControlName="ap_periodcount"/><input type="hidden" name="ap_setupamount" formControlName="ap_setupamount"/></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

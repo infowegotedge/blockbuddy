@@ -1,0 +1,12 @@
+var path = require('path')
+
+// Load environment variables
+require('dotenv').config();
+
+module.exports = {
+  'env':      process.env.NODE_ENV,
+  'config':   path.resolve('config', 'postgres.json'),
+  'migrations-path': path.resolve('migrations', 'migrate'),
+  'seeders-path': path.resolve('migrations', 'seeders'),
+  'models-path': path.resolve('models', 'postgres')
+}

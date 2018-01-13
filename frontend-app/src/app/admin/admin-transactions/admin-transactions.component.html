@@ -1,0 +1,55 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Transfers</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i>Home</a>
+      </li>
+      <li class="active">
+        <strong>Transfers</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>From UserName</th>
+              <th>To UserName</th>
+              <th>Status</th>
+              <th class="text-right">Fee</th>
+              <th class="text-right">Amount</th>
+              <th class="text-right">Transfer Amount</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="transfers.length>0" >
+            <tr *ngFor="let info of transfers; let i = index;">
+              <td>{{info.created_at | date:'medium'}}</td>
+              <td>{{info.from_username}}</td>
+              <td>{{info.to_username}}</td>
+              <td>{{info.status}}</td>
+              <td class="text-right">{{info.amount_fee}}</td>
+              <td class="text-right">{{info.amount | number:'1.2-6'}}</td>
+              <td class="text-right">{{info.amount_transfer | number:'1.2-6'}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="transfers.length===0" >
+            <tr>
+              <td class="text-center" colspan="7"><strong>No Transfers Found</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="transfers.length>0" class="col-md-6 pull-right text-right">
+          <pagination [totalItems]="totalTransfer" [(ngModel)]="currentPage" [maxSize]="transferMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getTransfers(currentPage)"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

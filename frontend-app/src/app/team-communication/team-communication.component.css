@@ -1,0 +1,52 @@
+.message-model .message-description > span {
+  clear: both;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.message-model .message-description > span > strong {
+  vertical-align: top;
+  display: inline-block;
+  width: 55px !important;
+  float: left;
+}
+
+.message-model .message-description > span > span {
+  display: inline-block;
+  width: 500px !important;
+  word-wrap: break-word;
+}
+
+.message-model .message-description > .description {
+  min-height: 400px;
+  max-height: 400px;
+  overflow: scroll;
+  display: block;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.normal-color,
+.normal-color p {
+  color: #000;
+}
+
+button[type="submit"] {
+  margin-top: 20px;
+}
+
+.cursor-pointer .table .pointer {
+  cursor: pointer !important;
+}
+
+td p.word-break {
+  word-wrap: break-word;
+}
+
+.panel-title.no-margin {
+  margin: 0px;
+}
+
+#profile.login-form {
+  margin-top: 6px;
+}

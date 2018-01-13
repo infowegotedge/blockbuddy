@@ -1,0 +1,275 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Withdrawals</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i>Home</a>
+      </li>
+      <li class="active">
+        <strong>Withdrawals</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ngb-tabset #withdrawalTebset="ngbTabset" (tabChange)="beforeChange($event)">
+
+      <ngb-tab id="withdrawal-All" title="Transactions">
+        <ng-template ngbTabContent>
+          <div class="text-right">
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('day')">1 Day</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('week')">1 Week</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('month')">1 Month</button>
+          </div>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>BTC Address</th>
+                  <th class="text-right">Amount</th>
+                  <th class="text-right">Fee</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+                <tbody *ngIf="manualWithdrawals.length>0" >
+                <tr *ngFor="let info of manualWithdrawals; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.user_name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.btc_address}}</td>
+                  <td class="text-right">{{info.amount | number:'1.2-6'}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-primary" *ngIf="info.status == 'PENDING'" (click)="withdrawalApproved(info._id)">Approved</button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="manualWithdrawals.length===0" >
+                <tr>
+                  <td class="text-center" colspan="7"><strong>No Withdrawals Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="manualWithdrawals.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalMWithdrawals" [(ngModel)]="wmCurrentPage" [maxSize]="mwithdrawalsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getWithdrawalManual(wmCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab id="withdrawal-pending" title="Pending">
+        <ng-template ngbTabContent>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>BTC Address</th>
+                  <th class="text-right">Amount</th>
+                  <th class="text-right">Fee</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+                <tbody *ngIf="manualWithdrawals.length>0" >
+                <tr *ngFor="let info of manualWithdrawals; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.user_name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.btc_address}}</td>
+                  <td class="text-right">{{info.amount | number:'1.2-6'}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-primary" *ngIf="info.status == 'PENDING'" (click)="withdrawalApproved(info._id)">Approved</button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="manualWithdrawals.length===0" >
+                <tr>
+                  <td class="text-center" colspan="7"><strong>No Withdrawals Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="manualWithdrawals.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalMWithdrawals" [(ngModel)]="wmCurrentPage" [maxSize]="mwithdrawalsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getWithdrawalManual(wmCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="withdrawal-hold" title="Rejected">
+        <ng-template ngbTabContent>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>BTC Address</th>
+                  <th class="text-right">Amount</th>
+                  <th class="text-right">Fee</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="holdWithdrawals.length>0" >
+                <tr *ngFor="let info of holdWithdrawals; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.user_name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.btc_address}}</td>
+                  <td class="text-right">{{info.amount | number:'1.2-6'}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="holdWithdrawals.length===0" >
+                <tr>
+                  <td class="text-center" colspan="7"><strong>No Withdrawals Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="holdWithdrawals.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalHWithdrawals" [(ngModel)]="whCurrentPage" [maxSize]="hwithdrawalsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getWithdrawalHold(whCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="withdrawal-completed" title="Approved">
+        <ng-template ngbTabContent>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>BTC Address</th>
+                  <th class="text-right">Amount</th>
+                  <th class="text-right">Fee</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="completedWithdrawals.length>0" >
+                <tr *ngFor="let info of completedWithdrawals; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.user_name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.btc_address}}</td>
+                  <td class="text-right">{{info.amount | number:'1.2-6'}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="completedWithdrawals.length===0" >
+                <tr>
+                  <td class="text-center" colspan="7"><strong>No Withdrawals Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="holdWithdrawals.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalCWithdrawals" [(ngModel)]="wcCurrentPage" [maxSize]="cwithdrawalsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getWithdrawalCompleted(wcCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="withdrawal-auto" title="Auto">
+        <ng-template ngbTabContent>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>BTC Address</th>
+                  <th class="text-right">Amount</th>
+                  <th class="text-right">Fee</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="autoWithdrawals.length>0" >
+                <tr *ngFor="let info of autoWithdrawals; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.user_name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.btc_address}}</td>
+                  <td class="text-right">{{info.amount | number:'1.2-6'}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-primary" *ngIf="info.status == 'PENDING'" (click)="withdrawalApproved(info._id)">Approved</button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="autoWithdrawals.length===0" >
+                <tr>
+                  <td class="text-center" colspan="7"><strong>No Withdrawals Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="autoWithdrawals.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalAWithdrawals" [(ngModel)]="waCurrentPage" [maxSize]="awithdrawalsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getWithdrawals(waCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+    {{ withdrawalTebsetEvent(withdrawalTebset) }}
+  </div>
+</div>
+
+<div class="modal fade withdrawal-popup" bsModal #withdrawalModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Withdrawal Confirm</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="withdrawalForm.valid && doWithdrawal(); withdrawalForm.valid && f.resetForm();" [formGroup]="withdrawalForm" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="withdrawalSuccessMessage">             
+            <h4>{{withdrawalSuccessMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="withdrawalErrorMessage">             
+            <h4>{{withdrawalErrorMessage}}</h4>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || withdrawalAmount.dirty) && !withdrawalAmount.valid}">
+            <label for="withdrawalAmount">Withdrawal Amount: </label>
+            <input type="text" name="withdrawalAmount" class="form-control" id="withdrawalAmount" formControlName="withdrawalAmount" readonly />
+            <div *ngIf="(f.submitted || withdrawalAmount.dirty) && !withdrawalAmount.valid" class="help-block">Please enter to withdrawal amount.</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || withdrawalStatus.dirty) && !withdrawalStatus.valid}">
+            <label for="withdrawalStatus">Withdrawal Status: </label>
+            <select name="withdrawalStatus" class="form-control" id="withdrawalStatus" formControlName="withdrawalStatus">
+              <option value="">Select Withdrawal Status</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="REJECTED">Rejected</option>
+            </select>
+            <div *ngIf="(f.submitted || withdrawalStatus.dirty) && !withdrawalStatus.valid" class="help-block">Please select your withdrawal status.</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || withdrawalComments.dirty) && !withdrawalComments.valid}">
+            <label for="withdrawalStatus">Withdrawal Comments: </label>
+            <input type="text" name="withdrawalStatus" class="form-control" id="withdrawalComments" formControlName="withdrawalComments" />
+            <div *ngIf="(f.submitted || withdrawalStatus.dirty) && !withdrawalStatus.valid" class="help-block">Please enter withdrawal comments.</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

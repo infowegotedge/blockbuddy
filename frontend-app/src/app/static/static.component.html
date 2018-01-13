@@ -1,0 +1,94 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt; 
+      </li>
+      <li class="active text-capitalize">
+        {{contentType}}
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="trade-row row">
+  <div class="container">
+    <div class="col-sm-12" *ngIf="contentType !== 'blocknotes'">
+      <!-- <app-topbar-nav></app-topbar-nav> -->
+
+      <div class="panel panel-default">
+        <div class="ind-coins">
+          <div id="tentanium_coins" *ngIf="contentType === 'tentanium'">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <p class="image"><img src="assets/images/coin-tent.png" class="img-responsive" /></p>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 coin-details">
+              <h2>Tentanium Coins</h2>
+              <p>With the Tentanium Coin, you get a stake directly in the BlockBuddy system and you get to leverage the benefits
+                  of the whole company’s efforts. 20% of overall income is distributed back to you passively, so you can
+                  sit back and enjoy the benefits for the long haul! Act now because this coin is available for a limited
+                  series as it's the first released coin in the BlockBuddy Ecosystem and as such, it won't be around for
+                  long so don't miss out!.</p>
+              <h3>Get The Tentanium Coin Now!</h3>
+              <a class="bkn-buy-button" href="/#/static/blocknotes">
+                <!-- <img src="assets/images/icons/image-bkn.png" />  -->
+                Buy Now
+              </a>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <div id="digitex_coins" *ngIf="contentType === 'digitex'">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <p class="image"><img src="assets/images/coin-digi.png" class="img-responsive" /></p>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 coin-details">
+              <h2>Digitex Coins</h2>
+              <p>The Digitex Coin is a digital currency index coin made up of a selection of some of the most powerful digital
+                  currencies out there (Bitcoin, Ethereum, LiteCoin, etc) as well as some of the latest and greatest coins
+                  and tokens that we hand select to be a part of the pool. The Coin is a representation of the pool value
+                  and naturally will fluctuate in value based on the currencies it represents. Consider the Digitex coin
+                  as your opportunity to own the foundation of the crypto currency revolution and also a chance to get
+                  involved on the ground floor with new coins before they gain mass appeal.</p>
+              <h3>Get The Digitex Coin Now!</h3>
+              <a class="bkn-buy-button" href="/#/static/blocknotes">
+                <!-- <img src="assets/images/icons/image-bkn.png" />  -->
+                Buy Now
+              </a>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="contentType === 'blocknotes'">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blocknotes" *ngFor="let product of products;">
+        <div class="package-details">
+          <h3 class="blue-color">{{product.productName}} Package</h3>
+          <div class="package-conatins">
+            <p><strong>Package contains</strong></p>
+            <table class="table">
+              <tbody>
+                <tr *ngFor="let p of product.compensationPortfolio;">
+                  <td width="70%"><span class="text-capitalize list-view">{{p.companyCode.toLowerCase()}} Coin</span></td>
+                  <td width="30%">{{p.total}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="product.productType === 'STATIC'">
+              <app-buy-button [amount]="product.sellingPrice" [label]="'Buy Now'" [product-name]="product.productName" [data-value]="product.productSku" [subscription]="0"></app-buy-button>
+            </div>
+            <div *ngIf="product.productType === 'SUBSCRIPTION'">
+              <app-buy-button [amount]="product.sellingPrice" [label]="'Buy Now'" [product-name]="product.productName" [data-value]="product.productSku" [subscription]="1" [subscription-timeunit]="Month" [subscription-periodlength]="1" [subscription-periodcount]="0" [subscription-setupamount]="0"></app-buy-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>

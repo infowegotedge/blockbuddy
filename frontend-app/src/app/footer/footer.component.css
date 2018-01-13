@@ -1,0 +1,70 @@
+.dashboard-trade { 
+  background: #fff; 
+  margin: 0px -15px;
+  box-shadow: 0px 4px 5px rgba(167, 187, 224, 0.5)
+}
+.background {background: #fff; font-family: 'Muli', sans-serif; font-weight: 900; color: #535d63; font-size: 20px;}
+.footer {
+  background: url('../../assets/images/new-files/footer-bg.png') no-repeat scroll center center transparent;
+  margin: 0px -25px; 
+  padding: 25px 25px 0;
+  background-size: cover;
+}
+.footer > li {
+  display: inline-block;
+  padding: 20px;
+  text-align: center;
+  line-height: 47px;
+}
+.footer >li >span {margin: 15px;}
+.footer >li >span>span {color: #319DB5 !important;}
+.fa-long-arrow-up {color: green !important; font-weight: 900 !important; margin-left: 4px;}
+.fa-long-arrow-down {color: red !important; font-weight: 900 !important; margin-left: 5px;}
+
+.vanguard-coin img.up-down-arrow,
+.tentanium-coin img.up-down-arrow,
+.digitex-coin img.up-down-arrow,
+.bkn-coin img.up-down-arrow {
+  width: 16px;
+  margin-top: -4px;
+  margin-left: 5px;
+}
+
+.footer .links-and-logo { border-bottom: 1px solid #fff; }
+.footer .links-and-logo .links ul { list-style: none; }
+.footer .links-and-logo .links li {
+  padding: 15px;
+  font-size: 16px;
+  text-transform: uppercase;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.footer .links-and-logo .links li > a { color: #fff; }
+.footer .links-and-logo .links li > a:hover,
+.footer .links-and-logo .links li.active > a {
+  color: #D1B52A;
+  text-decoration: underline;
+}
+
+.footer .copyright-text,
+.footer .copyright-text a {
+  font-size: 14px;
+  color: #fff;
+}
+
+.footer .copyright-text {
+  padding: 20px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .footer .links-and-logo .links li {
+    padding: 5px !important;
+    font-size: 12px !important;
+  }
+  .footer .links-and-logo .logo img { width: 150px !important; }
+  .footer .copyright-text > p,
+  .footer .copyright-text a {
+    font-size: 12px;
+  }
+}

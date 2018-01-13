@@ -1,0 +1,183 @@
+<div class="page-title font-muli">
+  <div class="title-env" *ngIf="adminRole">
+    <h1 class="title">Genealogy / UniLevel</h1>
+  </div>
+   <div class="breadcrumb-env">
+      <ol class="breadcrumb bc-1">
+         <li>
+            <a href="/#/dashboard"><img src="assets/images/icons/home.png" height="16" /> Dashboard / </a>
+         </li>
+         <li class="active">
+            <strong>Genealogy</strong>
+         </li>
+      </ol>
+   </div>
+</div>
+<div class="row font-muli">
+  <div *ngIf="!adminRole">
+    <app-topbar-nav></app-topbar-nav>
+    <app-my-statics></app-my-statics>
+  </div>
+
+  <div class="col-md-12">
+
+    <ngb-tabset>
+      <ngb-tab id="genelogy" title="Genealogy">
+        <ng-template ngbTabContent>
+          <form role="form" class="form-inline pull-left" method="post" id="search-downline" (ngSubmit)="form.valid && getMyNetwork(form.value.username)" [formGroup]="form" #downline="ngForm" novalidate>			
+            <div class="form-group" [ngClass]="{'has-error': (downline.submitted || username.dirty) && !username.valid}">
+              <input type="text" class="form-control" name="username" id="username" autocomplete="off" formControlName="username" placeholder="Enter your username" />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-secondary btn-single">Search</button>
+            </div>
+            <div class="col-md-6" *ngIf="(downline.submitted || username.dirty) && !username.valid" class="help-block">Username is required</div> 
+          </form>
+              
+          <div class="pull-right">
+            <span class="pointer-cursor" (click)="getMyNetwork('null')">
+              <img src="assets/images/refresh-icon.png" width="20px" /> Refresh
+            </span>
+          </div>
+      
+          <div class="clearfix"></div>
+          <section class="management-hierarchy" [ngClass]="{'fullwidth-content': noMyNetworkData}">
+            <div class="fullwidth-content-wrapper" *ngIf="noMyNetworkData">
+              <p>No Binary Network Found.</p>
+            </div>
+            <div class="hv-container">
+              <div class="hv-wrapper">
+                <div class="hv-item">
+                  <div id="loader-section" *ngIf="showLoader">
+                    <img src="assets/images/ajax_loader.gif" class="network-loader"/>
+                  </div>
+                  <div class="hv-item-parent">
+                      <div class="person">
+                        <img [src]="myNetwork[0]?.image?myNetwork[0]?.image:'assets/images/user-4.png'" class="img-circle img-inline" alt=""/>
+                        <span *ngIf="myNetwork[0]?.username">
+                          <p><b>Sponsor : {{myNetwork[0]?.sponsorUsername}}</b></p>
+                          <p class="name">
+                            <img [src]="getFlagUrl(myNetwork[0]?.country)" width="25" /> {{myNetwork[0]?.username}}
+                          </p>
+                        </span>                              
+                      </div>
+                  </div>
+                  <div class="hv-item-children">
+                    <div class="hv-item-child">
+                      
+                      <div class="hv-item">
+                          <div class="hv-item-parent">
+                            <div class="person">
+                                <img [src]="myNetwork[1]?.image?myNetwork[1]?.image:'assets/images/user-4.png'" class="img-circle img-inline" alt=""/>
+                                <span *ngIf="myNetwork[1]?.username">
+                                  <p><b>Sponsor : {{myNetwork[1]?.sponsorUsername}}</b></p>
+                                  <p class="name" (click)="getMyNetwork(myNetwork[1]?.username)">
+                                    <img [src]="getFlagUrl(myNetwork[1]?.country)" width="25" /> {{myNetwork[1]?.username}}
+                                  </p>
+                                </span>
+                            </div>
+                          </div>
+                          <div class="hv-item-children">
+                            <div class="hv-item-child">
+                                <div class="person">
+                                  <img [src]="myNetwork[3]?.image?myNetwork[3]?.image:'assets/images/user-4.png'" class="img-circle img-inline" alt=""/>
+                                  <span *ngIf="myNetwork[3]?.username">
+                                    <p><b>Sponsor : {{myNetwork[3]?.sponsorUsername}}</b></p>
+                                    <p class="name" (click)="getMyNetwork(myNetwork[3]?.username)">
+                                      <img [src]="getFlagUrl(myNetwork[3]?.country)" width="25" /> {{myNetwork[3]?.username}}
+                                    </p>
+                                  </span>
+                                </div>
+                            </div>
+                            <div class="hv-item-child">
+                                <div class="person">
+                                  <img [src]="myNetwork[4]?.image?myNetwork[4]?.image:'assets/images/user-4.png'" class="img-circle img-inline" alt=""/>
+                                  <span *ngIf="myNetwork[4]?.username">
+                                      <p><b>Sponsor : {{myNetwork[4]?.sponsorUsername}}</b></p>
+                                      <p class="name" (click)="getMyNetwork(myNetwork[4]?.username)">
+                                          <img [src]="getFlagUrl(myNetwork[4]?.country)" width="25" /> {{myNetwork[4]?.username}}
+                                      </p>
+                                  </span>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="hv-item-child">
+                      
+                      <div class="hv-item">
+                          <div class="hv-item-parent">
+                            <div class="person">
+                                <img [src]="myNetwork[2]?.image?myNetwork[2]?.image:'assets/images/user-4.png'" class="img-circle img-inline" alt=""/>
+                                <span *ngIf="myNetwork[2]?.username">
+                                  <p><b>Sponsor : {{myNetwork[2]?.sponsorUsername}}</b></p>
+                                  <p class="name" (click)="getMyNetwork(myNetwork[2]?.username)">
+                                    <img [src]="getFlagUrl(myNetwork[2]?.country)" width="25" /> {{myNetwork[2]?.username}}
+                                  </p>
+                                </span>
+                            </div>
+                          </div>
+                          <div class="hv-item-children">
+                            <div class="hv-item-child">
+                                <div class="person">
+                                  <img [src]="myNetwork[5]?.image?myNetwork[5]?.image:'assets/images/user-4.png'" class="img-circle img-inline" alt=""/>
+                                    <span *ngIf="myNetwork[5]?.username">
+                                      <p><b>Sponsor : {{myNetwork[5]?.sponsorUsername}}</b></p>
+                                      <p class="name" (click)="getMyNetwork(myNetwork[5]?.username)">
+                                        <img [src]="getFlagUrl(myNetwork[5]?.country)" width="25" /> {{myNetwork[5]?.username}}
+                                      </p>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="hv-item-child">
+                                <div class="person">
+                                  <img [src]="myNetwork[6]?.image?myNetwork[6]?.image:'assets/images/user-4.png'" class="img-circle img-inline" alt=""/>
+                                  <span *ngIf="myNetwork[6]?.username">
+                                    <p><b>Sponsor : {{myNetwork[6]?.sponsorUsername}}</b></p>
+                                    <p class="name" (click)="getMyNetwork(myNetwork[6]?.username)">
+                                        <img [src]="getFlagUrl(myNetwork[6]?.country)" width="25" /> {{myNetwork[6]?.username}}
+                                    </p>
+                                  </span>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-template>
+      </ngb-tab>
+
+      <!-- Uni-Level -->
+      <ngb-tab id="unilevel" title="Uni Level">
+        <ng-template ngbTabContent>
+          <div class="border-bottom">(First & Last Name (Total Member) (Username, <span style="color:red">SponsorName</span>))</div>
+          <div style="height:575px;" [ngClass]="{'fullwidth-content': noMyNetworkData}">
+            <div class="fullwidth-content-wrapper" *ngIf="noMyNetworkData">
+              <p>No Uni-Level Network Found.</p>
+            </div>
+            <tree-root #tree [nodes]="nodes" [options]="options">
+              <ng-template #treeNodeTemplate let-node let-index="index">
+                <h4 *ngIf="!node.data.type">
+                  <a class="view-more-button" (click)="getUniLevelMyNetworkLevel($event, node.data.username, index, node, tree, false, null)">
+                    <img [src]="node.data.image ? node.data.image : 'assets/images/user-4.png'" width="25" height="25" class="img-circle img-inline" alt=""/> 
+                    <strong class="text-capitalize">{{node.data.name}} {{node.data.count ? '( ' + node.data.count + ' )' : ''}}</strong>
+                    ( {{node.data.username}}, <span style="color:red">{{node.data.sponsorUsername}}</span> )
+                  </a>
+                </h4>
+                <h4 *ngIf="node.data.type === 'button' && node.data.showMore">
+                  <a class="view-more-button" (click)="getUniLevelMyNetworkLevel($event, node.parent.data.username, node.index, node.parent, tree, true, node)">
+                    {{node.data.label}}
+                  </a>
+                </h4>
+              </ng-template>
+            </tree-root>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

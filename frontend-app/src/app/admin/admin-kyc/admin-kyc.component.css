@@ -1,0 +1,58 @@
+.mt10 {
+  margin-top: 10px !important;
+}
+
+.kyc-modal .modal-title {
+  font-weight: bold;
+}
+
+.kyc-modal .customer-details h3 {
+  margin: 0px 0px 10px;
+  padding: 15px;
+  background: #444;
+  color: #fff;
+}
+
+.kyc-modal .customer-details h3 span {
+  float: right;
+  font-weight: 600;
+}
+
+.kyc-modal .customer-details p {
+  padding: 0 5px;
+}
+
+.kyc-modal .customer-details .left,
+.kyc-modal .customer-image-details .left {
+  float: left;
+  width: 49%;
+  display: inline-block;
+}
+
+.kyc-modal .customer-details .right,
+.kyc-modal .customer-image-details .right {
+  float: right;
+  width: 49%;
+  display: inline-block;
+}
+
+.kyc-modal .customer-image-details { 
+  height: 600px;
+  overflow-y: scroll;
+  border: 1px solid #ccc; 
+}
+
+.kyc-modal .customer-image-details .image-border {
+  border: 1px solid #ccc;
+  height: 200px;
+  width: 100%
+}
+.table.table-stripped.table-hover.table-bordered>tbody>tr.yellow {
+  background-color: rgb(202, 202, 21) !important;
+}
+.table.table-stripped.table-hover.table-bordered>tbody>tr.red {
+  background-color: rgb(202, 21, 21) !important;
+}
+.table.table-stripped.table-hover.table-bordered>tbody>tr.green {
+  background-color: rgb(63, 202, 21) !important;
+}

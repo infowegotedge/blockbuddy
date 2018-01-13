@@ -1,0 +1,118 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt; Trade &gt; 
+      </li>
+      <li class="active">
+        My Trade History
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="trade-row row">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-header title">
+          <h3 class="blue-color">My Trade History</h3>
+        </div>
+        <div class="panel-body no-padding-lr">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 panel-sidebar-view">
+            <div class="title hidden-xs">
+              <h3>Wallet</h3>
+            </div>
+            <ul class="no-list-view">
+              <li [ngClass]="{'left-border': typeShare === '( BKN )'}">
+                <button class="no-button-view" (click)="showBKN('BKN', 1)">
+                  <img src="assets/images/coin-bkn.png" alt="BKN" width="40" height="40" /> <span class="hidden-xs">BKN</span>
+                </button>
+              </li>
+              <li [ngClass]="{'left-border': typeShare === '( BV )'}">
+                <button class="no-button-view" (click)="showBV('BV', 1)">
+                  <!-- <img src="assets/images/coin-bv.png" alt="BV" width="40" height="40" class="img-circle" />  -->
+                  <span class="img-circle">BV</span>
+                  <span class="hidden-xs">BV</span>
+                </button>
+              </li>
+              <li [ngClass]="{'left-border': typeShare === '( EURO )'}">
+                <button class="no-button-view" (click)="showEuro('EURO', 1)">
+                  <!-- <img src="" alt="EU" width="40" height="40" class="img-circle" />  -->
+                  <span class="img-circle">EU</span>
+                  <span class="hidden-xs">Euro</span>
+                </button>
+              </li>
+            </ul>
+            <div class="title both-line hidden-xs">
+              <h3>Portfolio</h3>
+            </div>
+            <ul class="no-list-view">
+              <li [ngClass]="{'left-border': typeShare === '( VANGUARD )'}">
+                <button class="no-button-view" (click)="showVanguard('VANGUARD', 1)">
+                  <img src="assets/images/coin-van.png" alt="Vanguard" width="40" height="40" /> <span class="hidden-xs">Vanguard</span>
+                </button>
+              </li>
+              <li [ngClass]="{'left-border': typeShare === '( TENTANEUM )'}">
+                <button class="no-button-view" (click)="showTentaneum('TENTANIUM', 1)">
+                  <img src="assets/images/coin-tent.png" alt="Tentaneum" width="40" height="40" /> <span class="hidden-xs">Tentanium</span>
+                </button>
+              </li>
+              <li [ngClass]="{'left-border': typeShare === '( DIGITEX )'}">
+                <button class="no-button-view" (click)="showDigitex('DIGITEX', 1)">
+                  <img src="assets/images/coin-digi.png" alt="Digitex" width="40" height="40" /> <span class="hidden-xs">Digitex</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 panel-main-view">
+            <div class="title">
+              <h3>All Transactions {{typeShare}}</h3>
+            </div>
+            <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+              <table class="table">
+                <!-- <tbody> -->
+                  <!-- <tr>
+                    <td width="5%" class="date"><span>AUG</span><span>28</span></td>
+                    <td width="5%"><img src="assets/images/new-files/sent-icon.png" alt="Send" /></td>
+                    <td width="60%" class="title"><span><strong>Sent BKN</strong></span><span>From bitcoin network</span></td>
+                    <td class="text-right amount" width="30%">-0.00021546 BKN</td>
+                  </tr>
+                  <tr>
+                    <td width="5%" class="date"><span>AUG</span><span>20</span></td>
+                    <td width="5%"><img src="assets/images/new-files/received-icon.png" alt="Received" /></td>
+                    <td width="60%" class="title"><span><strong>Received BKN</strong></span><span>From bitcoin network</span></td>
+                    <td class="text-right amount" width="30%">+0.00021546 BKN</td>
+                  </tr> -->
+                <tbody *ngIf="!transactionMessage">
+                  <tr *ngFor="let info of transactions; let i = index;">
+                    <td width="5%" class="date"><span>{{info.updatedAt | date:'MMM'}}</span><span>{{info.updatedAt | date:'dd'}}</span></td>
+                    <td width="5%">
+                      <img *ngIf="info.transferType=='DEBIT'" src="assets/images/new-files/sent-icon.png" alt="Send" />
+                      <img *ngIf="info.transferType=='CREDIT'" src="assets/images/new-files/received-icon.png" alt="Received" />
+                    </td>
+                    <td width="60%" class="title">
+                      <span><strong>{{info.note.split(' || ')[0]}}</strong><br/><small>{{info.note.split(' || ')[1] ? info.note.split(' || ')[1] : ''}}</small></span>
+                      <span><small><strong>Tnx ID: </strong>{{info.tranxID}}</small></span>
+                    </td>
+                    <td class="text-right amount" width="30%">{{(info.amount || (info.total * 1)) | number:'1.2-6'}} BKN</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="transactionMessage" >
+                  <tr>
+                    <td class="text-center" colspan="7"><strong>{{transactionMessage}}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="totalTransactions > perPageItem" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalTransactions" [(ngModel)]="currentPage" [maxSize]="sharesMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getTransactions(currentPage)"></pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>

@@ -1,0 +1,25 @@
+{
+  "purchase": {
+    "pool": {"price": 100, "precent": 8, "power": 3, "pv": 1, "persons": 10, "machine": 1, "powerCost": 0.001, "profitCost": 0.02},
+    "machine": {"price": 1000, "precent": 10, "power": 30, "pv": 11, "persons": 1, "machine": 1, "powerCost": 0.01, "profitCost": 0.2},
+    "rack": {"price": 10000, "precent": 12, "power": 100, "pv": 110, "persons": 1, "machine": 5, "powerCost": 0.05, "profitCost": 1}
+  },
+  "powerRate": {
+    "pool": {"power": 3, "letPrice": 270, "currency": "BTC"},
+    "machine": {"power": 30, "letPrice": 270, "currency": "BTC"},
+    "rack": {"power": 100, "letPrice": 270, "currency": "BTC"}
+  },
+  "purchaseStatus": "COMPLETED",
+  "repurchase": {
+    "commission": [3,9,27,81,243,729,2187,6561]
+  },
+  "coinbase": {
+    "key": "LMEyteD3FgmnTRei",
+    "secret": "xtITalo1ThOzjc0B1b7m0kgC863YszKz",
+    "accountId": "f98babbd-73ab-5e97-bb9a-26a6ad1b1f6b"
+  },
+  "coinPayments" : {
+    "key": "a3138916e3e5918475286f14f4f4ef7750ba8fa3fa4fee2c561249b6d51fdc5d",
+    "secret": "b80A7f3a101eE669B59E73cC6c61d9aF247edb61FfA97369a84464687312d809"
+  }
+}

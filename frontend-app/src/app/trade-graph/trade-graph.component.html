@@ -1,0 +1,39 @@
+<div class="panel panel-default {{company.companyCode.toLowerCase()}}" [ngClass]="{'no-shadow': !showExtraField}">
+  <div class="panel-body graph-panel" [ngClass]="{'no-padding': (heightGain > 0)}">
+    <div class="panel-heading" *ngIf="showExtraField">
+      <div class="col-sm-6 col-xs-12">
+        <h3>{{company.companyName}}</h3>
+        <p class="coins-text">Available Coins: {{shares.totalShares}}</p>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <h2 class="text-right">{{liveValue | number:'1.1'}} | 
+          <span *ngIf="gainLoss === 1" class="gain">{{diffPercent | number:'1.1'}}% <img src="assets/images/new-files/profit-arrow.png" width="18" /></span>
+          <span *ngIf="gainLoss === 2" class="loss">{{diffPercent | number:'1.1'}}% <img src="assets/images/new-files/loss-arrow.png" width="18" /></span>
+          <span *ngIf="gainLoss === -1">{{diffPercent | number:'1.1'}}% </span>
+        </h2>
+      </div>
+    </div>
+    <div class="text-center full-width pull-left"> 
+      <div [ngClass]="{'fullwidth-content': noChartDataFound}">
+        <div id="loader-section" *ngIf="showLoader">
+          <p class="text-center">
+            <img src="assets/images/ajax_loader.gif" class="network-loader"/>
+          </p>
+        </div>
+        <div class="fullwidth-content-wrapper" *ngIf="noChartDataFound">
+          <p>{{noChartDataFound}}</p>
+        </div>
+        <div id="line-chart-{{idIndex}}" [style.width.%]="100" [style.height.px]="height?height:300"></div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="border-top" *ngIf="showExtraField">
+      <div class="col-sm-3 col-xs-6"><span>Lowest:</span> <br/>{{stats.minimum ? (stats.minimum | number:'1.2-4') : 0}}</div>
+      <div class="col-sm-3 col-xs-6"><span>Average:</span> <br/>{{stats.average ? (stats.average | number:'1.2-4') : 0}}</div>
+      <div class="col-sm-3 col-xs-6"><span>Highest:</span> <br/>{{stats.maximum ? (stats.maximum | number:'1.2-4') : 0}}</div>
+      <div class="col-sm-3 col-xs-6 last" *ngIf="!noChartDataFound">
+        <a routerLink="/trade/portal/{{company.companyCode | lowercase}}" class="btn btn-primary">Trade Now </a>
+      </div>
+    </div>
+  </div>
+</div>

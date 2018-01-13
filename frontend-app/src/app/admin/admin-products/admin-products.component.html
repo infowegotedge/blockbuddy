@@ -1,0 +1,311 @@
+<div class="page-title">
+    <div class="title-env">
+      <h1 class="title">Products</h1>
+    </div>
+    <div class="breadcrumb-env">
+      <ol class="breadcrumb bc-1">
+        <li>
+          <a href="/#/dashboard"><i class="fa fa-home"></i>Home</a>
+        </li>
+        <li class="active">
+          <strong>Products</strong>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <button class="btn btn-primary pull-right" (click)="showPopup()">Create Product</button>
+          <div class="clearfix">&nbsp;</div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Product SKU</th>
+                <th class="text-center">Product Type</th>
+                <th class="text-right">Value (&euro;)</th>
+                <th class="text-right">Total Sold</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!noProductsFound" >
+              <tr *ngFor="let info of products; let i = index;">
+                <td>{{info.updatedAt | date:'medium'}}</td>
+                <td>{{info.productName}}</td>
+                <td>{{info.productSku}}</td>
+                <td class="text-center">{{info.productType}}</td>
+                <td class="text-right">&euro; {{info.sellingPrice | number:'1.2'}}</td>
+                <td class="text-right">0</td>
+                <td>
+                  <button *ngIf="info.isActive" class="btn btn-danger btn-icon" mwlConfirmationPopover [title]="title" [message]="message" placement="left" (confirm)="deleteProduct(info.productSku)"> 
+                    <i class="fa fa-trash-o"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="noProductsFound" >
+              <tr>
+                <td class="text-center" colspan="7"><strong>No Products Found</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="totalProducts > perPageItem" class="col-md-6 pull-right text-right">
+            <pagination [totalItems]="totalProducts" [(ngModel)]="currentPage" [maxSize]="productsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getProducts(currentPage)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="modal fade product-modal" bsModal #productModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Create Product</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="form.valid && saveProduct(); form.valid && f.resetForm();" [formGroup]="form" #f="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successMessage">             
+            <h4>{{successMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorMessage">             
+            <h4>{{errorMessage}}</h4>
+          </div>
+          
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || productName.dirty) && !productName.valid}">
+            <label for="role">Product Name: </label>
+            <input type="text" name="productName" class="form-control" id="productName" formControlName="productName" />
+            <div *ngIf="(f.submitted || productName.dirty) && !productName.valid" class="help-block">Name is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || sellingPrice.dirty) && !sellingPrice.valid}">
+            <label for="sellingPrice">Product Value ( &euro; ): </label>
+            <input type="text" name="sellingPrice" class="form-control" id="sellingPrice" formControlName="sellingPrice" />
+            <div *ngIf="(f.submitted || sellingPrice.dirty) && !sellingPrice.valid" class="help-block">Selling Price is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || productSku.dirty) && !productSku.valid}">
+            <label for="productSku">Product Name without space ((SKU) Internal Use Only): </label>
+            <input type="text" name="productSku" class="form-control" id="productSku" formControlName="productSku" />
+            <div *ngIf="(f.submitted || productSku.dirty) && !productSku.valid" class="help-block">Product SKU is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || productType.dirty) && !productType.valid}">
+            <label for="permission">Product Type: </label>
+            <select name="productType" class="form-control" id="productType" formControlName="productType">
+              <option value="">Select Value</option>
+              <option value="SUBSCRIPTIONS">Subscriptions</option>
+              <option value="STATIC">No-Subscription</option>
+            </select>
+            <div *ngIf="(f.submitted || productType.dirty) && !productType.valid" class="help-block">Product Type is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || description.dirty) && !description.valid}">
+            <label for="description">Product Description: </label>
+            <input type="text" name="description" class="form-control" id="description" formControlName="description" />
+            <div *ngIf="(f.submitted || description.dirty) && !description.valid" class="help-block">Description is required</div>
+          </div>
+
+          <div class="form-group min-height-100">
+            <label for="permission">Product Meta (Description Additional Lines): </label>
+            <button type="button" class="btn btn-primary pull-right" (click)="productMetaModal.show()">Add</button>
+            <div class="clearfix"></div>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr><td>Description</td></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let info of productMeta.additional;"><td>{{info}}</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <div class="form-group min-height-100">
+            <label for="permission">Compensation Wallet: </label>
+            <button type="button" class="btn btn-primary pull-right" (click)="compensationWalletModal.show()">Add</button>
+            <div class="clearfix"></div>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr><td>Currency Code</td><td>Amount</td></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let info of compensationWallet;">
+                    <td>{{info.currencyCode}}</td>
+                    <td>{{info.total}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-group min-height-100">
+            <label for="permission">Compensation Coins / Shares: </label>
+            <button type="button" class="btn btn-primary pull-right" (click)="compensationPortfolioModal.show()">Add</button>
+            <div class="clearfix"></div>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <td>Company Code</td>
+                    <td>Amount</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let info of compensationPortfolio;">
+                    <td>{{info.companyCode}}</td>
+                    <td>{{info.total}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade product-modal" bsModal #productMetaModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideSubPopup()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Product Meta</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="productMetaForm.valid && saveProductMeta(); productMetaForm.valid && fm.resetForm();" [formGroup]="productMetaForm" #fm="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successMessage">             
+            <h4>{{successMetaMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorMessage">             
+            <h4>{{errorMetaMessage}}</h4>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (fm.submitted || meta.dirty) && !meta.valid}">
+            <label for="role">Product Meta: </label>
+            <input type="text" name="meta" class="form-control" id="meta" formControlName="meta" />
+            <div *ngIf="(fm.submitted || meta.dirty) && !meta.valid" class="help-block">Product meta is required</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideSubPopup(); fm.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade product-modal" bsModal #compensationWalletModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideSubPopup()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Compensation Wallet</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="compensationWalletForm.valid && saveCompensationWallet(); compensationWalletForm.valid && fc.resetForm();" [formGroup]="compensationWalletForm" #fc="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successWalletMessage">             
+            <h4>{{successWalletMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorWalletMessage">             
+            <h4>{{errorWalletMessage}}</h4>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (fc.submitted || walletCurrency.dirty) && !walletCurrency.valid}">
+            <label for="role">Currency Code: </label>
+            <select name="walletCurrency" class="form-control" id="walletCurrency" formControlName="walletCurrency">
+              <option value="">Select Currency</option>
+              <option *ngFor="let info of allCurrency;" value="{{info.currencyCode}}">{{info.currencyName}}</option>
+            </select>
+            <div *ngIf="(fc.submitted || walletCurrency.dirty) && !walletCurrency.valid" class="help-block">Currency is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (fc.submitted || walletAmount.dirty) && !walletAmount.valid}">
+            <label for="role">Amount: </label>
+            <input type="text" name="walletAmount" class="form-control" id="walletAmount" formControlName="walletAmount" />
+            <div *ngIf="(fc.submitted || walletAmount.dirty) && !walletAmount.valid" class="help-block">Amount is required</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideSubPopup(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade product-modal" bsModal #compensationPortfolioModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideSubPopup()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Compensation Wallet</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="compensationPortfolioForm.valid && saveCompensationPortfolio(); compensationPortfolioForm.valid && fp.resetForm();" [formGroup]="compensationPortfolioForm" #fp="ngForm" novalidate>
+          <div class="alert alert-success" *ngIf="successPortfolioMessage">             
+            <h4>{{successPortfolioMessage}}</h4>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorPortfolioMessage">             
+            <h4>{{errorPortfolioMessage}}</h4>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (fp.submitted || portfolioCompany.dirty) && !portfolioCompany.valid}">
+            <label for="portfolioCompany">Company Code: </label>
+            <select name="portfolioCompany" class="form-control" id="portfolioCompany" formControlName="portfolioCompany">
+              <option value="">Select Company</option>
+              <option *ngFor="let info of allCompanies;" value="{{info.companyCode}}">{{info.companyName}}</option>
+            </select>
+            <div *ngIf="(fp.submitted || portfolioCompany.dirty) && !portfolioCompany.valid" class="help-block">Company is required</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': (fp.submitted || portfolioAmount.dirty) && !portfolioAmount.valid}">
+            <label for="portfolioAmount">Amount: </label>
+            <input type="text" name="portfolioAmount" class="form-control" id="portfolioAmount" formControlName="portfolioAmount" />
+            <div *ngIf="(fp.submitted || portfolioAmount.dirty) && !portfolioAmount.valid" class="help-block">Amount is required</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideSubPopup(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

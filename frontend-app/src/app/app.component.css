@@ -1,0 +1,60 @@
+.user-dashboard * {
+  font-family: 'Muli', sans-serif !important;
+}
+
+.sidebar.sidebar-user {
+  top: 82px;
+}
+
+.main-content.min-content-user .page-content {
+  margin-top: 82px;
+}
+
+#overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: #fff;
+  z-index: 99999999;
+}
+
+#overlay .message-overlay {
+  position: relative;
+  padding: 40px;
+  margin: 0px auto;
+  width: 900px;
+}
+
+#overlay .message-overlay .messag-view h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+#overlay .message-overlay .messag-view p {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+
+#overlay .message-close,
+#overlay .message-close a {
+  position: absolute;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  bottom: 0px;
+  right: 0px;
+}
+
+.session-expire {
+  z-index: 99999999 !important;
+}
+
+@media screen and (max-width: 900px) {
+  #overlay .message-overlay {
+    width: 98% !important;
+  }
+}

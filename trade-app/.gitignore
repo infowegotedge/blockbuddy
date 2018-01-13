@@ -1,0 +1,12 @@
+node_modules
+sandbox.html
+sandbox.txt
+sandbox
+.vscode
+.idea
+**/.DS_STORE
+npm-debug.log
+.env
+config/postgres.json
+
+

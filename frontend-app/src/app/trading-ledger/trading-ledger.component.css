@@ -1,0 +1,115 @@
+.bg-top-row {
+  margin: -25px -25px 0 -25px;
+  background: url('../../assets/images/new-files/header-bg.png') no-repeat scroll 0 -82px transparent;
+  padding: 25px 50px 75px;
+  background-size: cover; 
+}
+
+.breadcrumb.bc-1 { padding-left: 12px; }
+
+.breadcrumb.bc-1 .active,
+.breadcrumb.bc-1 li > a,
+.breadcrumb.bc-1 li {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.trade-row {
+  margin-top: -75px;
+}
+
+.footer-row {
+  margin: 0px -25px;
+  height: 40px;
+  background: #fff;
+}
+.panel-header.title { border-bottom: 2px solid #ccc; }
+.panel-header.title h3 {
+  font-size: 22px;
+  text-transform: none;
+}
+.panel-body.no-padding-lr { 
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.panel-sidebar-view {
+  padding-left: 0;
+  margin-top: -15px;
+  padding-right: 0;
+}
+.panel-main-view {
+  margin-top: -15px;
+  padding-left: 0;
+  padding-right: 0;
+  min-height: 550px;
+  border-left: 1px solid #ccc;
+}
+.panel-sidebar-view .title > h3,
+.panel-main-view .title > h3 {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px;
+  margin: 0px;
+  text-transform: none;
+  border-bottom: 1px solid #ccc; 
+}
+.panel-sidebar-view .title.both-line > h3 {
+  border-top: 1px solid #ccc;
+}
+
+.no-list-view { list-style: none; }
+.no-list-view > li { padding: 15px; }
+.no-list-view > li.left-border {
+  border-right: 3px solid #45A4E8;
+}
+.no-list-view > li > .no-button-view {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+}
+.no-list-view > li > .no-button-view > img { margin-right: 10px; }
+.no-list-view > li > .no-button-view > img.img-circle {
+  background: #ccc;
+  padding: 8px;
+}
+.panel-main-view .table-responsive { padding: 10px; }
+.panel-main-view .table tr + tr {
+  border-top: 1px solid #ccc;
+}
+.panel-main-view .table td > span { display: block; }
+.panel-main-view .table td > span + span { color: #717171; }
+.panel-main-view .table td.date > span {
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #292929;
+  font-size: 18px;
+  text-align: center
+}
+.panel-main-view .table td.date > span + span {
+  color: #717171;
+  font-size: 28px;
+  margin-top: -5px;
+}
+.panel-main-view .table td.title > span {
+  font-size: 16px;
+  color: #292929;
+  vertical-align: top;
+}
+.panel-main-view .table td.title > span small {
+  font-size: 11px;
+}
+.panel-main-view .table td.amount {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.no-list-view > li .no-button-view > span.img-circle {
+  padding: 9px 7px;
+  border-radius: 5em;
+  background: #ccc;
+  margin-right: 10px;
+}

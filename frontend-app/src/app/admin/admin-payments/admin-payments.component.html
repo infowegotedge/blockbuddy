@@ -1,0 +1,355 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Payments</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i> Home</a>
+      </li>
+      <li class="active">
+        <strong>Payments</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ngb-tabset #paymentTabset="ngbTabset" (tabChange)="beforeChange($event)">
+      <ngb-tab id="payemts" title="Payments">
+        <ng-template ngbTabContent>
+          <div class="table-responsive">
+            <div class="text-right">
+              <button class="btn btn-danger" (click)="getPaymentsTransaction('day')">1 Day</button>
+              <button class="btn btn-danger" (click)="getPaymentsTransaction('week')">1 Week</button>
+              <button class="btn btn-danger" (click)="getPaymentsTransaction('month')">1 Month</button>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>Gateway Status</th>
+                  <th>Internal Verification</th>
+                  <th>Mode</th>
+                  <th>Transactions No.</th>
+                  <th class="text-right">Fee Amount</th>
+                  <th class="text-right">Amount</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="payments.length > 0">
+                <tr *ngFor="let info of payments; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.gateway_status}}</td>
+                  <td>-</td>
+                  <td>{{info.payment_type}}</td>
+                  <td>{{info.transaction_id}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                  <td class="text-right">{{info.amount}}</td>
+                  <td>
+                    <button class="btn btn-primary" *ngIf="info.status=='PROCESSING'" (click)="getApprovedModal(i)">Approved</button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="payments.length===0" >
+                <tr>
+                  <td class="text-center" colspan="9"><strong>No Transactions Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="payments.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalPayments" [(ngModel)]="currentPage" [maxSize]="paymentsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getPayments(currentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="pending-payments" title="Pending">
+        <ng-template ngbTabContent>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>Gateway Status</th>
+                  <th>Internal Verification</th>
+                  <th>Mode</th>
+                  <th>Transactions No.</th>
+                  <th class="text-right">Fee Amount</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="pendingPayments.length > 0">
+                <tr *ngFor="let info of pendingPayments; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.gateway_status}}</td>
+                  <td>-</td>
+                  <td>{{info.payment_type}}</td>
+                  <td>{{info.transaction_id}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                  <td class="text-right">{{info.amount}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="pendingPayments.length===0" >
+                <tr>
+                  <td class="text-center" colspan="9"><strong>No Transactions Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="pendingPayments.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalPayments" [(ngModel)]="currentPage" [maxSize]="paymentsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getPendingPayments(currentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="completed-payments" title="Completed">
+        <ng-template ngbTabContent>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>Gateway Status</th>
+                  <th>Internal Verification</th>
+                  <th>Mode</th>
+                  <th>Transactions No.</th>
+                  <th class="text-right">Fee Amount</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="completedPayments.length > 0">
+                <tr *ngFor="let info of completedPayments; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.gateway_status}}</td>
+                  <td>-</td>
+                  <td>{{info.payment_type}}</td>
+                  <td>{{info.transaction_id}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                  <td class="text-right">{{info.amount}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="completedPayments.length===0" >
+                <tr>
+                  <td class="text-center" colspan="9"><strong>No Transactions Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="completedPayments.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalPayments" [(ngModel)]="currentPage" [maxSize]="paymentsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getCompletedPayments(currentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <!-- <ngb-tab id="approve-payments" title="Approved">
+        <ng-template ngbTabContent>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th>Gateway Status</th>
+                  <th>Internal Verification</th>
+                  <th>Mode</th>
+                  <th>Transactions No.</th>
+                  <th class="text-right">Fee Amount</th>
+                  <th class="text-right">Amount</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="verifyPayments.length > 0">
+                <tr *ngFor="let info of verifyPayments; let i = index;">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.name}}</td>
+                  <td>{{info.status}}</td>
+                  <td>{{info.gateway_status}}</td>
+                  <td>-</td>
+                  <td>{{info.payment_type}}</td>
+                  <td>{{info.transaction_id}}</td>
+                  <td class="text-right">{{info.amount_fee}}</td>
+                  <td class="text-right">{{info.amount}}</td>
+                  <td><button class="btn btn-primary" (click)="getApproved(info.order_id)">Approved</button></td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="verifyPayments.length===0" >
+                <tr>
+                  <td class="text-center" colspan="9"><strong>No Transactions Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="verifyPayments.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalPayments" [(ngModel)]="currentPage" [maxSize]="paymentsMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getVerifyPayments(currentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab> -->
+    </ngb-tabset>
+
+    {{ paymentsTabsetEvent(paymentTabset) }}
+  </div>
+</div>
+
+
+<div class="modal fade payment-modal" bsModal #paymentModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="paymentModal.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Payments</h4>
+      </div>
+      <div class="modal-body" *ngIf="!btcBuySuccess">
+        <form method="post" role="form" (ngSubmit)="form.valid && doBuyForm(); form.valid && f.resetForm();" [formGroup]="form" #f="ngForm" novalidate>
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || paymentType.dirty) && !paymentType.valid}">
+            <label for="payment-type">Select An Option: </label>
+            <select name="paymentType" class="form-control" id="payment-type" formControlName="paymentType">
+              <option value="">Select One</option>
+              <option value="BTC">BTC</option>
+              <option value="ECORE">EcorePay</option>
+            </select>
+            <div *ngIf="(f.submitted || paymentType.dirty) && !paymentType.valid" class="help-block">Option is required</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Buy Now</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+      <div class="modal-body" *ngIf="btcBuySuccess">
+        <h2>Payment created successfully.</h2><br/>
+        <p>Please pay us at<br/><br/>
+          <span><strong>Address: </strong>{{btcBuySuccess}}</span><br/>
+          <span><strong>Amount: </strong>{{btcAmount}} BTC</span> 
+        </p>
+        <div>&nbsp;</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal();">Close</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade approval-modal" bsModal #approvalModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal();">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Payments</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="approvalForm.valid && approvePayments(); approvalForm.valid && f.resetForm();" [formGroup]="approvalForm" #f="ngForm" novalidate>
+
+          <div class="form-group" [ngClass]="{'has-error': (f.submitted || approvalNotes.dirty) && !approvalNotes.valid}">
+            <label for="approvalNotes">Notes: </label>
+            <textarea id="approvalNotes" name="approvalNotes" formControlName="approvalNotes"></textarea>
+            <div *ngIf="(f.submitted || approvalNotes.dirty) && !approvalNotes.valid" class="help-block">Notes is required</div>
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="hideModal(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form> 
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade ecore-modal" bsModal #ecoreModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="ecoreModal.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">EcorePay Payments</h4>
+      </div>
+      <div class="modal-body">
+        <!-- <form method="post" role="form" (ngSubmit)="doEcorePay(); form1.valid && f1.resetForm();" [formGroup]="form1" #f1="ngForm" novalidate>
+          <div class="form-group">
+            <label for="card_number">Card Number</label>
+            <input type="text" value="" id="card_number" name="cardNumber" formControlName="cardNumber" class="w456" maxlength="16" />
+          </div>
+          <div class="form-group">
+            <label for="card_exp">Card Exp:</label>
+            <input type="text" value="" id="card_exp_month" placeholder="MM" class="w40" maxlength="2"  name="cardMonth" formControlName="cardMonth" />
+            <input type="text" value="" id="card_exp_year" placeholder="YYYY" class="w55" maxlength="4" name="cardYear" formControlName="cardYear" />
+            <label for="card_cvv" class="ml8">Card CVV:</label>
+            <input type="password" value="" name="card_cvv" id="card_cvv" class="w55" maxlength="4" name="cardCvv" formControlName="cardCvv" />
+          </div>
+          <div class="form-group">
+            <label for="first_name">Fist Name</label>
+            <input type="text" value="" id="first_name" class="w170" name="firstName" formControlName="firstName" />
+            <label for="last_name" class="ml8">Last Name</label>
+            <input type="text" value="" id="last_name" class="w170" name="lastName" formControlName="lastName" />
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" value="" id="address" class="w456" name="address" formControlName="address" />
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" value="" id="city" class="w170" name="city" formControlName="city" />
+            <label for="state" class="ml8">State</label>
+            <input type="text" value="" id="state" class="w170" name="state" formControlName="state" />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" value="" id="phone" class="w170" name="phone" formControlName="phone" />
+            <label for="postcode" class="ml8">Postcode</label>
+            <input type="text" value="" id="postcode" class="w170" name="postcode" formControlName="postcode" />
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" class="w456"  name="country" formControlName="country">
+              <option value="US">United States</option>
+              <option value="AU">Austrila</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="amount">Amount ( &euro; )</label>
+            <input type="text" value="" id="amount" name="amount" formControlName="amount" />
+          </div>
+          <div class="form-group">
+            <input type="hidden" id="product" name="product" formControlName="product" />
+          </div>
+
+          <div>&nbsp;</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" aria-label="Close" (click)="paymentModal.hide(); f.resetForm();">Close</button>
+            <button type="submit" class="btn btn-primary">Buy Now</button>
+          </div>
+        </form>  -->
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

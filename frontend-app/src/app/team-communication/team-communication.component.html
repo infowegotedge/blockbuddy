@@ -1,0 +1,279 @@
+
+<div class="page-title font-muli">
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a routerLink="/#/dashboard"><img src="assets/images/icons/home.png" height="16" /> Dashboard / </a>
+      </li>
+      <li class="active">
+        <strong>Team Communication</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+    
+<div class="row font-muli">
+
+  <!-- <app-topbar-nav></app-topbar-nav>
+  <app-my-statics></app-my-statics> -->
+  
+    <div class="col-md-12">
+
+      <ngb-tabset (tabChange)="beforeChange($event)">
+        <ngb-tab id="inbox" title="Inbox">
+          <ng-template ngbTabContent>
+            <form role="form" method="post" (ngSubmit)="searchInboxMessage(searchInbox)" #inbox="ngForm" class="form-inline">              
+              <div class="form-group">
+                <input type="text" name="message" [(ngModel)]="searchInbox" class="form-control" id="search-inbox" autocomplete="off" placeholder="Enter Email or Subject" required />
+              </div>
+          
+              <div class="form-group">
+                <button class="btn btn-secondary btn-single">Search</button>
+              </div>
+            </form>
+            <div>&nbsp;</div>
+
+            <div class="table-responsive cursor-pointer" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+              <table class="table table-model-2 table-hover table-small-font table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th width="80px">S.No.</th>
+                    <th width="200px">First & Last Name</th>
+                    <th width="300px">Email</th>
+                    <th>Subject</th>
+                    <th width="140px">Date</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="inboxMessage.length > 0">
+                  <tr *ngFor="let inbox of inboxMessage; let i = index;" (click)="viewInboxMessage(inbox.id)" class="pointer">
+                    <td>{{i+1}}</td>
+                    <td class="user-name">{{inbox.fromUserName}}</td>
+                    <td>{{inbox.formUserEmail}}</td>
+                    <td>
+                      <p [innerHTML]="inbox.subject | slice:0:50"></p>
+                    </td>
+                    <td>{{inbox.createdAt | date:'dd-MM-y HH:mm'}}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="noInBoxMessages">
+                  <tr>
+                    <td colspan="5" class="text-center"><strong>{{noInBoxMessages}}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col-md-6 pull-right text-right" *ngIf="inboxTotal > perPageItem">
+                <pagination [totalItems]="inboxTotal" [(ngModel)]="inboxCurrentPage" [maxSize]="inboxMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getInboxMessage(inboxCurrentPage)"></pagination>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="outbox" title="Outbox">
+          <ng-template ngbTabContent>
+            <form role="form" method="post" (ngSubmit)="searchSentMessage(sentMessage)" #sent="ngForm" class="form-inline">              
+              <div class="form-group">
+                <input type="text" name="message" [(ngModel)]="sentMessage" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Subject" required />
+              </div>
+          
+              <div class="form-group">
+                <button class="btn btn-secondary btn-single">Search</button>
+              </div>
+            </form>
+            <div>&nbsp;</div>
+            <div class="table-responsive cursor-pointer" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+              <table class="table table-model-2 table-hover no-whitespace table-small-font table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th width="80px">S.No</th>
+                    <th width="200px">First & Last Name</th>
+                    <th width="300px">Email</th>
+                    <th>Subject</th>
+                    <th width="140px">Date</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="outboxMessage.length > 0">
+                  <tr *ngFor="let outbox of outboxMessage; let i = index;" (click)="viewOutboxMessage(outbox.id)" class="pointer">
+                    <td width="80px">{{i+1}}</td>
+                    <td class="user-name" width="200px">{{outbox.toUserName}}</td>
+                    <td width="300px"><p class="word-break">{{outbox.toUserEmail}}</p></td>
+                    <td width="21%" class="normal-color">
+                      <p [innerHTML]="outbox.subject | slice:0:50"></p>
+                    </td>
+                    <td width="140px">{{outbox.createdAt | date:'dd-MM-y HH:mm'}}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="noOutBoxMessages">
+                  <tr>
+                    <td colspan="5" class="text-center"><strong>{{noOutBoxMessages}}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col-md-6 pull-right text-right" *ngIf="outboxTotal > perPageItem">
+                  <pagination [totalItems]="outboxTotal" [(ngModel)]="outboxCurrentPage" [maxSize]="outboxMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getOutboxMessage(outboxCurrentPage)"></pagination>
+              </div>            
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="send-message" title="Compose">
+          <ng-template ngbTabContent>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <!-- <form role="form" class="form-inline">
+                <div class="form-group">
+                  <select class="form-control" style="width:200px;">
+                    <option>Email</option>
+                    <option>Name</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" size="25" placeholder="Enter Email Address" />
+                </div>
+      
+                <div class="form-group">
+                  <button class="btn btn-secondary btn-single">Search</button>
+                </div>
+              </form> -->
+
+              <form role="form" method="post" (ngSubmit)="searchUsers(users)" #sent="ngForm" class="form-inline">
+                <div class="form-group">
+                  <input type="text" name="usersearch" [(ngModel)]="users" class="form-control" id="search" autocomplete="off" #user="ngModel" placeholder="Enter Email Address" required />
+                </div>
+            
+                <div class="form-group">
+                  <button class="btn btn-secondary btn-single">Search</button>
+                </div>
+              </form>
+
+              <div>&nbsp;</div>
+              <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">              
+                <table class="table table-model-2 table-hover table-small-font table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" name="select_user" id="header-row" [(ngModel)]="selectAction" (click)="selectAllUser(myDirects, selectAction)" /></th>
+                      <th>First & Last Name</th>
+                      <th>Email</th>
+                      <th>Contact Number</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="myDirects.length > 0">
+                    <tr *ngFor="let direct of myDirects; let i = index;">
+                      <td><input type="checkbox" name="user" id="column-row" [(ngModel)]="direct.isSelected" (click)="updateUserList(direct.userid, direct.isSelected)" /></td>
+                      <td class="user-name">{{direct.name}}</td>
+                      <td>{{direct.email}}</td>
+                      <td>{{direct.mobile}}</td>
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="noDirectsMessages">
+                    <tr>
+                      <td colspan="6" class="text-center"><strong>{{noDirectsMessages}}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="col-md-6 pull-right text-right" *ngIf="totalDirects > perPageItem">
+                  <pagination [totalItems]="totalDirects" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" itemsPerPage="itemPerPage" (click)="getMyDirects(currentPage, 'true')"></pagination>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="panel-heading">
+                <h3 class="panel-title no-margin"><i class="fa fa-envelope"></i> Send Message</h3>
+              </div>
+              <div>&nbsp;</div>
+
+              <div class="alert alert-success" *ngIf="sendSuccess">
+                <h4>Message sent successfully.</h4>
+              </div>
+
+              <div class="alert alert-danger" *ngIf="sendError">
+                <h4>{{sendError}}</h4>
+              </div>
+
+              <div class="row">
+
+                <form method="post" role="form" id="profile" class="login-form fade-in-effect" (ngSubmit)="sendMessage($event, f);" #f="ngForm" novalidate>
+                  <div class="col-md-12">
+                    <div class="form-group" [ngClass]="{'has-error': (f.submitted || firstName.dirty) && !firstName.valid}">
+                      <input type="text" class="form-control" name="firstName" id="first-name" autocomplete="off" placeholder="Subject" [(ngModel)]="sendData.subject" #firstName="ngModel" required />
+                      <div *ngIf="(f.submitted || firstName.dirty) && !firstName.valid" class="help-block">Subject is required</div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <textarea id="{{elementId}}" name="description"></textarea>
+                  </div>
+
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block text-center mt18">
+                        Send Message
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+
+<div class="message-model modal fade font-muli" bsModal #messageModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="messageModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Message</h4>
+        </div>
+        <div class="modal-body">
+          <div class="view-outbox-message" id="outbox-message" *ngIf="showOutboxMessage">
+            <div class="row">
+              <div class="col-md-12 message-description">
+                <span><strong>To: </strong> <span><span class="text-capitalize">{{outboxMessageDescription.toUserName}}</span> <{{outboxMessageDescription.toUserEmail}}></span> </span>
+                <span><strong>Subject: </strong> {{outboxMessageDescription.subject}} </span>
+                <span><strong>Date: </strong> {{outboxMessageDescription.createdAt | date:'dd-MM-y HH:mm'}} </span>
+                <span class="description" [innerHTML]="outboxMessageDescription.message"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="messageModal.hide()">Close</button>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+<div class="message-model modal fade font-muli" bsModal #messageInModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="messageInModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Message</h4>
+        </div>
+        <div class="modal-body">
+          <div class="view-inbox-message" id="inbox-message" *ngIf="showInboxMessage">
+            <div class="row">
+              <div class="col-md-12 message-description">
+                <span><strong>From: </strong> <span class="text-capitalize">{{inboxMessageDescription.fromUserName}}</span> <{{inboxMessageDescription.formUserEmail}}> </span>
+                <span><strong>Subject: </strong> {{inboxMessageDescription.subject}} </span>
+                <span><strong>Date: </strong> {{inboxMessageDescription.createdAt | date:'dd-MM-y HH:mm'}} </span>
+                <div>&nbsp;</div>
+                <span class="description" [innerHTML]="inboxMessageDescription.message"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="messageInModal.hide()">Close</button>
+        </div>
+      </div>
+  </div>
+</div>

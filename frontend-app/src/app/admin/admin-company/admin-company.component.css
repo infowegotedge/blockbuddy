@@ -1,0 +1,7 @@
+.label-block {
+  width: 180px;
+}
+
+.label-block + input {
+  width: 370px;
+}

@@ -1,0 +1,598 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">User KYC</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i>Dashboard / </a>
+      </li>
+      <li class="active">
+        <strong>KYC</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ngb-tabset (tabChange)="beforeChange($event)">
+      <ngb-tab id="unverified" title="Unverified">
+        <ng-template ngbTabContent>
+          <form role="form" method="post" (ngSubmit)="getKycUnveirfied(null)" #sent="ngForm" class="form-inline">              
+            <div class="form-group">
+              <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Name" required />
+            </div>
+        
+            <div class="form-group">
+              <button class="btn btn-secondary btn-single">Search</button>
+            </div>
+          </form>
+
+          <div class="table-responsive" id="unverified">
+            <table class="table table-stripped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Data Uploaded At</th>
+                  <th>System Id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Reviewed by Moderator</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let info of unverifiedKyc; let i = index;">
+                  <td>{{info.updatedAt | date:'medium'}}</td>
+                  <td>{{info.user.id}}</td>
+                  <td class="user-name">{{info.user.name}}</td>
+                  <td>{{info.user.email}}</td>
+                  <td>{{info.user.mobile}}</td>
+                  <td>
+                    <span class="moderation-status center-block label label-danger {{info.kyc_flag}}">{{info.kyc_flag}} </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == true"> 
+                    <span class="moderation-status center-block label label-success VIEWED"> 
+                      <i class="fa fa-check"></i> Reviewed
+                    </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == false">
+                    <span class="moderation-status center-block label label-danger NOT-VIEWED"> <i class="fa fa-close"></i> NO</span>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-icon" (click)="showUserPages(info._id)">
+                      <i class="fa fa-eye"></i> 
+                    </button>
+                  </td>
+                </tr> 
+              </tbody>
+    
+              <tfoot>
+                <tr>
+                  <td colspan="9">
+                    <pagination [totalItems]="totalRows" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getKycUnveirfied(currentPage)"></pagination>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="pending-verification" title="Pending Verification">
+        <ng-template ngbTabContent>
+          <form role="form" method="post" (ngSubmit)="getKycPending(null)" #sent="ngForm" class="form-inline">              
+            <div class="form-group">
+              <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Name" required />
+            </div>
+        
+            <div class="form-group">
+              <button class="btn btn-secondary btn-single">Search</button>
+            </div>
+          </form>
+
+          <div class="table-responsive">
+            <table class="table table-stripped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Data Uploaded At</th>
+                  <th>System Id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Reviewed by Moderator</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let info of pendingKyc; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.updatedAt | date:'medium'}}</td>
+                  <td>{{info.user.id}}</td>
+                  <td class="user-name">{{info.user.name}}</td>
+                  <td>{{info.user.email}}</td>
+                  <td>{{info.user.mobile}}</td>
+                  <td>
+                    <span class="moderation-status center-block label label-danger {{info.kyc_flag}}">{{info.kyc_flag}} </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == true"> 
+                    <span class="moderation-status center-block label label-success VIEWED"> 
+                      <i class="fa fa-check"></i> Reviewed
+                    </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == false">
+                    <span class="moderation-status center-block label label-danger NOT-VIEWED"> <i class="fa fa-close"></i> NO</span>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-icon" (click)="showUserPages(info._id)">
+                      <i class="fa fa-eye"></i> 
+                    </button>
+                  </td>
+                </tr> 
+              </tbody>
+    
+              <tfoot>
+                <tr>
+                  <td colspan="9">
+                    <pagination [totalItems]="totalRows" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getKycUnveirfied(currentPage)"></pagination>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="on-hold" title="On Hold">
+        <ng-template ngbTabContent>
+          <form role="form" method="post" (ngSubmit)="getKycOnHold(null)" #sent="ngForm" class="form-inline">              
+            <div class="form-group">
+              <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Name" required />
+            </div>
+        
+            <div class="form-group">
+              <button class="btn btn-secondary btn-single">Search</button>
+            </div>
+          </form>
+
+          <div class="table-responsive">
+            <table class="table table-stripped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Data Uploaded At</th>
+                  <th>System Id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Reviewed by Moderator</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let info of onHoldKyc; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.updatedAt | date:'medium'}}</td>
+                  <td>{{info.user.id}}</td>
+                  <td class="user-name">{{info.user.name}}</td>
+                  <td>{{info.user.email}}</td>
+                  <td>{{info.user.mobile}}</td>
+                  <td>
+                    <span class="moderation-status center-block label label-danger {{info.kyc_flag}}">{{info.kyc_flag}} </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == true"> 
+                    <span class="moderation-status center-block label label-success VIEWED"> 
+                      <i class="fa fa-check"></i> Reviewed
+                    </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == false">
+                    <span class="moderation-status center-block label label-danger NOT-VIEWED"> <i class="fa fa-close"></i> NO</span>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-icon" (click)="showUserPages(info._id)">
+                      <i class="fa fa-eye"></i> 
+                    </button>
+                  </td>
+                </tr> 
+              </tbody>
+    
+              <tfoot>
+                <tr>
+                  <td colspan="9">
+                    <pagination [totalItems]="totalRows" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getKycUnveirfied(currentPage)"></pagination>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="approved" title="Approved">
+        <ng-template ngbTabContent>
+          <form role="form" method="post" (ngSubmit)="getKycApproved(null)" #sent="ngForm" class="form-inline">              
+            <div class="form-group">
+              <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Name" required />
+            </div>
+        
+            <div class="form-group">
+              <button class="btn btn-secondary btn-single">Search</button>
+            </div>
+          </form>
+
+          <div class="table-responsive"> 
+            <table class="table table-stripped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Data Uploaded At</th>
+                  <th>System Id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Reviewed by Moderator</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let info of approvedKyc; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.updatedAt | date:'medium'}}</td>
+                  <td>{{info.user.id}}</td>
+                  <td class="user-name">{{info.user.name}}</td>
+                  <td>{{info.user.email}}</td>
+                  <td>{{info.user.mobile}}</td>
+                  <td>
+                    <span class="moderation-status center-block label label-danger {{info.kyc_flag}}">{{info.kyc_flag}} </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == true"> 
+                    <span class="moderation-status center-block label label-success VIEWED"> 
+                      <i class="fa fa-check"></i> Reviewed
+                    </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == false">
+                    <span class="moderation-status center-block label label-danger NOT-VIEWED"> <i class="fa fa-close"></i> NO</span>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-icon" (click)="showUserPages(info._id)">
+                      <i class="fa fa-eye"></i> 
+                    </button>
+                  </td>
+                </tr> 
+              </tbody>
+    
+              <tfoot>
+                <tr>
+                  <td colspan="9">
+                    <pagination [totalItems]="totalRows" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getKycUnveirfied(currentPage)"></pagination>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="verified" title="Verified">
+        <ng-template ngbTabContent>
+          <form role="form" method="post" (ngSubmit)="getKycVerified(null)" #sent="ngForm" class="form-inline">              
+            <div class="form-group">
+              <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Name" required />
+            </div>
+        
+            <div class="form-group">
+              <button class="btn btn-secondary btn-single">Search</button>
+            </div>
+          </form>
+
+          <div class="table-responsive">
+            <table class="table table-stripped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Data Uploaded At</th>
+                  <th>System Id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Reviewed by Moderator</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let info of verifiedKyc; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.updatedAt | date:'medium'}}</td>
+                  <td>{{info.user.id}}</td>
+                  <td class="user-name">{{info.user.name}}</td>
+                  <td>{{info.user.email}}</td>
+                  <td>{{info.user.mobile}}</td>
+                  <td>
+                    <span class="moderation-status center-block label label-danger {{info.kyc_flag}}">{{info.kyc_flag}} </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == true"> 
+                    <span class="moderation-status center-block label label-success VIEWED"> 
+                      <i class="fa fa-check"></i> Reviewed
+                    </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == false">
+                    <span class="moderation-status center-block label label-danger NOT-VIEWED"> <i class="fa fa-close"></i> NO</span>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-icon" (click)="showUserPages(info._id)">
+                      <i class="fa fa-eye"></i> 
+                    </button>
+                  </td>
+                </tr> 
+              </tbody>
+    
+              <tfoot>
+                <tr>
+                  <td colspan="9">
+                    <pagination [totalItems]="totalRows" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getKycUnveirfied(currentPage)"></pagination>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="rejected" title="Rejected">
+        <ng-template ngbTabContent>
+          <form role="form" method="post" (ngSubmit)="getKycRejected(null)" #sent="ngForm" class="form-inline">              
+            <div class="form-group">
+              <input type="text" name="usernameandeamil" [(ngModel)]="usernameandemail" class="form-control" id="search" autocomplete="off" #search="ngModel" placeholder="Enter Email or Name" required />
+            </div>
+        
+            <div class="form-group">
+              <button class="btn btn-secondary btn-single">Search</button>
+            </div>
+          </form>
+
+          <div class="table-responsive">
+            <table class="table table-stripped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Data Uploaded At</th>
+                  <th>System Id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Reviewed by Moderator</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let info of rejectedKyc; let i = index;" [ngClass]="{'red': (info.color_status === 'R'), 'yellow': (info.color_status === 'N'), 'green': (info.color_status === 'C')}">
+                  <td>{{info.updatedAt | date:'medium'}}</td>
+                  <td>{{info.user.id}}</td>
+                  <td class="user-name">{{info.user.name}}</td>
+                  <td>{{info.user.email}}</td>
+                  <td>{{info.user.mobile}}</td>
+                  <td>
+                    <span class="moderation-status center-block label label-danger {{info.kyc_flag}}">{{info.kyc_flag}} </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == true"> 
+                    <span class="moderation-status center-block label label-success VIEWED"> 
+                      <i class="fa fa-check"></i> Reviewed
+                    </span>
+                  </td>
+                  <td *ngIf="info.moderator.viewed == false">
+                    <span class="moderation-status center-block label label-danger NOT-VIEWED"> <i class="fa fa-close"></i> NO</span>
+                  </td>
+                </tr> 
+              </tbody>
+    
+              <tfoot>
+                <tr>
+                  <td colspan="9">
+                    <pagination [totalItems]="totalRows" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getKycUnveirfied(currentPage)"></pagination>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
+
+<div class="modal fade kyc-modal" bsModal #kycModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="kycModal.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">KYC Edit</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" role="form" (ngSubmit)="form.valid && updateKyc(); form.valid && f.resetForm();" [formGroup]="form" #f="ngForm" novalidate>
+            <div class="customer-details">
+              <h3> User Details <span class="{{kycInfo.kyc_flag}}" >STATUS :  {{kycInfo.kyc_flag}}</span> </h3>
+              <p><span class="left"><strong>Name</strong> : {{kycInfo.user.name}}</span> <span class="right"><strong>Email</strong> : {{kycInfo.user.email}}</span></p>
+              <p class="clearfix"></p>
+              <p><span class="left"><strong>Mobile</strong> : {{kycInfo.user.mobile}}</span> <span class="right"><strong>Government Id</strong> : {{kycInfo.user.govid}}</span></p>
+              <p class="clearfix"></p>
+              <p><span class="left"><strong>Tax Id</strong> : {{kycInfo.user.taxid}}</span></p>
+              <p class="clearfix"></p>
+            </div>
+
+            <div class="customer-image-details">
+              <table class="table" style="margin-bottom:0px;">
+                <tbody>
+                  <tr>
+                    <td>
+                      <p class="image-border">
+                        <img [src]="kycInfo.s3asset.selfie" alt="User Selfie" class="img-responsive" style="height:200px;" />
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="border-top:0px;" valign="top">
+                      <p>
+                        <span class="left"><strong>Title:</strong> Selfie</span> 
+                        <span class="right"><strong>Uploaded At:</strong> {{kycInfo.updatedAt | date:'medium'}}</span>
+                      </p>
+                      <p class="clearfix"></p>
+                      <p *ngIf="kycInfo.kyc_flag == 'UNVERIFIED' || kycInfo.kyc_flag == 'PENDING' || kycInfo.kyc_flag == 'ONHOLD'" [ngClass]="{ 'has-error': (f.submitted || selfiePhoto.dirty) && !selfiePhoto.valid }">
+                        <strong>Action:</strong>&nbsp;&nbsp;
+                        <input type="radio" id="selfieaccept" name="selfiePhoto" value="ACCEPTED" formControlName="selfiePhoto" />
+                        <label for="selfieaccept">Accept</label>
+                        <input type="radio" id="selfiereject" name="selfiePhoto" value="REJECTED" formControlName="selfiePhoto" />
+                        <label for="selfiereject">Reject</label>
+                        <span *ngIf="(f.submitted || selfiePhoto.dirty) && !selfiePhoto.valid" class="help-block">Please select Accepted Or Rejected</span>
+                      </p>
+                      <p class="clearfix"></p>
+                      <p *ngIf="kycInfo.assetsStatus.selfie != '' && kycInfo.assetsStatus.selfie != 'ACCEPTED' && kycInfo.kyc_flag != 'UNVERIFIED'; else elseBlock">
+                        <span *ngIf="kycInfo.moderator.name && kycInfo.moderator.name != '' && !kycInfo.admin.name && kycInfo.moderator.name == ''">
+                          <strong>Reject By:</strong> {{kycInfo.moderator.name}}
+                        </span>
+                        <span *ngIf="kycInfo.admin.name && kycInfo.admin.name != ''">
+                          <strong>Reject By:</strong> {{kycInfo.admin.name}}
+                        </span>
+                        <span *ngIf="(!kycInfo.moderator.name && !kycInfo.admin.name) || (kycInfo.admin.name == '' && kycInfo.moderator.name == '')">
+                          <strong>Reject By:</strong> Admin
+                        </span>
+                      </p>
+                      <ng-template #elseBlock>
+                        <span><strong>Status:</strong> {{kycInfo.assetsStatus.selfie}}</span>
+                      </ng-template>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p class="image-border">
+                        <img height="200" [src]="kycInfo.s3asset.id_1" alt="Governament ID" class="img-responsive" style="height:200px;" />
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:50%" valign="top">
+                      <p>
+                        <span class="left"><strong>Title:</strong> Government ID ({{kycInfo.doctypes.id_1}})</span>
+                        <span class="right"><strong>Uploaded At:</strong> {{kycInfo.updatedAt | date:'medium'}}</span>
+                      </p>
+                      <p class="clearfix"></p>
+                      <p *ngIf="kycInfo.kyc_flag == 'UNVERIFIED' || kycInfo.kyc_flag == 'PENDING' || kycInfo.kyc_flag == 'ONHOLD'" [ngClass]="{ 'has-error': (f.submitted || govidPhoto.dirty) && !govidPhoto.valid }">
+                        <strong>Action:</strong>&nbsp;&nbsp;
+                        <input type="radio" id="govidaccept" name="govidPhoto" value="ACCEPTED" formControlName="govidPhoto" />
+                        <label for="govidaccept">Accept</label>
+                        <input type="radio" id="govidreject" name="govidPhoto" value="REJECTED" formControlName="govidPhoto" />
+                        <label for="govidreject">Reject</label>
+                        <span *ngIf="(f.submitted || govidPhoto.dirty) && !govidPhoto.valid" class="help-block">Please select Accepted Or Rejected</span>
+                      </p>
+                      <p *ngIf="kycInfo.assetsStatus.id_1 != '' && kycInfo.assetsStatus.id_1 != 'ACCEPTED' && kycInfo.kyc_flag != 'UNVERIFIED'; else elseBlock1">
+                        <span *ngIf="kycInfo.moderator.name && kycInfo.moderator.name != '' && !kycInfo.admin.name && kycInfo.moderator.name == ''">
+                          <strong>Reject By:</strong> {{kycInfo.moderator.name}}
+                        </span>
+                        <span *ngIf="kycInfo.admin.name && kycInfo.admin.name != ''">
+                          <strong>Reject By:</strong> {{kycInfo.admin.name}}
+                        </span>
+                        <span *ngIf="(!kycInfo.moderator.name && !kycInfo.admin.name) || (kycInfo.admin.name == '' && kycInfo.moderator.name == '')">
+                          <strong>Reject By:</strong> Admin
+                        </span>
+                      </p>
+                      <ng-template #elseBlock1>
+                        <strong>Status:</strong> {{kycInfo.assetsStatus.id_1}}<br />
+                      </ng-template>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="customer-details">
+              <h3 class="mt10"> Moderator Action Details </h3>
+              <p *ngIf="adminRole">
+                <span class="left"><strong>Moderator Name</strong> : {{kycInfo.moderator.name}}</span> 
+                <span class="right">
+                  <strong>Status Set by Moderator </strong> : 
+                  <span class="label status {{kycInfo.moderator.flag}} "> {{kycInfo.moderator.flag}}</span>
+                </span>
+              </p>
+              <p *ngIf="adminRole" class="clearfix"></p>
+              <p *ngIf="adminRole"><span class="left"><strong>Moderated On </strong> : {{kycInfo.moderator.timestamp}}</span> <span class="right"><strong>Review Status </strong> : {{kycInfo.moderator.viewed}}</span></p>
+              <p *ngIf="adminRole" class="clearfix"></p>
+              <p *ngIf="adminRole"><span class="left"><strong>Moderator Comments</strong> : {{kycInfo.moderator.comments}}</span></p>
+              <p *ngIf="adminRole" class="clearfix"></p>
+
+              <div *ngIf="moderatorRole" [ngClass]="{ 'has-error': (f.submitted || moderatorStatus.dirty) && !moderatorStatus.valid }">
+                <div>
+                  <div class="form-control">
+                    <strong>Status Set by Moderator </strong> : 
+                    <select name="moderator_flag" formControlName="moderatorStatus" class="moderator_flag kyc_status_select" id="moderator_flag" style="padding: 0 9px;-webkit-appearance: menulist;">
+                      <option value="ONHOLD">ONHOLD</option>
+                      <option value="REJECTED">REJECTED</option>
+                      <option value="VERIFIED">VERIFIED</option>
+                    </select>
+                    <div *ngIf="(f.submitted || moderatorStatus.dirty) && !moderatorStatus.valid" class="help-block">Moderator status is required</div>
+                  </div>
+                  <div *ngIf="((kycInfo.kyc_flag == 'UNVERIFIED' || kycInfo.kyc_flag == 'REJECTED' || kycInfo.kyc_flag == 'PENDING'  || kycInfo.kyc_flag == '') && (kycInfo.assetsStatus.selfie != 'ACCEPTED' || kycInfo.assetsStatus.id_1 != 'ACCEPTED'))" [ngClass]="{ 'has-error': (f.submitted || moderatorReasonInternal.dirty) && !moderatorReasonInternal.valid }">
+                    <p> <strong>Moderator Comments (Will be displayed to user)</strong> : </p>
+                    <textarea class="form-control" formControlName="moderatorReasonUser" style="margin-left: 5px;width: 99%;" required></textarea>
+                    <div *ngIf="(f.submitted || moderatorReasonUser.dirty) && !moderatorReasonUser.valid" class="help-block">Moderator comments is required</div>
+                  </div>
+
+                  <div [ngClass]="{ 'has-error': (f.submitted || moderatorReasonInternal.dirty) && !moderatorReasonInternal.valid }">
+                    <p> <strong>Moderator Comments (Displayed internally)</strong> :</p>
+                    <textarea class="form-control" formControlName="moderatorReasonInternal" style="margin-left: 5px;width: 99%;" required></textarea>
+                    <div *ngIf="(f.submitted || moderatorReasonInternal.dirty) && !moderatorReasonInternal.valid" class="help-block">Moderator comments (internally) is required</div>
+                  </div>
+                  <div>
+                    <button type="submit" class="btn btn-primary btn-small waves-effect" style="margin-top: 35px">Save</button>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="customer-details" *ngIf="adminRole">
+              <h3 class="mt10"> Admin Action Details </h3>
+              <p *ngIf="kycInfo.moderator.viewed == false" ><span class="left"><strong>Review Status</strong> : No </span></p>
+              <p *ngIf="kycInfo.moderator.viewed == true" ><span class="left"><strong>Review Status</strong> : Yes </span></p>
+              <p class="clearfix"></p>
+              <p [ngClass]="{ 'has-error': (f.submitted || adminStatus.dirty) && !adminStatus.valid }">
+                <span class="left">
+                  <strong>Status Set by Admin </strong> : 
+                  <select name="admin_flag" formControlName="adminStatus" class="admin_flag kyc_status_select" id="admin_flag">
+                    <option *ngIf="adminRole" value="UNVERIFIED" selected >UNVERIFIED</option>
+                    <option value="ONHOLD" >ONHOLD</option>
+                    <option value="REJECTED" >REJECTED</option>
+                    <option value="VERIFIED" >VERIFIED</option>
+                    <option value="APPROVED" >APPROVED</option>
+                  </select>
+                  <span *ngIf="(f.submitted || adminStatus.dirty) && !adminStatus.valid" class="help-block">Admin status is required</span>
+                </span>
+                <span class="right"><strong>Admin Comments</strong> : {{kycInfo.admin.comments}}</span>
+              </p>
+              <p class="clearfix"></p>
+              <div *ngIf="supervisorRole || adminRole">
+                <p *ngIf="((kycInfo.kyc_flag == 'UNVERIFIED' || kycInfo.kyc_flag == 'REJECTED' || kycInfo.kyc_flag == 'PENDING'  || kycInfo.kyc_flag == '') && (kycInfo.assetsStatus.selfie != 'ACCEPTED' || kycInfo.assetsStatus.id_1 != 'ACCEPTED'))" [ngClass]="{ 'has-error': (f.submitted || adminReasonUser.dirty) && !adminReasonUser.valid }"> 
+                  <strong>Reject Reason (Will be displayed to user)</strong> : {{kycInfo.admin.rejectReason}}
+                  <textarea class="form-control" formControlName="adminReasonUser" required></textarea>
+                  <span *ngIf="(f.submitted || adminReasonUser.dirty) && !adminReasonUser.valid" class="help-block">Admin reject is required</span>
+                </p>
+                <p [ngClass]="{ 'has-error': (f.submitted || adminReasonInternal.dirty) && !adminReasonInternal.valid }">
+                  <strong>Admin Comments (Displayed internally)</strong> : {{kycInfo.admin.comments}}
+                  <textarea class="form-control" formControlName="adminReasonInternal"></textarea>
+                  <span *ngIf="(f.submitted || adminReasonInternal.dirty) && !adminReasonInternal.valid" class="help-block">Admin comments is required</span>
+                </p>
+
+                <div class="alert alert-success" *ngIf="updateSuccess">
+                  <button type="button" class="close" data-dismiss="alert"></button>              
+                  <h4>{{updateSuccess}}</h4>
+                </div>
+                <div class="alert alert-danger" *ngIf="updateError">
+                  <button type="button" class="close" data-dismiss="alert"></button>              
+                  <h4>{{updateError}}</h4>
+                </div>
+
+                <button type="submit" class="btn btn-small btn-primary" style="margin-top: 10px">Save</button>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+
+        </form>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

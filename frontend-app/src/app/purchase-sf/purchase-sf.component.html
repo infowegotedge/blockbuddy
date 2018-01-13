@@ -1,0 +1,90 @@
+<div class="bg-top-row page-title">
+  <div class="container breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard">Dashboard </a> &gt;  
+      </li>
+      <li class="active">
+        Purchase
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="trade-row row">
+   <!-- <app-topbar-nav></app-topbar-nav>
+   <app-my-statics></app-my-statics> -->
+  <div class="container">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-header title">
+          <h2>Purchase</h2>
+        </div>
+        <div class="panel-body">
+          <div *ngIf="messageType == 'success'">
+            <p style="color:green">Thank you,</p>
+            <p style="color:green">Your order is created successfully</p>
+            <table *ngIf="orderId && orderId !== ''" border="1" cellpadding="0" cellspacing="0" align="center" style="width:100%;border-collapse:collapse;border-spacing:0;padding:0;">
+              <tbody>
+                <tr><td colspan="2" style="border-bottom:0px;"><h2 class="text-center">INVOICE</h2></td></tr>
+                <tr>
+                  <td width="50%" style="padding:20px 15px;border-right:0px;vertical-align:top;">
+                    <strong>Name:</strong> <span>{{profile.first_name}} {{profile.last_name}} ( {{profile.username}} )</span><br>
+                    <strong>Address:</strong> <span>{{profile.address}}, {{profile.city}}, {{profile.country}}</span><br>
+                    <strong>Email:</strong> <span>{{profile.email}}</span><br>
+                  </td>
+                  <td width="50%" style="padding:20px 15px;border-left:0px;vertical-align:top;">
+                    <strong>Block Trade Technology Ltd</strong><br>
+                    4 Flitcroft Street, London, United Kingdom, WC2H 8DJ<br>
+                    Phone: +46 70120355<br>
+                    Email: info@blockbuddy.com<br>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <table border="1" cellpadding="0" cellspacing="0" align="center" style="width:100%;border-collapse:collapse;border-spacing:0;padding:0;">
+                      <thead>
+                        <tr>
+                          <th align="center" valign="middle" style="padding:12px 24px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">Order ID</th>
+                          <th align="center" valign="middle" style="padding:12px 24px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">Name</th>
+                          <th align="center" valign="middle" style="padding:12px 24px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">Price</th>
+                          <th align="center" valign="middle" style="padding:12px 24px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td align="center" valign="middle" style="padding:5px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">{{orderStatus.orderId}}</td>
+                          <td align="center" valign="middle" style="padding:5px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">{{orderStatus.productName}}</td>
+                          <td align="center" valign="middle" style="padding:5px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">{{orderStatus.amount}}</td>
+                          <td align="center" valign="middle" style="padding:5px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">{{orderStatus.amount}}</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td align="right" valign="middle" colspan="3" style="padding:12px 24px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">Total: </td>
+                          <td align="center" valign="middle" style="padding:12px 24px;margin:0;text-decoration:none;border-collapse:collapse;border-spacing:0;">&euro; {{orderStatus.amount}}</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding:80px 15px 15px;border:0px;">
+                    <strong>Block Trade Technology Ltd</strong><br>
+                    4 Flitcroft Street, London, United Kingdom, WC2H 8DJ<br>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="button" class="pull-right btn btn-success" *ngIf="orderId && orderId !== ''" (click)="printInvoice()" style="margin-top:10px;">Print Invoice</button>
+          </div>
+          <div *ngIf="messageType == 'failure'">
+            <p style="color:red;">Your payment is failure</p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-row page-title">&nbsp;</div>

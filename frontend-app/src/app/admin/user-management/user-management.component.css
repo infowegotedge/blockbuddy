@@ -1,0 +1,5 @@
+.label-block {display: block;}
+.form-inline .form-group{width: 49%;}
+.form-inline.full-width {width:100%;}
+.form-group .form-control {width: 100%;}
+.resize-none {resize:none;}

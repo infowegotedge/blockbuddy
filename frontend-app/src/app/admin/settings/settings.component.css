@@ -1,0 +1,26 @@
+.input-group-addon span.ex-width {
+  width: 150px;
+  text-align: left;
+  display: inline-block;
+}
+
+.input-group-addon + input {
+  text-align: right;
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+.mb20 {
+  margin-bottom: 20px !important;
+}
+
+.mt20 {
+  margin-top: 20px !important;
+}
+
+#coins-settings .input-group-addon + input, 
+#currency-settings .input-group-addon + input {
+  text-align: left !important;
+}

@@ -1,0 +1,206 @@
+<div class="login-container">
+	
+  <div class="row">
+
+    <div class="col-sm-12 center">
+
+      
+      <!-- Errors container -->
+      <div class="errors-container">
+
+        
+      </div>
+
+      <!-- Add class "fade-in-effect" for login form effect -->
+      <form method="post" role="form" id="signup" class="login-form fade-in-effect" (ngSubmit)="form.valid && register()" [formGroup]="form" #f="ngForm" novalidate>
+
+        <div class="login-header text-center">
+          <a href="#/login" class="logo">
+            <img src="assets/images/logo-new.png" alt="" />
+          </a>
+
+          <h4 style="margin:30px 0;line-height:25px;"><strong>Create a BlockBuddy
+            <br />
+            Personal Account</strong>
+          </h4>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="full-width mb20">
+                <button class="btn btn-facebook" type="button" (click)="signInWithFB()"><i class="fa fa-facebook"></i> Login with Facebook</button>
+                <button class="btn btn-google" type="button" (click)="signInWithGoogle()"><i class="fa fa-google"></i> Login with Google</button>
+              </div>
+
+              <div class="modal fade sponsor-modal" bsModal #sponsorModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" aria-label="Close" (click)="closeSponsorPopup()">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h4 class="modal-title">Sponsor User</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div>&nbsp;</div>
+                      
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <!-- <label>Sponsor ID</label> -->
+                          <input type="text" class="form-control" name="sponsorId" value="{{sponsorId}}" id="sponsor-id" autocomplete="off" (change)="sponsorFind($event)" placeholder="Sponsor ID" />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <!-- <label>Sponsor Name</label> -->
+                          <input type="text" class="form-control" name="sponsorName" id="sponsor-name" value="{{sponsorName}}" autocomplete="off" placeholder="Sponsor Name" />
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary pull-left" (click)="closeSponsorPopup();">Link Sponsor</button>
+                        <button type="button" class="btn btn-danger pull-left" aria-label="Close" (click)="closeSponsorPopup();">Not Have Any</button>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || username.dirty) && !username.valid}">
+                  <input type="text" class="form-control" name="username" id="username" autocomplete="off" formControlName="username" placeholder="Username" required/>
+                  <div *ngIf="(username.dirty || f.submitted) && username.errors"
+                    class="help-block">
+                    <div [hidden]="!username.errors.required">
+                      Username is required
+                    </div>
+                    <div [hidden]="!username.errors.pattern">
+                      Username is case sensitive, please choose alphabetic or alphanumeric username without any space
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || email.dirty) && !email.valid && email.errors}">
+                  <input type="email" class="form-control" name="email" id="email" autocomplete="off" formControlName="email" placeholder="Email" required />
+                  
+                  <div *ngIf="(f.submitted || email.dirty) && email.errors" class="help-block">
+                    <div [hidden]="!email.errors.required">
+                      Email is required
+                    </div>
+                    <div [hidden]="email.errors.required">
+                      Please enter a valid email
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || firstName.dirty) && !firstName.valid}">
+                  <input type="text" class="form-control" name="firstName" id="first-name" autocomplete="off" formControlName="firstName" placeholder="First Name" required />
+                  <div *ngIf="(firstName.dirty || f.submitted) && firstName.errors" class="help-block">
+                    <div [hidden]="!firstName.errors.required">
+                      First Name is required
+                    </div>
+                    <div [hidden]="!firstName.errors.pattern">
+                      First name must be alphabets with no spaces.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || lastName.dirty) && !lastName.valid}">
+                  <input type="text" class="form-control" name="lastName" id="last-name" autocomplete="off" formControlName="lastName" placeholder="Last Name" required />
+                  <div *ngIf="(lastName.dirty || f.submitted) && lastName.errors" class="help-block">
+                    <div [hidden]="!lastName.errors.required">
+                      Last Name is required
+                    </div>
+                    <div [hidden]="!lastName.errors.pattern">
+                      Last Name must be alphabets with no spaces.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || country.dirty) && !country.valid}">
+                  <select class="form-control" name="country" id="country" autocomplete="off" formControlName="country">
+                    <option value="">Select Country</option>
+                    <option *ngFor="let c of countries" [ngValue]="c.name">{{c.name}}</option>
+                  </select>
+                  <div *ngIf="(f.submitted || country.dirty) && !country.valid" class="help-block">Country is required</div>
+
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || mobile.dirty) && !mobile.valid}">
+                  <input type="number" min="0" class="form-control" name="mobile" id="mobile" autocomplete="off" formControlName="mobile" placeholder="Mobile" max="15" />
+                  <div *ngIf="(f.submitted || mobile.dirty) && mobile.errors" class="help-block">
+                    <div *ngIf="mobile.errors.required">
+                      Mobile is required
+                    </div>
+                    <div *ngIf="mobile.errors.minlength">
+                      Mobile number must be 6 digit long
+                    </div>
+                    <div *ngIf="mobile.errors.maxlength">
+                      Mobile number must be 15 digit long
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || password.dirty) && !password.valid && password.errors}">
+                    <input type="password" id="new-password" class="form-control" formControlName="password" placeholder="Password" />
+                    <div *ngIf="(password.dirty || f.submitted) && password.errors"
+                      class="help-block">
+                      <div [hidden]="!password.errors.required">
+                        Password is required
+                      </div>
+                      <div [hidden]="!password.errors.minlength">
+                        Password must be at least 6 characters long.
+                      </div>
+                      <div [hidden]="password.errors.minlength || password.errors.required">
+                        Password must be alphanumeric.
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': (f.submitted || confirmPassword.dirty) && (!confirmPassword.valid || isConfirmPassError)}">
+                  <input type="password" class="form-control" name="confirmPassword" id="confirm-password" autocomplete="off" (ngModelChange)="validatePassword()" placeholder="Confirm Password" formControlName="confirmPassword" />
+                  <div *ngIf="(f.submitted || confirmPassword.dirty) && (!confirmPassword.valid || isConfirmPassError)" class="help-block">Password Mismatch</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isError" class="alert alert-danger">{{serverError}}</div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block text-center">
+            Sign Up
+          </button>
+        </div>
+      </form>
+      
+      <div class="full-width pull-left mb80">
+          <a class="btn btn-yellow col-xs-12 col-sm-12 col-md-12 signup pd12" href="#/login">
+            Already a Member? Log In !!!
+          </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,71 @@
+.panel-body.graph-panel.no-padding { padding: 0px; }
+.graph-panel .panel-heading,
+.graph-panel .panel-heading > div {
+  padding: 0px;
+  overflow: hidden;
+}
+.graph-panel .panel-heading > div > h2,
+.graph-panel .panel-heading > div > h2 > span {
+  font-size: 26px;
+  color: #292929;
+  margin: 0px;
+}
+.graph-panel .panel-heading > div > h2 > span.gain {
+  color: #00C664;
+}
+.graph-panel .panel-heading > div > h2 > span.loss {
+  color: #c73331;
+}
+.graph-panel .panel-heading > div > h3 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #292929;
+  margin: 0px;
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.border-top {
+  border-top: 1px solid #ccc !important;
+  padding-top: 15px;
+  overflow: hidden;
+}
+.border-top > div {
+  font-weight: 500;
+  font-size: 14px;
+  color: #292929;
+  text-align: center;
+}
+.border-top > div.last {
+  padding: 0px;
+}
+.border-top span {
+  color: #717171;
+}
+.border-top > div > button,
+.border-top > div > a {
+  width: 100%;
+  padding: 7px 10px;
+  margin: 0px;
+}
+.no-shadow { box-shadow: 0 0 0 transparent !important; }
+.full-width {
+  position: relative;
+}
+.full-width {
+  min-height: 200px;
+}
+.full-width #loader-section {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+#loader-section p {
+  height: 200px;
+  margin-bottom: 0px;
+}
+.sitv-shares,
+.stockholm-it-ab,
+.sitv-warrant { display: none !important; }

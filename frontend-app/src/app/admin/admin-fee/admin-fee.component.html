@@ -1,0 +1,148 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Fees</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i>Dashboard / </a>
+      </li>
+      <li class="active">
+        <strong>Fees</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ngb-tabset #feeTebset="ngbTabset">
+      <ngb-tab id="transfer-fee" title="Transfer">
+        <ng-template ngbTabContent>
+          <!-- <div class="text-right">
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('day')">1 Day</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('week')">1 Week</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('month')">1 Month</button>
+          </div> -->
+          <h1 class="total-till-date">Total Fee (Till Date): <span>&euro; {{totalTransferFee | number:'1.2-6'}}</span></h1>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>From UserName</th>
+                  <th>To UserName</th>
+                  <th>Status</th>
+                  <th class="text-right">Fee %</th>
+                  <th class="text-right">Fee Amount</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="transferFee.length>0" >
+                <tr *ngFor="let info of transferFee; let i = index;">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.from_username}}</td>
+                  <td>{{info.to_username}}</td>
+                  <td>{{info.status}}</td>
+                  <td class="text-right">{{info.amount_fee | number:'1.2'}}</td>
+                  <td class="text-right">{{(info.amount - info.amount_transfer) | number:'1.2'}}</td>
+                  <td class="text-right">{{info.amount_transfer | number:'1.2'}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="transferFee.length===0" >
+                <tr>
+                  <td class="text-center" colspan="6"><strong>No Transfer Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="transferFee.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalTransfer" [(ngModel)]="tCurrentPage" [maxSize]="transferMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getTransferFee(tCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab id="withdrawal-fee" title="Withdrawal">
+        <ng-template ngbTabContent>
+          <!-- <div class="text-right">
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('day')">1 Day</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('week')">1 Week</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('month')">1 Month</button>
+          </div> -->
+          <h1 class="total-till-date">Total Fee (Till Date): <span>&euro; {{totalWithdrawalFee | number:'1.2-6'}}</span></h1>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User Name</th>
+                  <th>Status</th>
+                  <th class="text-right">Fee %</th>
+                  <th class="text-right">Fee Amount</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+              </thead>
+                <tbody *ngIf="withdrawalFee.length>0" >
+                <tr *ngFor="let info of withdrawalFee; let i = index;">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.user_name}}</td>
+                  <td>{{info.status}}</td>
+                  <td class="text-right">{{info.amount_fee | number:'1.2'}}</td>
+                  <td class="text-right">{{(info.amount - info.amount_withdrawal) | number:'1.2'}}</td>
+                  <td class="text-right">{{info.amount_withdrawal | number:'1.2'}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="withdrawalFee.length===0" >
+                <tr>
+                  <td class="text-center" colspan="5"><strong>No Withdrawals Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="withdrawalFee.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalWithdrawal" [(ngModel)]="wCurrentPage" [maxSize]="withdrawalMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getWithdrawalFee(wCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab id="commission-fee" title="Commission">
+        <ng-template ngbTabContent>
+          <!-- <div class="text-right">
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('day')">1 Day</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('week')">1 Week</button>
+            <button class="btn btn-danger" (click)="getWithdrawalTransaction('month')">1 Month</button>
+          </div> -->
+          <h1 class="total-till-date">Total Commission (Till Date): <span>&euro; {{totalCommissionFee | number:'1.2-6'}}</span></h1>
+          <div class="table-responsive" id="unverified">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User System ID</th>
+                  <th>Description</th>
+                  <th class="text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="commissionFee.length>0" >
+                <tr *ngFor="let info of commissionFee; let i = index;">
+                  <td>{{info.created_at | date:'medium'}}</td>
+                  <td>{{info.userid}}</td>
+                  <td>{{info.description}}</td>
+                  <td class="text-right">{{info.total_amount | number:'1.2'}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="commissionFee.length===0" >
+                <tr>
+                  <td class="text-center" colspan="5"><strong>No Commission Found</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="commissionFee.length>0" class="col-md-6 pull-right text-right">
+              <pagination [totalItems]="totalAffiliation" [(ngModel)]="aCurrentPage" [maxSize]="affiliationMaxSize" [itemsPerPage]="perPageItem" class="pagination-sm" [boundaryLinks]="true" (click)="getCommissionFee(aCurrentPage)"></pagination>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+    </ngb-tabset>
+  </div>
+</div>

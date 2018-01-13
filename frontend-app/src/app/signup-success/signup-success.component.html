@@ -1,0 +1,60 @@
+<div class="login-container">
+	
+		<div class="row">
+	
+			<div class="col-sm-12 center">
+	
+				
+				<!-- Errors container -->
+				<div class="errors-container">
+	
+					
+				</div>
+        
+        <div class="login-header login-form text-center">
+          <a href="/login" class="logo">
+            <img src="assets/images/logo-new.png" alt="" />
+          </a>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+
+          <div *ngIf="successMessage">
+            <h2 class="dz-success-text">
+              <i class="fa fa-check-circle"></i>  Success!
+            </h2>
+            <div class="alert alert-success" style="background-color: #eff9f5">
+              <p class="dz-success-text">
+                Your email is now verified.
+              </p>
+            </div>
+            <div>&nbsp;</div>
+
+            <span *ngIf="showRedirectUrl" class="col-md-12 text-center login-text"><a href="/#/login">Click here</a> to login.</span>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+          </div>
+
+          <div *ngIf="serverError">
+              
+            <h2 class="dz-error-text alert alert-danger" style="background:transparent;padding-left:0;font-size:30px;">
+              <i class="fa fa-remove"></i> Validation failed!
+            </h2>
+            <div class="alert alert-danger">
+              <p>
+                {{serverError}}
+              </p>
+            </div>
+
+            <div>&nbsp;</div>
+            <p>
+                Please contact to support team <a href="mailto:support@blockbuddy.com" style="display:inline-block;">support@blockbuddy.com</a>.
+            </p>
+          </div>
+
+        </div>
+
+			</div>
+	
+		</div>
+	
+	</div>

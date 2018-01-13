@@ -1,0 +1,274 @@
+<div class="page-title">
+  <div class="title-env">
+    <h1 class="title">Settings</h1>
+  </div>
+  <div class="breadcrumb-env">
+    <ol class="breadcrumb bc-1">
+      <li>
+        <a href="/#/dashboard"><i class="fa fa-home"></i>Home</a>
+      </li>
+      <li class="active">
+        <strong>Settings</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">        
+        <form method="post" role="form" id="setting-info" class="login-form fade-in-effect" (ngSubmit)="form.valid && updateSettings()" [formGroup]="form" #f="ngForm" novalidate>
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="panel-title">Amount Settings</h3>
+              <div>&nbsp;</div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="row">
+                <div>
+                  <div class="col-md-6 mb20">
+                    <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || cutOffValue.dirty) && !cutOffValue.valid }">
+                      <span class="input-group-addon">
+                        <span class="ex-width">Cut Off Value <strong>&euro;</strong> </span>
+                      </span>
+                      <input type="text" class="form-control" name="cut_off" id="cut-off" autocomplete="off" formControlName="cutOffValue" placeholder="Cut Off Value" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 mb20">
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || affiliationFee.dirty) && !affiliationFee.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Affiliation Fee <i class="fa fa-percent"></i></span>
+                        </span>
+                        <input type="text" class="form-control" name="affiliation_fees" id="cut-off" autocomplete="off" formControlName="affiliationFee" placeholder="Affiliation Fees" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || affiliationAmount.dirty) && !affiliationAmount.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Affiliation Amount <strong>&euro;</strong> </span>
+                        </span>
+                        <input type="text" class="form-control" name="affiliation_amount" id="cut-off" autocomplete="off" formControlName="affiliationAmount" placeholder="Affiliate Amount" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 mb20">
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || withdrawalFee.dirty) && !withdrawalFee.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Withdrawal Fee <i class="fa fa-percent"></i></span>
+                        </span>
+                        <input type="text" class="form-control" name="withdrawal_fees" id="withdrawal-fee" autocomplete="off" formControlName="withdrawalFee" placeholder="Withdrawal Fee" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || withdrawalAutoLimit.dirty) && !withdrawalAutoLimit.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Withdrawal Auto Limit <i class="fa fa-btc"></i></span>
+                        </span>
+                        <input type="text" class="form-control" name="auto_limit" autocomplete="off" formControlName="withdrawalAutoLimit" placeholder="Withdrawal Auto Limit" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 mb20">
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || withdrawalMinLimit.dirty) && !withdrawalMinLimit.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Withdrawal Min Limit <i class="fa fa-btc"></i></span>
+                        </span>
+                        <input type="text" class="form-control" name="min_limit" autocomplete="off" formControlName="withdrawalMinLimit" placeholder="Withdrawal Min Limit" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || withdrawalMaxLimit.dirty) && !withdrawalMaxLimit.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Withdrawal Max Limit <i class="fa fa-btc"></i></span>
+                        </span>
+                        <input type="text" class="form-control" name="max_limit" autocomplete="off" formControlName="withdrawalMaxLimit" placeholder="Withdrawal Max Limit" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 mb20">
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || transferFee.dirty) && !transferFee.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Transfer Fee <i class="fa fa-percent"></i></span>
+                        </span>
+                        <input type="text" class="form-control" name="transfer_fee" autocomplete="off" formControlName="transferFee" placeholder="Transfer Fee" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || transferPerUserDayLimit.dirty) && !transferPerUserDayLimit.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Transfer Limit <i class="fa fa-btc"></i></span>
+                        </span>
+                        <input type="text" class="form-control" name="transfer_limit" autocomplete="off" formControlName="transferPerUserDayLimit" placeholder="Transfer Limit" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 mb20">
+                    <div class="col-md-6">
+                      <div class="input-group" [ngClass]="{ 'has-error': (f.submitted || transferCoinPerUserDayLimit.dirty) && !transferCoinPerUserDayLimit.valid }">
+                        <span class="input-group-addon">
+                          <span class="ex-width">Transfer Coin Limit <strong>&euro;</strong></span>
+                        </span>
+                        <input type="text" class="form-control" name="transfer_coin" autocomplete="off" formControlName="transferCoinPerUserDayLimit" placeholder="Transfer Coins Limit" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                  <h3 class="panel-title">MailChimp Settings</h3>
+                  <div>&nbsp;</div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label" for="key">Key</label>
+                    <input type="text" class="form-control" name="key" autocomplete="off" formControlName="mailChimpKey" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label" for="list_number">List Number</label>
+                    <input type="text" class="form-control" name="list_number" autocomplete="off" formControlName="mailChimpList" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label" for="email_from">Email From</label>
+                    <input type="text" class="form-control" name="email_from" id="cut-off" autocomplete="off" formControlName="mailChimpEmail" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label" for="email_from_name">Name</label>
+                    <input type="text" class="form-control" name="email_from_name" autocomplete="off" formControlName="mailChimpFromName" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="errorMessage"> <h4>{{errorMessage}}</h4> </div>
+          <div class="alert alert-success" *ngIf="successMessage"> <h4>{{successMessage}}</h4> </div>
+          <div>&nbsp;</div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block text-center">
+                Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form method="post" role="form" id="withdrawal-settings" class="login-form fade-in-effect" novalidate>
+          <div class="row">
+            <div>&nbsp;</div>
+            <div class="col-md-12">
+              <h3 class="panel-title">Withdrawal Settings (Enable / Disable)</h3>
+              <div>&nbsp;</div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <button type="button" class="btn btn-danger" *ngIf="enableDisableButton" (click)="enableDisable()">Disable</button>
+                <button type="button" class="btn btn-primary" *ngIf="!enableDisableButton" (click)="enableDisable()">Enable</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form method="post" role="form" id="currency-settings" class="login-form fade-in-effect" (ngSubmit)="form.valid && createCurrency()" [formGroup]="currencyForm" #f1="ngForm" novalidate>
+          <div class="row">
+            <div>&nbsp;</div>
+            <div class="col-md-12">
+              <h3 class="panel-title">Currency</h3>
+              <div>&nbsp;</div>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="currencyError"> <h4>{{currencyError}}</h4> </div>
+            <div class="alert alert-success" *ngIf="currencySuccess"> <h4>{{currencySuccess}}</h4> </div>
+
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="ex-width">Curreny </span>
+                </span>
+                <input type="text" class="form-control" name="currency" id="currecny" formControlName="currency" autocomplete="off" placeholder="Currency" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="ex-width">Currency Code </span>
+                </span>
+                <input type="text" class="form-control" name="currencyCode" autocomplete="off" formControlName="currencyCode" placeholder="Currency Code" />
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group mt20">
+                <button type="submit" class="btn btn-primary btn-block text-center">Update</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form method="post" role="form" id="coins-settings" class="login-form fade-in-effect" (ngSubmit)="form.valid && createCoins()" [formGroup]="coinForm" #f2="ngForm" novalidate>
+          <div class="row">
+            <div>&nbsp;</div>
+            <div class="col-md-12">
+              <h3 class="panel-title">Coins</h3>
+              <div>&nbsp;</div>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="coinError"> <h4>{{coinError}}</h4> </div>
+            <div class="alert alert-success" *ngIf="coinSuccess"> <h4>{{coinSuccess}}</h4> </div>
+
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="ex-width">Coin Name </span>
+                </span>
+                <input type="text" class="form-control" name="coinName" id="coin-name" formControlName="coinName" autocomplete="off" placeholder="coin-name" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="ex-width">Coin Currency</span>
+                </span>
+                <input type="text" class="form-control" name="coinCurrency" formControlName="coinCurrency" autocomplete="off" placeholder="Coin Currency" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="ex-width">Coin Value ( &euro; )</span>
+                </span>
+                <input type="text" class="form-control" name="coinValue" formControlName="coinValue" autocomplete="off" placeholder="Coin Value" />
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group mt20">
+                <button type="submit" class="btn btn-primary btn-block text-center">Update</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
